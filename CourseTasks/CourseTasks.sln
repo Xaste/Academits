@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vector", "Vector\Vector.csproj", "{F274D22C-9D14-4DEE-A433-4D69D6739517}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RangeExercise", "RangeExercise\RangeExercise.csproj", "{FED51CBC-E955-4378-B16C-A39EA00C1BF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F274D22C-9D14-4DEE-A433-4D69D6739517}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F274D22C-9D14-4DEE-A433-4D69D6739517}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F274D22C-9D14-4DEE-A433-4D69D6739517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FED51CBC-E955-4378-B16C-A39EA00C1BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FED51CBC-E955-4378-B16C-A39EA00C1BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FED51CBC-E955-4378-B16C-A39EA00C1BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FED51CBC-E955-4378-B16C-A39EA00C1BF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
