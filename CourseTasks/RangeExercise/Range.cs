@@ -41,11 +41,36 @@ namespace RangeExercise
 
             Range answer = new Range
             {
-                From = a.From > b.From ? a.From : b.From,
-                To = a.To < b.To ? a.To : b.To
+                From = (a.From > b.From) ? a.From : b.From,
+                To = (a.To < b.To) ? a.To : b.To
             };
 
             return answer;
+        }
+
+        public static Range[] GetSumRange(Range a, Range b)
+        {
+            const int rangeCoordinateCount = 2;
+
+            Range[] array = new Range[rangeCoordinateCount];
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = new Range();
+            }
+
+            if (a.To < b.From || a.From > b.To)
+            {
+                array[0] = a;
+                array[1] = b;
+                return array;
+            }
+            else
+            {
+                array[0].From = (a.From < b.From) ? a.From : b.From;
+                array[0].To = (b.To > a.To) ? b.To : a.To;
+                array[1] = null;
+                return array;
+            }
         }
     }
 }

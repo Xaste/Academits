@@ -11,10 +11,12 @@ namespace RangeExercise
         static void Main(string[] args)
         {
             Range a = new Range(3, 8);
-            Range b = new Range(7, 8);
+            Range b = new Range(8, 10);
 
             Range c = Range.GetCrossRange(a, b);
-            Console.WriteLine($"FROM = {c.From}    To = {c.To}");
+
+            Range[] array;
+            array = Range.GetSumRange(a, b);
 
             Console.ReadLine();
         }
