@@ -8,21 +8,17 @@ namespace ShapesExercise
 {
     class Triangle : IShape
     {
-        enum Coordinats
-        {
-            x = 0,
-            y = 1
-        }
+        public Point FirstPoint { get; set; }
+        public Point SecondPoint { get; set; }
+        public Point ThirdPoint { get; set; }
 
-        public double[] FirstPoint { get; }
-        public double[] SecondPoint { get; }
-        public double[] ThirdPoint { get; }
+        public Point First { get; set; }
 
         public Triangle(double x1, double y1, double x2, double y2, double x3, double y3)
         {
-            FirstPoint = new double[2] { x1, y1 };
-            SecondPoint = new double[2] { x2, y2 };
-            ThirdPoint = new double[2] { x3, y3 };
+            FirstPoint = new Point(x1, y1);
+            SecondPoint = new Point(x2, y2);
+            ThirdPoint = new Point(x3, y3);
         }
 
         public double GetArea()
@@ -38,8 +34,9 @@ namespace ShapesExercise
 
         public double GetHeight()
         {
-            double maxY = Math.Max(Math.Max(FirstPoint[(int)Coordinats.y], SecondPoint[(int)Coordinats.y]), ThirdPoint[(int)Coordinats.y]);
-            double minY = Math.Min(Math.Min(FirstPoint[(int)Coordinats.y], SecondPoint[(int)Coordinats.y]), ThirdPoint[(int)Coordinats.y]);
+            double maxY = Math.Max(Math.Max(FirstPoint.Y, SecondPoint.Y), ThirdPoint.Y);
+            double minY = Math.Min(Math.Min(FirstPoint.Y/*]*/, SecondPoint.Y), ThirdPoint.Y);//TODO Почему изз этой скобки показывает ошибку в предыдущей строке?
+
             return maxY - minY;
         }
 
@@ -50,14 +47,15 @@ namespace ShapesExercise
 
         public double GetWidth()
         {
-            double maxX = Math.Max(Math.Max(FirstPoint[(int)Coordinats.x], SecondPoint[(int)Coordinats.x]), ThirdPoint[(int)Coordinats.x]);
-            double minX = Math.Min(Math.Min(FirstPoint[(int)Coordinats.x], SecondPoint[(int)Coordinats.x]), ThirdPoint[(int)Coordinats.x]);
+            double maxX = Math.Max(Math.Max(FirstPoint.X, SecondPoint.X), ThirdPoint.X);
+            double minX = Math.Min(Math.Min(FirstPoint.X, SecondPoint.X), ThirdPoint.X);
+
             return maxX - minX;
         }
 
-        private double GetSidelength(double[] a, double[] b)
+        private double GetSidelength(Point a, Point b)
         {
-            return Math.Sqrt(Math.Pow(b[(int)Coordinats.y] - a[(int)Coordinats.y], 2) + Math.Pow(b[(int)Coordinats.x] - a[(int)Coordinats.x], 2));
+            return Math.Sqrt(Math.Pow(b.Y - a.Y, 2) + Math.Pow(b.X - a.X, 2));
         }
 
         public override string ToString()
@@ -66,9 +64,9 @@ namespace ShapesExercise
 
             sb.AppendLine($"Тип фигуры: {GetType()}");
 
-            sb.AppendLine($"Координаты первой точки: {FirstPoint[(int)Coordinats.x]}, {FirstPoint[(int)Coordinats.y]}");
-            sb.AppendLine($"Координаты второй точки: {SecondPoint[(int)Coordinats.x]}, {SecondPoint[(int)Coordinats.y]}");
-            sb.AppendLine($"Координаты третей точки: {ThirdPoint[(int)Coordinats.x]}, {ThirdPoint[(int)Coordinats.y]}");
+            sb.AppendLine($"Координаты первой точки: {FirstPoint.X}, {FirstPoint.Y}");
+            sb.AppendLine($"Координаты второй точки: {SecondPoint.X}, {SecondPoint.Y}");
+            sb.AppendLine($"Координаты третей точки: {ThirdPoint.X}, {ThirdPoint.Y}");
 
             sb.AppendLine($"Длина первой стороны: {GetSidelength(FirstPoint, SecondPoint)}");
             sb.AppendLine($"Длина второй стороны: {GetSidelength(SecondPoint, ThirdPoint)}");
