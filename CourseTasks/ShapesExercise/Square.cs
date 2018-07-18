@@ -6,17 +6,33 @@ using System.Threading.Tasks;
 
 namespace ShapesExercise
 {
-    class Square : Rectangle
+    class Square : IShape
     {
-        public Square(double a) : base(a, a)
+        public double SideLength { get; set; }
+
+        public Square(double a)
         {
-            this.HeightLength = a;
-            this.WidthLength = a;
+            SideLength = a;
         }
 
-        public override double GetArea()
+        public double GetArea()
         {
-            return Math.Pow(HeightLength, 2);
+            return Math.Pow(SideLength, 2);
+        }
+
+        public double GetHeight()
+        {
+            return SideLength;
+        }
+
+        public double GetPerimeter()
+        {
+            return 4 * SideLength;
+        }
+
+        public double GetWidth()
+        {
+            return SideLength;
         }
     }
 }
