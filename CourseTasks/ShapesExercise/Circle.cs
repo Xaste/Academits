@@ -8,24 +8,26 @@ namespace ShapesExercise
 {
     class Circle : IShape
     {
+        public double Radius { get; set; }
+
         public double GetArea()
         {
-            throw new NotImplementedException();
+            return Math.PI * Math.Pow(Radius, 2);
         }
 
         public double GetHeight()
         {
-            throw new NotImplementedException();
+            return Radius * 2;
         }
 
         public double GetPerimeter()
         {
-            throw new NotImplementedException();
+            return 2 * Math.PI * Radius;
         }
 
         public double GetWidth()
         {
-            throw new NotImplementedException();
+            return Radius * 2;
         }
     }
 }
