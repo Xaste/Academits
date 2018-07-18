@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShapesExercise
 {
-    class Rectangle : Shape, IShape
+    class Rectangle : IShape
     {
         public double HeightLength { get; set; }
         public double WidthLength { get; set; }

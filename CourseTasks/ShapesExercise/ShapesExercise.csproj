@@ -45,10 +45,10 @@
     <Compile Include="Circle.cs" />
     <Compile Include="IShape.cs" />
     <Compile Include="Rectangle.cs" />
-    <Compile Include="Shape.cs" />
     <Compile Include="ShapesAreaComparer.cs" />
     <Compile Include="ShapesExercise.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShapesPerimeterComparer.cs" />
     <Compile Include="Square.cs" />
     <Compile Include="Triangle.cs" />
   </ItemGroup>

@@ -10,6 +10,9 @@ namespace ShapesExercise
     {
         static void Main(string[] args)
         {
+            const int neededArea = 1;
+            const int neededPerimeter = 2;
+
             Triangle triangle = new Triangle(0, 0, 2, 0, 1, 2);
 
             Console.WriteLine($"Triangele Width = {triangle.GetWidth()};");
@@ -43,9 +46,11 @@ namespace ShapesExercise
 
             Array.Sort(shapes, new ShapesAreaComparer());
 
-            IShape answer = FindMaxAreaShape(shapes);
+            IShape areaShapeAnswer = shapes[shapes.Length - neededArea];
 
-            
+            Array.Sort(shapes, new ShapesPerimeterComparer());
+
+            IShape perimeterShapeAnswer = shapes[shapes.Length - neededPerimeter];            
 
             Console.ReadLine();
 
