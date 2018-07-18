@@ -8,6 +8,10 @@ namespace ShapesExercise
 {
     class Square : Rectangle
     {
-
+        public Square(double a)
+        {
+            this.HeightLength = a;
+            this.WidthLength = a;
+        }
     }
 }
