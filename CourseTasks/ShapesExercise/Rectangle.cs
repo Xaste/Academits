@@ -11,7 +11,12 @@ namespace ShapesExercise
         public double HeightLength { get; set; }
         public double WidthLength { get; set; }
 
-        public double GetArea()
+        public Rectangle(double height, double width)
+        {
+            HeightLength = height;
+            WidthLength = width;
+        }
+        public virtual double GetArea()
         {
             return HeightLength * WidthLength;
         }

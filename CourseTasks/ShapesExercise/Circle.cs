@@ -10,6 +10,11 @@ namespace ShapesExercise
     {
         public double Radius { get; set; }
 
+        public Circle(double r)
+        {
+            Radius = r;
+        }
+
         public double GetArea()
         {
             return Math.PI * Math.Pow(Radius, 2);

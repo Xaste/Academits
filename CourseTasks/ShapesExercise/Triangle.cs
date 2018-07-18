@@ -27,7 +27,13 @@ namespace ShapesExercise
 
         public double GetArea()
         {
-            throw new NotImplementedException();
+            double lengthLineA = GetSidelength(FirstSide, SecondSide);
+            double lengthLineB = GetSidelength(SecondSide, ThirdSide);
+            double lengthLineC = GetSidelength(FirstSide, ThirdSide);
+
+            double perimeter = GetPerimeter();
+
+            return Math.Sqrt(perimeter / 2 * (perimeter / 2 - lengthLineA) * (perimeter / 2 - lengthLineC) * (perimeter / 2 - lengthLineB));
         }
 
         public double GetHeight()
@@ -39,7 +45,7 @@ namespace ShapesExercise
 
         public double GetPerimeter()
         {
-            throw new NotImplementedException();
+            return GetSidelength(FirstSide, SecondSide) + GetSidelength(SecondSide, ThirdSide) + GetSidelength(FirstSide, ThirdSide);
         }
 
         public double GetWidth()
@@ -47,6 +53,11 @@ namespace ShapesExercise
             double maxX = Math.Max(Math.Max(FirstSide[(int)Coordinats.x], SecondSide[(int)Coordinats.x]), ThirdSide[(int)Coordinats.x]);
             double minX = Math.Min(Math.Min(FirstSide[(int)Coordinats.x], SecondSide[(int)Coordinats.x]), ThirdSide[(int)Coordinats.x]);
             return maxX - minX;
+        }
+
+        private double GetSidelength(double[] a, double[] b)
+        {
+            return Math.Sqrt(Math.Pow(b[(int)Coordinats.y] - a[(int)Coordinats.y], 2) + Math.Pow(b[(int)Coordinats.x] - a[(int)Coordinats.x], 2));
         }
     }
 }
