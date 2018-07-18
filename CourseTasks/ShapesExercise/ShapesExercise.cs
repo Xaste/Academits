@@ -39,11 +39,31 @@ namespace ShapesExercise
             Console.WriteLine($"Square Area = {square.GetArea()};");
             Console.WriteLine($"Square Perimeter = {square.GetPerimeter()};");
 
-            Shape[] shapes = new Shape[] { triangle, circle, rectangle, square, new Triangle(3, 5, 7, 2, 1, 7), new Circle(10), new Rectangle(3, 22), new Square(6.3) };
+            IShape[] shapes = new IShape[] { triangle, circle, rectangle, square, new Triangle(3, 5, 7, 2, 1, 7), new Circle(10), new Rectangle(3, 22), new Square(6.3) };
 
+            Array.Sort(shapes, new ShapesAreaComparer());
+
+            IShape answer = FindMaxAreaShape(shapes);
+
+            
 
             Console.ReadLine();
 
+        }
+
+        public static IShape FindMaxAreaShape(IShape[] shapes)
+        {
+            IShape answer = null;
+            double maxArea = -1;
+            foreach (var item in shapes)
+            {
+                if (item.GetArea() > maxArea)
+                {
+                    maxArea = item.GetArea();
+                    answer = item;
+                }
+            }
+            return answer;
         }
     }
 }

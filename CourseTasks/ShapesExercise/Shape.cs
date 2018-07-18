@@ -8,19 +8,6 @@ namespace ShapesExercise
 {
     public abstract class Shape
     {
-        public Shape FindMaxAreaShape(Shape[] shapes)
-        {
-            Shape answer;
-            double maxArea = 0;
-            foreach (var item in shapes)
-            {
-                if (item is Circle)
-                {
 
-                }
-            }
-
-            return null;
-        }
     }
 }

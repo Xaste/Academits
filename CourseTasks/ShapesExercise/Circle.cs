@@ -34,5 +34,15 @@ namespace ShapesExercise
         {
             return Radius * 2;
         }
+
+        public void PrintInformation()
+        {
+            Console.WriteLine($"Тип фигуры: {GetType()}");
+            Console.WriteLine($"Радиус: {Radius}");
+            Console.WriteLine($"Высота: {GetHeight()}");
+            Console.WriteLine($"Длина: {GetWidth()}");
+            Console.WriteLine($"Периметр: {GetPerimeter()}");
+            Console.WriteLine($"Площадь: {GetArea()}");
+        }
     }
 }
