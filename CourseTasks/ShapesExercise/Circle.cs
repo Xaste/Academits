@@ -35,14 +35,18 @@ namespace ShapesExercise
             return Radius * 2;
         }
 
-        public void PrintInformation()
+        public override string ToString()
         {
-            Console.WriteLine($"Тип фигуры: {GetType()}");
-            Console.WriteLine($"Радиус: {Radius}");
-            Console.WriteLine($"Высота: {GetHeight()}");
-            Console.WriteLine($"Длина: {GetWidth()}");
-            Console.WriteLine($"Периметр: {GetPerimeter()}");
-            Console.WriteLine($"Площадь: {GetArea()}");
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine($"Тип фигуры: {GetType()}");
+            sb.AppendLine($"Радиус: {Radius}");
+            sb.AppendLine($"Высота: {GetHeight()}");
+            sb.AppendLine($"Ширина: {GetWidth()}");
+            sb.AppendLine($"Площадь: {GetArea()}");
+            sb.AppendLine($"Периметр: {GetPerimeter()}");
+
+            return Convert.ToString(sb);
         }
     }
 }

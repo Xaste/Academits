@@ -35,5 +35,18 @@ namespace ShapesExercise
         {
             return WidthLength;
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine($"Тип фигуры: {GetType()}");
+            sb.AppendLine($"Высота: {GetHeight()}");
+            sb.AppendLine($"Ширина: {GetWidth()}");
+            sb.AppendLine($"Площадь: {GetArea()}");
+            sb.AppendLine($"Периметр: {GetPerimeter()}");
+
+            return Convert.ToString(sb);
+        }
     }
 }
