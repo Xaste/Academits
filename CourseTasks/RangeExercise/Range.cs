@@ -17,11 +17,6 @@ namespace RangeExercise
             To = to;
         }
 
-        public Range()
-        {
-
-        }
-
         public double GetLength()
         {
             return From - To;
@@ -34,76 +29,43 @@ namespace RangeExercise
 
         public static Range GetCrossRange(Range a, Range b)
         {
-            if (a.To < b.From || a.From > b.To)
+            if (a.To <= b.From || a.From >= b.To)
             {
                 return null;
             }
 
-            Range answer = new Range
-            {
-                From = (a.From > b.From) ? a.From : b.From,
-                To = (a.To < b.To) ? a.To : b.To
-            };
-
-            return answer;
+            return new Range(Math.Max(a.From, b.From), Math.Min(a.To, b.To));
         }
 
         public static Range[] GetSumRange(Range a, Range b)
         {
-            const int rangeCount = 2;
-
-            Range[] array = new Range[rangeCount];
-
             if (a.To < b.From || a.From > b.To)
             {
-                array[0] = a;
-                array[1] = b;
+                return new Range[] { new Range(a.From, a.To), new Range(b.From, b.To) };
             }
             else
             {
-                array[0] = new Range();
-
-                array[0].From = (a.From < b.From) ? a.From : b.From;
-                array[0].To = (b.To > a.To) ? b.To : a.To;
-                array[1] = null;
+                return new Range[] { new Range(Math.Min(a.From, b.From), Math.Max(b.To, a.To)), null };
             }
-            return array;
         }
 
         public static Range[] GetDifferenceRange(Range a, Range b)
         {
-            const int rangeCount = 2;
-
-            Range[] array = new Range[rangeCount];
-
-            if (a.To < b.From || a.From > b.To)
+            if (a.To <= b.From || a.From >= b.To)
             {
-                array[0] = a;
-                array[1] = null;
-                return array;
+                return new Range[] { new Range(a.From, a.To), null };
             }
             else if (a.From < b.From && a.To > b.To)
             {
-                for (int i = 0; i < array.Length; i++)
-                {
-                    array[i] = new Range();
-                }
-
-                array[0].From = a.From;
-                array[0].To = b.From;
-                array[1].From = b.To;
-                array[1].To = a.To;
+                return new Range[] { new Range(a.From, b.From), new Range(b.To, a.To) };
             }
             else
             {
-                array[0] = new Range
-                {
-                    From = (a.From < b.From) ? a.From : b.To,
-                    To = (a.To < b.To) ? b.From : a.To
-                };
-                array[1] = null;
+                double from = (a.From < b.From) ? a.From : b.To;
+                double to = (a.To <= b.To) ? b.From : a.To;
+
+                return new Range[] { new Range(from, to), null };
             }
-            return array;
         }
     }
 }
