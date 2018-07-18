@@ -15,7 +15,7 @@ namespace RangeExercise
 
             Range c = a.GetCrossRange(b);
 
-            Range[] array = Range.GetSumRange(a, b);
+            Range[] array = a.GetSumRange(b);
 
             Range[] array2 = a.GetDifferenceRange(b);
 

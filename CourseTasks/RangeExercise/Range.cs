@@ -37,15 +37,15 @@ namespace RangeExercise
             return new Range(Math.Max(this.From, b.From), Math.Min(this.To, b.To));
         }
 
-        public static Range[] GetSumRange(Range a, Range b)
+        public Range[] GetSumRange(Range b)
         {
-            if (a.To < b.From || a.From > b.To)
+            if (this.To < b.From || this.From > b.To)
             {
-                return new Range[] { new Range(a.From, a.To), new Range(b.From, b.To) };
+                return new Range[] { new Range(this.From, this.To), new Range(b.From, b.To) };
             }
             else
             {
-                return new Range[] { new Range(Math.Min(a.From, b.From), Math.Max(b.To, a.To)), null };
+                return new Range[] { new Range(Math.Min(this.From, b.From), Math.Max(b.To, this.To)), null };
             }
         }
 
