@@ -11,13 +11,13 @@ namespace RangeExercise
         static void Main(string[] args)
         {
             Range a = new Range(3, 8);
-            Range b = new Range(9, 10);
+            Range b = new Range(6, 10);
 
-            Range c = Range.GetCrossRange(a, b);
+            Range c = a.GetCrossRange(b);
 
             Range[] array = Range.GetSumRange(a, b);
 
-            Range[] array2 = Range.GetDifferenceRange(a, b);
+            Range[] array2 = a.GetDifferenceRange(b);
 
             Console.WriteLine("END");
             Console.ReadLine();

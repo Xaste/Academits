@@ -27,14 +27,14 @@ namespace RangeExercise
             return a >= From && a <= To;
         }
 
-        public static Range GetCrossRange(Range a, Range b)
+        public Range GetCrossRange(Range b)
         {
-            if (a.To <= b.From || a.From >= b.To)
+            if (this.To <= b.From || this.From >= b.To)
             {
                 return null;
             }
 
-            return new Range(Math.Max(a.From, b.From), Math.Min(a.To, b.To));
+            return new Range(Math.Max(this.From, b.From), Math.Min(this.To, b.To));
         }
 
         public static Range[] GetSumRange(Range a, Range b)
@@ -49,20 +49,20 @@ namespace RangeExercise
             }
         }
 
-        public static Range[] GetDifferenceRange(Range a, Range b)
+        public Range[] GetDifferenceRange(Range b)
         {
-            if (a.To <= b.From || a.From >= b.To)
+            if (this.To <= b.From || this.From >= b.To)
             {
-                return new Range[] { new Range(a.From, a.To), null };
+                return new Range[] { new Range(this.From, this.To), null };
             }
-            else if (a.From < b.From && a.To > b.To)
+            else if (this.From < b.From && this.To > b.To)
             {
-                return new Range[] { new Range(a.From, b.From), new Range(b.To, a.To) };
+                return new Range[] { new Range(this.From, b.From), new Range(b.To, this.To) };
             }
             else
             {
-                double from = (a.From < b.From) ? a.From : b.To;
-                double to = (a.To <= b.To) ? b.From : a.To;
+                double from = (this.From < b.From) ? this.From : b.To;
+                double to = (this.To <= b.To) ? b.From : this.To;
 
                 return new Range[] { new Range(from, to), null };
             }
