@@ -39,6 +39,8 @@ namespace ShapesExercise
             Console.WriteLine($"Square Area = {square.GetArea()};");
             Console.WriteLine($"Square Perimeter = {square.GetPerimeter()};");
 
+            Shape[] shapes = new Shape[] { triangle, circle, rectangle, square, new Triangle(3, 5, 7, 2, 1, 7), new Circle(10), new Rectangle(3, 22), new Square(6.3) };
+
 
             Console.ReadLine();
 

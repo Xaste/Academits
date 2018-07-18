@@ -6,8 +6,21 @@ using System.Threading.Tasks;
 
 namespace ShapesExercise
 {
-    class Shape
+    public abstract class Shape
     {
-        private int sideCount;
+        public Shape FindMaxAreaShape(Shape[] shapes)
+        {
+            Shape answer;
+            double maxArea = 0;
+            foreach (var item in shapes)
+            {
+                if (item is Circle)
+                {
+
+                }
+            }
+
+            return null;
+        }
     }
 }

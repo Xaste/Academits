@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShapesExercise
 {
-    class Triangle : IShape
+    class Triangle : Shape, IShape
     {
         enum Coordinats
         {
