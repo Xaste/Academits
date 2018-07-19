@@ -35,7 +35,7 @@ namespace ShapesExercise
         public double GetHeight()
         {
             double maxY = Math.Max(Math.Max(FirstPoint.Y, SecondPoint.Y), ThirdPoint.Y);
-            double minY = Math.Min(Math.Min(FirstPoint.Y/*]*/, SecondPoint.Y), ThirdPoint.Y);//TODO Почему изза этой скобки показывает ошибку в предыдущей строке?
+            double minY = Math.Min(Math.Min(FirstPoint.Y, SecondPoint.Y), ThirdPoint.Y);
 
             return maxY - minY;
         }
@@ -77,7 +77,7 @@ namespace ShapesExercise
             sb.AppendLine($"Площадь: {GetArea()}");
             sb.AppendLine($"Периметр: {GetPerimeter()}");
 
-            return Convert.ToString(sb);
+            return sb.ToString();
         }
 
         public override bool Equals(object obj)

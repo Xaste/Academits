@@ -6,33 +6,33 @@ using System.Threading.Tasks;
 
 namespace ShapesExercise
 {
-    class Square : IShape
+    class Circle : IShape
     {
-        public double SideLength { get; set; }
+        public double Radius { get; set; }
 
-        public Square(double a)
+        public Circle(double r)
         {
-            SideLength = a;
+            Radius = r;
         }
 
         public double GetArea()
         {
-            return Math.Pow(SideLength, 2);
+            return Math.PI * Math.Pow(Radius, 2);
         }
 
         public double GetHeight()
         {
-            return SideLength;
+            return Radius * 2;
         }
 
         public double GetPerimeter()
         {
-            return 4 * SideLength;
+            return 2 * Math.PI * Radius;
         }
 
         public double GetWidth()
         {
-            return SideLength;
+            return Radius * 2;
         }
 
         public override string ToString()
@@ -40,13 +40,32 @@ namespace ShapesExercise
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine($"Тип фигуры: {GetType()}");
+            sb.AppendLine($"Радиус: {Radius}");
             sb.AppendLine($"Высота: {GetHeight()}");
             sb.AppendLine($"Ширина: {GetWidth()}");
             sb.AppendLine($"Площадь: {GetArea()}");
             sb.AppendLine($"Периметр: {GetPerimeter()}");
 
-            return Convert.ToString(sb);
+            return sb.ToString();
         }
+
+        /*public override bool Equals(object obj)
+        {
+            if (obj is Circle && obj != null)
+            {
+                Circle circle;
+                circle = (Circle)obj;
+                if (circle.Radius == this.Radius)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }*/
 
         public override bool Equals(object obj)
         {
@@ -55,9 +74,9 @@ namespace ShapesExercise
 
         public override int GetHashCode()
         {
-            int prime = 17;
+            int prime = 13;
             int hash = 1;
-            hash = prime * hash + (int)SideLength;
+            hash = prime * hash + Radius.GetHashCode();
             hash = prime * hash + (int)GetArea();
             hash = prime * hash + (int)GetPerimeter();
 

@@ -6,34 +6,33 @@ using System.Threading.Tasks;
 
 namespace ShapesExercise
 {
-    class Rectangle : IShape
+    class Square : IShape
     {
-        public double HeightLength { get; set; }
-        public double WidthLength { get; set; }
+        public double SideLength { get; set; }
 
-        public Rectangle(double height, double width)
+        public Square(double a)
         {
-            HeightLength = height;
-            WidthLength = width;
+            SideLength = a;
         }
-        public virtual double GetArea()
+
+        public double GetArea()
         {
-            return HeightLength * WidthLength;
+            return Math.Pow(SideLength, 2);
         }
 
         public double GetHeight()
         {
-            return HeightLength;
+            return SideLength;
         }
 
         public double GetPerimeter()
         {
-            return 2 * HeightLength + 2 * WidthLength;
+            return 4 * SideLength;
         }
 
         public double GetWidth()
         {
-            return WidthLength;
+            return SideLength;
         }
 
         public override string ToString()
@@ -46,7 +45,7 @@ namespace ShapesExercise
             sb.AppendLine($"Площадь: {GetArea()}");
             sb.AppendLine($"Периметр: {GetPerimeter()}");
 
-            return Convert.ToString(sb);
+            return sb.ToString();
         }
 
         public override bool Equals(object obj)
@@ -56,10 +55,9 @@ namespace ShapesExercise
 
         public override int GetHashCode()
         {
-            int prime = 7;
+            int prime = 17;
             int hash = 1;
-            hash = prime * hash + (int)HeightLength;
-            hash = prime * hash + (int)WidthLength;
+            hash = prime * hash + (int)SideLength;
             hash = prime * hash + (int)GetArea();
             hash = prime * hash + (int)GetPerimeter();
 
