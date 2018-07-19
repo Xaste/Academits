@@ -71,5 +71,16 @@ namespace ShapesExercise
         {
             return obj.ToString() == this.ToString();
         }
+
+        public override int GetHashCode()
+        {
+            int prime = 13;
+            int hash = 1;
+            hash = prime * hash + Radius.GetHashCode();
+            hash = prime * hash + (int)GetArea();
+            hash = prime * hash + (int)GetPerimeter();
+
+            return hash;
+        }
     }
 }

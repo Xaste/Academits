@@ -19,6 +19,7 @@ namespace ShapesExercise
             Console.WriteLine();
 
             Circle circle = new Circle(5);
+            Console.WriteLine(circle.GetHashCode());
 
             Console.WriteLine(circle.ToString());
             Console.WriteLine();
