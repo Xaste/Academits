@@ -45,7 +45,7 @@ namespace RangeExercise
             }
             else
             {
-                return new Range[] { new Range(Math.Min(this.From, b.From), Math.Max(b.To, this.To)), null };
+                return new Range[] { new Range(Math.Min(this.From, b.From), Math.Max(b.To, this.To))};
             }
         }
 
@@ -53,7 +53,7 @@ namespace RangeExercise
         {
             if (this.To <= b.From || this.From >= b.To)
             {
-                return new Range[] { new Range(this.From, this.To), null };
+                return new Range[] { new Range(this.From, this.To)};
             }
             else if (this.From < b.From && this.To > b.To)
             {
@@ -64,7 +64,7 @@ namespace RangeExercise
                 double from = (this.From < b.From) ? this.From : b.To;
                 double to = (this.To <= b.To) ? b.From : this.To;
 
-                return new Range[] { new Range(from, to), null };
+                return new Range[] { new Range(from, to)};
             }
         }
     }

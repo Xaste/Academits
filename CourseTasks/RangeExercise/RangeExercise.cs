@@ -11,7 +11,7 @@ namespace RangeExercise
         static void Main(string[] args)
         {
             Range a = new Range(3, 8);
-            Range b = new Range(6, 10);
+            Range b = new Range(3, 8);
 
             Range c = a.GetCrossRange(b);
 
