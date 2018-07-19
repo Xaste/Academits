@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RangeExercise
 {
-    class Range
+    public class Range
     {
         public double From { get; set; }
         public double To { get; set; }
@@ -45,7 +45,7 @@ namespace RangeExercise
             }
             else
             {
-                return new Range[] { new Range(Math.Min(this.From, b.From), Math.Max(b.To, this.To))};
+                return new Range[] { new Range(Math.Min(this.From, b.From), Math.Max(b.To, this.To)) };
             }
         }
 
@@ -53,19 +53,47 @@ namespace RangeExercise
         {
             if (this.To <= b.From || this.From >= b.To)
             {
-                return new Range[] { new Range(this.From, this.To)};
+                return new Range[] { new Range(this.From, this.To) };
             }
             else if (this.From < b.From && this.To > b.To)
             {
                 return new Range[] { new Range(this.From, b.From), new Range(b.To, this.To) };
+            }
+            else if (this.From == b.From && this.To == b.To)
+            {
+                return null;
             }
             else
             {
                 double from = (this.From < b.From) ? this.From : b.To;
                 double to = (this.To <= b.To) ? b.From : this.To;
 
-                return new Range[] { new Range(from, to)};
+                return new Range[] { new Range(from, to) };
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj != null && obj is Range)
+            {
+                Range range = (Range)obj;
+                return (this.From == range.From && this.To == range.To);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            double hash = 1;
+            int prime = 13;
+
+            hash = hash * prime + this.From;
+            hash = hash * prime + this.To;
+
+            return (int)Math.Round(hash);
         }
     }
 }
