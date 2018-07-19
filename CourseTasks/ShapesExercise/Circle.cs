@@ -48,5 +48,28 @@ namespace ShapesExercise
 
             return Convert.ToString(sb);
         }
+
+        /*public override bool Equals(object obj)
+        {
+            if (obj is Circle && obj != null)
+            {
+                Circle circle;
+                circle = (Circle)obj;
+                if (circle.Radius == this.Radius)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }*/
+
+        public override bool Equals(object obj)
+        {
+            return obj.ToString() == this.ToString();
+        }
     }
 }

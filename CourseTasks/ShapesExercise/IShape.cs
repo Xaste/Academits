@@ -12,7 +12,5 @@ namespace ShapesExercise
         double GetHeight();
         double GetArea();
         double GetPerimeter();
-
-        //void PrintInformation();
     }
 }

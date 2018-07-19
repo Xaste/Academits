@@ -79,5 +79,10 @@ namespace ShapesExercise
 
             return Convert.ToString(sb);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj.ToString() == this.ToString();
+        }
     }
 }
