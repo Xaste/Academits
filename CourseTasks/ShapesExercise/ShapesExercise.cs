@@ -10,9 +10,6 @@ namespace ShapesExercise
     {
         static void Main(string[] args)
         {
-            const int neededArea = 1;
-            const int neededPerimeter = 2;
-
             Triangle triangle = new Triangle(0, 0, 2, 0, 1, 2);
 
             Console.WriteLine(triangle.ToString());
@@ -36,31 +33,36 @@ namespace ShapesExercise
 
             IShape[] shapes = new IShape[] { triangle, circle, rectangle, square, new Triangle(3, 5, 7, 2, 1, 7), new Circle(10), new Rectangle(3, 22), new Square(6.3) };
 
-            Array.Sort(shapes, new ShapesAreaComparer());
+            IShape maxAreaShape = FindNeededAreaShape(shapes, 1);
 
-            IShape areaShapeAnswer = shapes[shapes.Length - neededArea];
-
-            Array.Sort(shapes, new ShapesPerimeterComparer());
-
-            IShape perimeterShapeAnswer = shapes[shapes.Length - neededPerimeter];
+            IShape SecondPerimeterShape = FindNeededPerimeterShape(shapes, 2);
 
             Console.ReadLine();
 
         }
 
-        public static IShape FindMaxAreaShape(IShape[] shapes)
+        public static IShape FindNeededAreaShape(IShape[] shapes, int neededArea)
         {
-            IShape answer = null;
-            double maxArea = -1;
-            foreach (var item in shapes)
+            if (neededArea > shapes.Length)
             {
-                if (item.GetArea() > maxArea)
-                {
-                    maxArea = item.GetArea();
-                    answer = item;
-                }
+                return null;
             }
-            return answer;
+
+            IShape[] tempArray = shapes;
+            Array.Sort(tempArray, new ShapesAreaComparer());
+            return tempArray[shapes.Length - neededArea];
+        }
+
+        public static IShape FindNeededPerimeterShape(IShape[] shapes, int neededPerimeter)
+        {
+            if (neededPerimeter > shapes.Length)
+            {
+                return null;
+            }
+
+            IShape[] tempArray = shapes;
+            Array.Sort(tempArray, new ShapesPerimeterComparer());
+            return tempArray[shapes.Length - neededPerimeter];
         }
     }
 }

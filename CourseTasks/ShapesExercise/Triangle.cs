@@ -35,7 +35,7 @@ namespace ShapesExercise
         public double GetHeight()
         {
             double maxY = Math.Max(Math.Max(FirstPoint.Y, SecondPoint.Y), ThirdPoint.Y);
-            double minY = Math.Min(Math.Min(FirstPoint.Y/*]*/, SecondPoint.Y), ThirdPoint.Y);//TODO Почему изз этой скобки показывает ошибку в предыдущей строке?
+            double minY = Math.Min(Math.Min(FirstPoint.Y/*]*/, SecondPoint.Y), ThirdPoint.Y);//TODO Почему изза этой скобки показывает ошибку в предыдущей строке?
 
             return maxY - minY;
         }
@@ -64,9 +64,9 @@ namespace ShapesExercise
 
             sb.AppendLine($"Тип фигуры: {GetType()}");
 
-            sb.AppendLine($"Координаты первой точки: {FirstPoint.X}, {FirstPoint.Y}");
-            sb.AppendLine($"Координаты второй точки: {SecondPoint.X}, {SecondPoint.Y}");
-            sb.AppendLine($"Координаты третей точки: {ThirdPoint.X}, {ThirdPoint.Y}");
+            sb.AppendLine($"Координаты первой точки: ({FirstPoint.X}, {FirstPoint.Y})");
+            sb.AppendLine($"Координаты второй точки: ({SecondPoint.X}, {SecondPoint.Y})");
+            sb.AppendLine($"Координаты третей точки: ({ThirdPoint.X}, {ThirdPoint.Y})");
 
             sb.AppendLine($"Длина первой стороны: {GetSidelength(FirstPoint, SecondPoint)}");
             sb.AppendLine($"Длина второй стороны: {GetSidelength(SecondPoint, ThirdPoint)}");
@@ -87,13 +87,7 @@ namespace ShapesExercise
 
         public override int GetHashCode()
         {
-            int prime = 7;
-            int hash = 1;
-            hash = prime * hash + FirstPoint.GetHashCode();
-            hash = prime * hash + SecondPoint.GetHashCode();
-            hash = prime * hash + ThirdPoint.GetHashCode();
-
-            return hash;
+            return FirstPoint.GetHashCode() + SecondPoint.GetHashCode() + ThirdPoint.GetHashCode();
         }
     }
 }
