@@ -34,8 +34,10 @@ namespace ShapesExercise
             IShape[] shapes = new IShape[] { triangle, circle, rectangle, square, new Triangle(3, 5, 7, 2, 1, 7), new Circle(10), new Rectangle(3, 22), new Square(6.3) };
 
             IShape maxAreaShape = FindNeededAreaShape(shapes, 1);
+            Console.WriteLine(maxAreaShape.ToString());
 
             IShape SecondPerimeterShape = FindNeededPerimeterShape(shapes, 2);
+            Console.WriteLine(SecondPerimeterShape.ToString());
 
             Console.ReadLine();
 
