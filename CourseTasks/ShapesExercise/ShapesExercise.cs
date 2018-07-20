@@ -36,8 +36,8 @@ namespace ShapesExercise
             IShape maxAreaShape = FindNeededAreaShape(shapes, 1);
             Console.WriteLine(maxAreaShape.ToString());
 
-            IShape SecondPerimeterShape = FindNeededPerimeterShape(shapes, 2);
-            Console.WriteLine(SecondPerimeterShape.ToString());
+            IShape secondPerimeterShape = FindNeededPerimeterShape(shapes, 2);
+            Console.WriteLine(secondPerimeterShape.ToString());
 
             Console.ReadLine();
 

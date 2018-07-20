@@ -12,8 +12,6 @@ namespace ShapesExercise
         public Point SecondPoint { get; set; }
         public Point ThirdPoint { get; set; }
 
-        public Point First { get; set; }
-
         public Triangle(double x1, double y1, double x2, double y2, double x3, double y3)
         {
             FirstPoint = new Point(x1, y1);
@@ -23,13 +21,13 @@ namespace ShapesExercise
 
         public double GetArea()
         {
-            double lengthLineA = GetSidelength(FirstPoint, SecondPoint);
-            double lengthLineB = GetSidelength(SecondPoint, ThirdPoint);
-            double lengthLineC = GetSidelength(FirstPoint, ThirdPoint);
+            double lengthLineA = GetSideLength(FirstPoint, SecondPoint);
+            double lengthLineB = GetSideLength(SecondPoint, ThirdPoint);
+            double lengthLineC = GetSideLength(FirstPoint, ThirdPoint);
 
-            double perimeter = GetPerimeter();
+            double halfPerimeter = GetPerimeter();
 
-            return Math.Sqrt(perimeter / 2 * (perimeter / 2 - lengthLineA) * (perimeter / 2 - lengthLineC) * (perimeter / 2 - lengthLineB));
+            return Math.Sqrt(halfPerimeter * (halfPerimeter - lengthLineA) * (halfPerimeter - lengthLineC) * (halfPerimeter - lengthLineB));
         }
 
         public double GetHeight()
@@ -42,7 +40,7 @@ namespace ShapesExercise
 
         public double GetPerimeter()
         {
-            return GetSidelength(FirstPoint, SecondPoint) + GetSidelength(SecondPoint, ThirdPoint) + GetSidelength(FirstPoint, ThirdPoint);
+            return GetSideLength(FirstPoint, SecondPoint) + GetSideLength(SecondPoint, ThirdPoint) + GetSideLength(FirstPoint, ThirdPoint);
         }
 
         public double GetWidth()
@@ -53,7 +51,7 @@ namespace ShapesExercise
             return maxX - minX;
         }
 
-        private double GetSidelength(Point a, Point b)
+        private static double GetSideLength(Point a, Point b)
         {
             return Math.Sqrt(Math.Pow(b.Y - a.Y, 2) + Math.Pow(b.X - a.X, 2));
         }
@@ -68,9 +66,9 @@ namespace ShapesExercise
             sb.AppendLine($"Координаты второй точки: ({SecondPoint.X}, {SecondPoint.Y})");
             sb.AppendLine($"Координаты третей точки: ({ThirdPoint.X}, {ThirdPoint.Y})");
 
-            sb.AppendLine($"Длина первой стороны: {GetSidelength(FirstPoint, SecondPoint)}");
-            sb.AppendLine($"Длина второй стороны: {GetSidelength(SecondPoint, ThirdPoint)}");
-            sb.AppendLine($"Длина третьей стороны: {GetSidelength(FirstPoint, ThirdPoint)}");
+            sb.AppendLine($"Длина первой стороны: {GetSideLength(FirstPoint, SecondPoint)}");
+            sb.AppendLine($"Длина второй стороны: {GetSideLength(SecondPoint, ThirdPoint)}");
+            sb.AppendLine($"Длина третьей стороны: {GetSideLength(FirstPoint, ThirdPoint)}");
 
             sb.AppendLine($"Высота: {GetHeight()}");
             sb.AppendLine($"Ширина: {GetWidth()}");
@@ -82,7 +80,23 @@ namespace ShapesExercise
 
         public override bool Equals(object obj)
         {
-            return obj.ToString() == this.ToString();
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj is null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            Triangle triangle = (Triangle)obj;
+
+            bool isFirstCondition = FirstPoint == triangle.FirstPoint && SecondPoint == triangle.SecondPoint && ThirdPoint == triangle.ThirdPoint;
+            bool isSecondCondition = FirstPoint == triangle.SecondPoint && SecondPoint == triangle.ThirdPoint && ThirdPoint == triangle.FirstPoint;
+            bool isThirdCondition = FirstPoint == triangle.ThirdPoint && SecondPoint == triangle.FirstPoint && ThirdPoint == triangle.SecondPoint;
+
+            return (isFirstCondition || isSecondCondition || isThirdCondition);
         }
 
         public override int GetHashCode()

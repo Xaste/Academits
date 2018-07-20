@@ -16,5 +16,10 @@ namespace ShapesExercise
             this.X = x;
             this.Y = y;
         }
+
+        public override int GetHashCode()
+        {
+            return (int)(X.GetHashCode() + Y.GetHashCode());
+        }
     }
 }

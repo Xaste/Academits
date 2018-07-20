@@ -10,9 +10,9 @@ namespace ShapesExercise
     {
         public double SideLength { get; set; }
 
-        public Square(double a)
+        public Square(double length)
         {
-            SideLength = a;
+            SideLength = length;
         }
 
         public double GetArea()
@@ -50,18 +50,24 @@ namespace ShapesExercise
 
         public override bool Equals(object obj)
         {
-            return obj.ToString() == this.ToString();
+            if (ReferenceEquals(obj, this))
+            {
+                return true;
+            }
+
+            if (obj is null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            Square square = (Square)obj;
+
+            return SideLength == square.SideLength;
         }
 
         public override int GetHashCode()
         {
-            int prime = 17;
-            int hash = 1;
-            hash = prime * hash + (int)SideLength;
-            hash = prime * hash + (int)GetArea();
-            hash = prime * hash + (int)GetPerimeter();
-
-            return hash;
+            return SideLength.GetHashCode();
         }
     }
 }

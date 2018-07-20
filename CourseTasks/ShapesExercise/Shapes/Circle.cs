@@ -10,9 +10,9 @@ namespace ShapesExercise
     {
         public double Radius { get; set; }
 
-        public Circle(double r)
+        public Circle(double radius)
         {
-            Radius = r;
+            Radius = radius;
         }
 
         public double GetArea()
@@ -49,38 +49,26 @@ namespace ShapesExercise
             return sb.ToString();
         }
 
-        /*public override bool Equals(object obj)
-        {
-            if (obj is Circle && obj != null)
-            {
-                Circle circle;
-                circle = (Circle)obj;
-                if (circle.Radius == this.Radius)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return false;
-        }*/
-
         public override bool Equals(object obj)
         {
-            return obj.ToString() == this.ToString();
+            if (ReferenceEquals(obj, this))
+            {
+                return true;
+            }
+
+            if (obj is null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            Circle circle = (Circle)obj;
+
+            return Radius == circle.Radius;
         }
 
         public override int GetHashCode()
         {
-            int prime = 13;
-            int hash = 1;
-            hash = prime * hash + Radius.GetHashCode();
-            hash = prime * hash + (int)GetArea();
-            hash = prime * hash + (int)GetPerimeter();
-
-            return hash;
+            return Radius.GetHashCode();
         }
     }
 }

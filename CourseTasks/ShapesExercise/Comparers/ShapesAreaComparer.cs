@@ -10,18 +10,7 @@ namespace ShapesExercise
     {
         public int Compare(IShape x, IShape y)
         {
-            if (x.GetArea() > y.GetArea())
-            {
-                return 1;
-            }
-            else if (x.GetArea() < y.GetArea())
-            {
-                return -1;
-            }
-            else
-            {
-                return -1;
-            }
+            return x.GetArea().CompareTo(y.GetArea());
         }
     }
 }
