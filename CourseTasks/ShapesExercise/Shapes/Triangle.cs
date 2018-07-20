@@ -91,12 +91,7 @@ namespace ShapesExercise
             }
 
             Triangle triangle = (Triangle)obj;
-
-            bool isFirstCondition = FirstPoint == triangle.FirstPoint && SecondPoint == triangle.SecondPoint && ThirdPoint == triangle.ThirdPoint;
-            bool isSecondCondition = FirstPoint == triangle.SecondPoint && SecondPoint == triangle.ThirdPoint && ThirdPoint == triangle.FirstPoint;
-            bool isThirdCondition = FirstPoint == triangle.ThirdPoint && SecondPoint == triangle.FirstPoint && ThirdPoint == triangle.SecondPoint;
-
-            return (isFirstCondition || isSecondCondition || isThirdCondition);
+            return FirstPoint == triangle.FirstPoint && SecondPoint == triangle.SecondPoint && ThirdPoint == triangle.ThirdPoint;
         }
 
         public override int GetHashCode()

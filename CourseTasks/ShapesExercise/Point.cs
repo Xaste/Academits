@@ -19,7 +19,23 @@ namespace ShapesExercise
 
         public override int GetHashCode()
         {
-            return (int)(X.GetHashCode() + Y.GetHashCode());
+            return X.GetHashCode() + Y.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj is null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            Point point = (Point)obj;
+            return X == point.X && Y == point.Y;
         }
     }
 }

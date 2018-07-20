@@ -63,7 +63,7 @@ namespace ShapesExercise
 
             Rectangle rectangle = (Rectangle)obj;
 
-            return (Height == rectangle.Height && Width == rectangle.Width) || (Height == rectangle.Width && Width == rectangle.Height);
+            return Height == rectangle.Height && Width == rectangle.Width;
         }
 
         public override int GetHashCode()
