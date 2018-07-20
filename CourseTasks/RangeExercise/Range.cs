@@ -87,13 +87,7 @@ namespace RangeExercise
 
         public override int GetHashCode()
         {
-            double hash = 1;
-            int prime = 13;
-
-            hash = hash * prime + this.From;
-            hash = hash * prime + this.To;
-
-            return (int)Math.Round(hash);
+            return From.GetHashCode() + To.GetHashCode();
         }
     }
 }
