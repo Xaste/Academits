@@ -74,15 +74,19 @@ namespace RangeExercise
 
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is Range)
+            if (ReferenceEquals(obj, this))
             {
-                Range range = (Range)obj;
-                return (this.From == range.From && this.To == range.To);
+                return true;
             }
-            else
+
+            if (obj is null || obj.GetType() != this.GetType())
             {
                 return false;
             }
+
+            Range range = (Range)obj;
+
+            return (From == range.From && To == range.To);
         }
 
         public override int GetHashCode()
