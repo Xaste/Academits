@@ -8,65 +8,91 @@ namespace Vector
 {
     class Vector
     {
-        public double[] VectorDoubles { get; set; }
+        public double[] VectorContent { get; set; }
 
         public Vector(int n)
         {
-            this.VectorDoubles = new double[n];
+            this.VectorContent = new double[n];
         }
 
         public Vector(Vector vect)
         {
-            this.VectorDoubles = new double[vect.GetSize()];
+            this.VectorContent = new double[vect.GetSize()];
 
-            for (int i = 0; i < vect.GetSize(); i++)
+            for (var i = 0; i < vect.GetSize(); i++)
             {
-                this.VectorDoubles[i] = vect.VectorDoubles[i];
+                this.VectorContent[i] = vect.VectorContent[i];
             }
         }
 
         public Vector(double[] array)
         {
-            this.VectorDoubles = new double[array.Length];
-            for (int i = 0; i < array.Length; i++)
+            this.VectorContent = new double[array.Length];
+            for (var i = 0; i < array.Length; i++)
             {
-                this.VectorDoubles[i] = array[i];
+                this.VectorContent[i] = array[i];
             }
         }
 
         public Vector(int n, double[] array)
         {
-            this.VectorDoubles = new double[n];
+            this.VectorContent = new double[n];
 
-            for (int i = 0; i < n; i++)
+            for (var i = 0; i < n; i++)
             {
                 if (i < array.Length)
                 {
-                    this.VectorDoubles[i] = array[i];
+                    this.VectorContent[i] = array[i];
 
                 }
                 else
                 {
-                    this.VectorDoubles[i] = 0;
+                    this.VectorContent[i] = 0;
                 }
             }
         }
 
         public int GetSize()
         {
-            return VectorDoubles.Length;
+            return VectorContent.Length;
+        }
+
+        public Vector SumVector(Vector vector)
+        {
+            var maxVectorLength = Math.Max(this.GetSize(), vector.GetSize());
+
+            var answerVector = new Vector(maxVectorLength);
+
+            for (int i = 0; i < maxVectorLength; i++)
+            {
+                if (this.GetSize() - 1 < i)
+                {
+                    answerVector.VectorContent[i] = vector.VectorContent[i];
+                }
+                else if (vector.GetSize() - 1 <= i)
+                {
+                    answerVector.VectorContent[i] = this.VectorContent[i];
+                }
+                else
+                {
+                    answerVector.VectorContent[i] = VectorContent[i] + vector.VectorContent[i];
+                }
+            }
+
+            return answerVector;
         }
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < this.GetSize() - 1; i++)
+            var sb = new StringBuilder();
+            for (var i = 0; i < this.GetSize() - 1; i++)
             {
-                sb.Append($"{this.VectorDoubles[i]}, ");
+                sb.Append($"{this.VectorContent[i]}, ");
             }
-            sb.Append($"{this.VectorDoubles[this.GetSize() - 1]}");
+            sb.Append($"{this.VectorContent[this.GetSize() - 1]}");
 
             return sb.ToString();
         }
+
     }
 }
