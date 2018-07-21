@@ -8,53 +8,53 @@ namespace Vector
 {
     class Vector
     {
-        public double[] VectorContent { get; set; }
+        public double[] VectorComponents { get; set; }
 
         public Vector(int n)
         {
-            this.VectorContent = new double[n];
+            this.VectorComponents = new double[n];
         }
 
         public Vector(Vector vect)
         {
-            this.VectorContent = new double[vect.GetSize()];
+            this.VectorComponents = new double[vect.GetSize()];
 
             for (var i = 0; i < vect.GetSize(); i++)
             {
-                this.VectorContent[i] = vect.VectorContent[i];
+                this.VectorComponents[i] = vect.VectorComponents[i];
             }
         }
 
         public Vector(double[] array)
         {
-            this.VectorContent = new double[array.Length];
+            this.VectorComponents = new double[array.Length];
             for (var i = 0; i < array.Length; i++)
             {
-                this.VectorContent[i] = array[i];
+                this.VectorComponents[i] = array[i];
             }
         }
 
         public Vector(int n, double[] array)
         {
-            this.VectorContent = new double[n];
+            this.VectorComponents = new double[n];
 
             for (var i = 0; i < n; i++)
             {
                 if (i < array.Length)
                 {
-                    this.VectorContent[i] = array[i];
+                    this.VectorComponents[i] = array[i];
 
                 }
                 else
                 {
-                    this.VectorContent[i] = 0;
+                    this.VectorComponents[i] = 0;
                 }
             }
         }
 
         public int GetSize()
         {
-            return VectorContent.Length;
+            return VectorComponents.Length;
         }
 
         public Vector SumVector(Vector vector)
@@ -67,19 +67,48 @@ namespace Vector
             {
                 if (this.GetSize() - 1 < i)
                 {
-                    answerVector.VectorContent[i] = vector.VectorContent[i];
+                    answerVector.VectorComponents[i] = vector.VectorComponents[i];
                 }
                 else if (vector.GetSize() - 1 <= i)
                 {
-                    answerVector.VectorContent[i] = this.VectorContent[i];
+                    answerVector.VectorComponents[i] = this.VectorComponents[i];
                 }
                 else
                 {
-                    answerVector.VectorContent[i] = VectorContent[i] + vector.VectorContent[i];
+                    answerVector.VectorComponents[i] = VectorComponents[i] + vector.VectorComponents[i];
                 }
             }
 
             return answerVector;
+        }
+
+        public Vector SubVector(Vector vector)
+        {
+            var maxVectorLength = Math.Max(this.GetSize(), vector.GetSize());
+            var firsVector = new Vector(maxVectorLength, this.VectorComponents);
+            var secondVector = new Vector(maxVectorLength, vector.VectorComponents);
+
+            var answerVector = new Vector(maxVectorLength);
+
+            for (int i = 0; i < maxVectorLength; i++)
+            {
+                answerVector.VectorComponents[i] = firsVector.VectorComponents[i] - secondVector.VectorComponents[i];
+            }
+
+            return answerVector;
+        }
+
+        public void ScalarMultiplication(int scalar)//TODO Здесь сделал с void. Надо спросить как лучше
+        {
+            for (int i = 0; i < this.GetSize(); i++)
+            {
+                this.VectorComponents[i] *= scalar;
+            }
+        }
+
+        public void TurnBackVector()
+        {
+            this.ScalarMultiplication(-1);
         }
 
         public override string ToString()
@@ -87,9 +116,9 @@ namespace Vector
             var sb = new StringBuilder();
             for (var i = 0; i < this.GetSize() - 1; i++)
             {
-                sb.Append($"{this.VectorContent[i]}, ");
+                sb.Append($"{this.VectorComponents[i]}, ");
             }
-            sb.Append($"{this.VectorContent[this.GetSize() - 1]}");
+            sb.Append($"{this.VectorComponents[this.GetSize() - 1]}");
 
             return sb.ToString();
         }

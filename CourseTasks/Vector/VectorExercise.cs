@@ -14,7 +14,7 @@ namespace Vector
 
             Vector vect2 = new Vector(vect1);
 
-            double[] array = new double[] { 17, 22, 33, 14, 5 };
+            /*double[] array = new double[] { 17, 22, 33, 14, 5 };
             var array2 = new double[] {1, 2, 3, 4, 5, 22, 22, 22, 22};
 
             Vector vect3 = new Vector(array);
@@ -28,7 +28,7 @@ namespace Vector
 
             Vector vect4 = new Vector(10, array);
 
-            Console.WriteLine(vect4.ToString());
+            Console.WriteLine(vect4.ToString());*/
             Console.WriteLine();
         }
     }
