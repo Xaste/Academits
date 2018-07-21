@@ -111,6 +111,33 @@ namespace Vector
             this.ScalarMultiplication(-1);
         }
 
+        public double GetVectorLength()
+        {
+            double sum = 0;
+
+            for (int i = 0; i < this.GetSize(); i++)
+            {
+                sum += Math.Pow(VectorComponents[i], 2);
+            }
+
+            return Math.Sqrt(sum);
+        }
+
+        public double GetVectorComponentByIndex(int n)//TODO Проверить что n с таким индексом существует
+        {
+            return VectorComponents[n];
+        }
+
+        public void SetVectorCombonentByIndex(double value, int n)//TODO Проверить что n с таким индексом существует
+        {
+            this.VectorComponents[n] = value;
+        }
+
+        /*public static Vector SumVectors(Vector first, Vector second)
+        {
+
+        }*///TODO Сначала спросить каким именно способом лучше
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -123,5 +150,47 @@ namespace Vector
             return sb.ToString();
         }
 
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(obj, this))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            var vector = (Vector)obj;
+
+            if (vector.GetSize() != this.GetSize())
+            {
+                return false;
+            }
+
+            for (int i = 0; i < this.GetSize(); i++)
+            {
+                if (this.VectorComponents[i] != vector.VectorComponents[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            const int prime = 7;
+            var hash = 1;
+
+            for (int i = 0; i < this.GetSize(); i++)
+            {
+                hash = hash * prime + VectorComponents[i].GetHashCode();
+            }
+
+            return hash;
+        }
     }
 }
