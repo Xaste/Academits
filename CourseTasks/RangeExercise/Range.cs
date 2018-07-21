@@ -84,7 +84,7 @@ namespace RangeExercise
                 return false;
             }
 
-            Range range = (Range)obj;
+            var range = (Range)obj;
 
             return (From == range.From && To == range.To);
         }

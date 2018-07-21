@@ -10,14 +10,14 @@ namespace RangeExercise
     {
         static void Main(string[] args)
         {
-            Range a = new Range(3, 8);
-            Range b = new Range(2, 10);
+            var a = new Range(3, 8);
+            var b = new Range(2, 10);
 
-            Range c = a.GetCrossRange(b);
+            var c = a.GetCrossRange(b);
 
-            Range[] array = a.GetSumRange(b);
+            var array = a.GetSumRange(b);
 
-            Range[] array2 = a.GetDifferenceRange(b);
+            var array2 = a.GetDifferenceRange(b);
 
             Console.WriteLine("END");
             Console.ReadLine();
