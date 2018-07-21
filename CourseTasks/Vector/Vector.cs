@@ -8,57 +8,53 @@ namespace Vector
 {
     class Vector
     {
-        //public int VectorSize { get; set; }
-        private double[] vectorComponents;
+        public double[] VectorDoubles { get; set; }
 
         public Vector(int n)
         {
-            this.vectorComponents = new double[n];
+            this.VectorDoubles = new double[n];
         }
 
         public Vector(Vector vect)
         {
-            //this.VectorSize = vect.GetSize();
-            this.vectorComponents = new double[vect.GetSize()];
+            this.VectorDoubles = new double[vect.GetSize()];
 
             for (int i = 0; i < vect.GetSize(); i++)
             {
-                this.vectorComponents[i] = vect.vectorComponents[i];
+                this.VectorDoubles[i] = vect.VectorDoubles[i];
             }
         }
 
         public Vector(double[] array)
         {
-            this.vectorComponents = new double[array.Length];
+            this.VectorDoubles = new double[array.Length];
             for (int i = 0; i < array.Length; i++)
             {
-                this.vectorComponents[i] = array[i];
+                this.VectorDoubles[i] = array[i];
             }
         }
 
         public Vector(int n, double[] array)
         {
-            //this.VectorSize = n;
+            this.VectorDoubles = new double[n];
 
-            this.vectorComponents = new double[n];
-            
             for (int i = 0; i < n; i++)
             {
                 if (i < array.Length)
                 {
-                    this.vectorComponents[i] = array[i];
+                    this.VectorDoubles[i] = array[i];
 
                 }
                 else
                 {
-                    this.vectorComponents[i] = 0;
+                    this.VectorDoubles[i] = 0;
                 }
             }
         }
 
         public int GetSize()
         {
-            return vectorComponents.Length;
+            return VectorDoubles.Length;
         }
 
         public override string ToString()
@@ -66,9 +62,9 @@ namespace Vector
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < this.GetSize() - 1; i++)
             {
-                sb.Append($"{this.vectorComponents[i]}, ");
+                sb.Append($"{this.VectorDoubles[i]}, ");
             }
-            sb.Append($"{this.vectorComponents[this.GetSize() - 1]}");
+            sb.Append($"{this.VectorDoubles[this.GetSize() - 1]}");
 
             return sb.ToString();
         }
