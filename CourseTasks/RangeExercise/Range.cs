@@ -59,7 +59,7 @@ namespace RangeExercise
             {
                 return new Range[] { new Range(this.From, b.From), new Range(b.To, this.To) };
             }
-            else if (this.From == b.From && this.To == b.To)
+            else if (this.From >= b.From && this.To <= b.To)
             {
                 return null;
             }
