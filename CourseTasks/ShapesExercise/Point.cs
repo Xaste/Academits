@@ -34,7 +34,7 @@ namespace ShapesExercise
                 return false;
             }
 
-            Point point = (Point)obj;
+            var point = (Point)obj;
             return X == point.X && Y == point.Y;
         }
     }

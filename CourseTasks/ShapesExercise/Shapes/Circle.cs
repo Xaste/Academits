@@ -37,7 +37,7 @@ namespace ShapesExercise
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.AppendLine($"Тип фигуры: {GetType()}");
             sb.AppendLine($"Радиус: {Radius}");
@@ -61,7 +61,7 @@ namespace ShapesExercise
                 return false;
             }
 
-            Circle circle = (Circle)obj;
+            var circle = (Circle)obj;
 
             return Radius == circle.Radius;
         }

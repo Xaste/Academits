@@ -21,19 +21,19 @@ namespace ShapesExercise
 
         public double GetArea()
         {
-            double lengthLineA = GetSideLength(FirstPoint, SecondPoint);
-            double lengthLineB = GetSideLength(SecondPoint, ThirdPoint);
-            double lengthLineC = GetSideLength(FirstPoint, ThirdPoint);
+            var lengthLineA = GetSideLength(FirstPoint, SecondPoint);
+            var lengthLineB = GetSideLength(SecondPoint, ThirdPoint);
+            var lengthLineC = GetSideLength(FirstPoint, ThirdPoint);
 
-            double halfPerimeter = GetPerimeter();
+            var halfPerimeter = GetPerimeter();
 
             return Math.Sqrt(halfPerimeter * (halfPerimeter - lengthLineA) * (halfPerimeter - lengthLineC) * (halfPerimeter - lengthLineB));
         }
 
         public double GetHeight()
         {
-            double maxY = Math.Max(Math.Max(FirstPoint.Y, SecondPoint.Y), ThirdPoint.Y);
-            double minY = Math.Min(Math.Min(FirstPoint.Y, SecondPoint.Y), ThirdPoint.Y);
+            var maxY = Math.Max(Math.Max(FirstPoint.Y, SecondPoint.Y), ThirdPoint.Y);
+            var minY = Math.Min(Math.Min(FirstPoint.Y, SecondPoint.Y), ThirdPoint.Y);
 
             return maxY - minY;
         }
@@ -45,8 +45,8 @@ namespace ShapesExercise
 
         public double GetWidth()
         {
-            double maxX = Math.Max(Math.Max(FirstPoint.X, SecondPoint.X), ThirdPoint.X);
-            double minX = Math.Min(Math.Min(FirstPoint.X, SecondPoint.X), ThirdPoint.X);
+            var maxX = Math.Max(Math.Max(FirstPoint.X, SecondPoint.X), ThirdPoint.X);
+            var minX = Math.Min(Math.Min(FirstPoint.X, SecondPoint.X), ThirdPoint.X);
 
             return maxX - minX;
         }
@@ -58,7 +58,7 @@ namespace ShapesExercise
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.AppendLine($"Тип фигуры: {GetType()}");
 
@@ -90,7 +90,7 @@ namespace ShapesExercise
                 return false;
             }
 
-            Triangle triangle = (Triangle)obj;
+            var triangle = (Triangle)obj;
             return FirstPoint.Equals(triangle.FirstPoint) && SecondPoint.Equals(triangle.SecondPoint) && ThirdPoint.Equals(triangle.ThirdPoint);
         }
 

@@ -38,7 +38,7 @@ namespace ShapesExercise
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.AppendLine($"Тип фигуры: {GetType()}");
             sb.AppendLine($"Высота: {GetHeight()}");
@@ -61,15 +61,15 @@ namespace ShapesExercise
                 return false;
             }
 
-            Rectangle rectangle = (Rectangle)obj;
+            var rectangle = (Rectangle)obj;
 
             return Height == rectangle.Height && Width == rectangle.Width;
         }
 
         public override int GetHashCode()
         {
-            int prime = 7;
-            int hash = 1;
+            const int prime = 7;
+            var hash = 1;
             hash = prime * hash + Height.GetHashCode();
             hash = prime * hash + Width.GetHashCode();
 

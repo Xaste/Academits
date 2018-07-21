@@ -37,7 +37,7 @@ namespace ShapesExercise
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.AppendLine($"Тип фигуры: {GetType()}");
             sb.AppendLine($"Высота: {GetHeight()}");
@@ -60,7 +60,7 @@ namespace ShapesExercise
                 return false;
             }
 
-            Square square = (Square)obj;
+            var square = (Square)obj;
 
             return SideLength == square.SideLength;
         }
