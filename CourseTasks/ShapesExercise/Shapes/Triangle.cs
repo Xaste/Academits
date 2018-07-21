@@ -85,13 +85,13 @@ namespace ShapesExercise
                 return true;
             }
 
-            if (obj is null || obj.GetType() != this.GetType())
+            if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
             {
                 return false;
             }
 
             Triangle triangle = (Triangle)obj;
-            return FirstPoint == triangle.FirstPoint && SecondPoint == triangle.SecondPoint && ThirdPoint == triangle.ThirdPoint;
+            return FirstPoint.Equals(triangle.FirstPoint) && SecondPoint.Equals(triangle.SecondPoint) && ThirdPoint.Equals(triangle.ThirdPoint);
         }
 
         public override int GetHashCode()

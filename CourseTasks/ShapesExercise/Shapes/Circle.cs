@@ -56,7 +56,7 @@ namespace ShapesExercise
                 return true;
             }
 
-            if (obj is null || obj.GetType() != this.GetType())
+            if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
             {
                 return false;
             }
