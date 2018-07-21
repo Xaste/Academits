@@ -51,17 +51,17 @@ namespace RangeExercise
 
         public Range[] GetDifferenceRange(Range b)
         {
-            if (this.To <= b.From || this.From >= b.To)
+            if (this.From >= b.From && this.To <= b.To)
+            {
+                return new Range[0];
+            }
+            else if (this.From >= b.To || this.To <= b.From)
             {
                 return new Range[] { new Range(this.From, this.To) };
             }
             else if (this.From < b.From && this.To > b.To)
             {
                 return new Range[] { new Range(this.From, b.From), new Range(b.To, this.To) };
-            }
-            else if (this.From >= b.From && this.To <= b.To)
-            {
-                return null;
             }
             else
             {
@@ -79,7 +79,7 @@ namespace RangeExercise
                 return true;
             }
 
-            if (obj is null || obj.GetType() != this.GetType())
+            if (ReferenceEquals(obj, null) || obj.GetType() != this.GetType())
             {
                 return false;
             }
