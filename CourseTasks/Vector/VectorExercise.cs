@@ -4,31 +4,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vector
+namespace VectorExercise
 {
     class VectorExercise
     {
         static void Main(string[] args)
         {
-            Vector vect1 = new Vector(10);
+            var array1 = new double[] { 17, 22, 33, 14, 5 };
+            var array2 = new double[] { 1, 2, 3, 4, 5, 22, 22, 22, 22 };
+            var array3 = new double[] { 1, 2, 3, 4, 5 };
 
-            Vector vect2 = new Vector(vect1);
+            var vector1 = new Vector(array1);
+            var vector2 = new Vector(array2);
+            var vector3 = new Vector(array3);
 
-            /*double[] array = new double[] { 17, 22, 33, 14, 5 };
-            var array2 = new double[] {1, 2, 3, 4, 5, 22, 22, 22, 22};
+            var vectorResult1 = Vector.SumVectors(vector1, vector2);
+            var vectorResult2 = Vector.SumVectors(vector2, vector1);
+            var vectorResult3 = Vector.SumVectors(vector1, vector3);
 
-            Vector vect3 = new Vector(array);
+            Console.WriteLine(vectorResult1);
+            Console.WriteLine(vectorResult2);
+            Console.WriteLine(vectorResult3);
 
-            var vect5 = new Vector(array2);
+            var vectorResult4 = Vector.SubtractionVectors(vector1, vector2);
+            var vectorResult5 = Vector.SubtractionVectors(vector2, vector1);
+            var vectorResult6 = Vector.SubtractionVectors(vector1, vector3);
+            var vectorResult7 = Vector.SubtractionVectors(vector3, vector1);
 
-            var vectorSum = vect3.SumVector(vect5);
-            Console.WriteLine(vect3);
-            Console.WriteLine(vect5);
-            Console.WriteLine(vectorSum);
 
-            Vector vect4 = new Vector(10, array);
+            Console.WriteLine(vectorResult4);
+            Console.WriteLine(vectorResult5);
+            Console.WriteLine(vectorResult6);
+            Console.WriteLine(vectorResult7);
 
-            Console.WriteLine(vect4.ToString());*/
             Console.WriteLine();
         }
     }

@@ -4,14 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vector
+namespace VectorExercise
 {
-    class Vector
+    public class Vector
     {
         public double[] VectorComponents { get; set; }
 
         public Vector(int n)
         {
+            if (n <= 0)
+            {
+                throw new ArgumentException("Размерность вектора должена быть больше 0");
+            }
             this.VectorComponents = new double[n];
         }
 
@@ -36,6 +40,11 @@ namespace Vector
 
         public Vector(int n, double[] array)
         {
+            if (n <= 0)
+            {
+                throw new ArgumentException("Размерность вектора должена быть больше 0");
+            }
+
             this.VectorComponents = new double[n];
 
             for (var i = 0; i < n; i++)
@@ -98,7 +107,7 @@ namespace Vector
             return answerVector;
         }
 
-        public void ScalarMultiplication(int scalar)//TODO Здесь сделал с void. Надо спросить как лучше
+        public void ScalarMultiplication(int scalar)
         {
             for (int i = 0; i < this.GetSize(); i++)
             {
@@ -123,31 +132,99 @@ namespace Vector
             return Math.Sqrt(sum);
         }
 
-        public double GetVectorComponentByIndex(int n)//TODO Проверить что n с таким индексом существует
+        public double GetVectorComponentByIndex(int n)
         {
+            if (n >= VectorComponents.Length)
+            {
+                throw new ArgumentException("Компонента с таким индексом не сущеествует");
+            }
+
             return VectorComponents[n];
         }
 
-        public void SetVectorCombonentByIndex(double value, int n)//TODO Проверить что n с таким индексом существует
+        public void SetVectorCombonentByIndex(double value, int n)
         {
+            if (n >= VectorComponents.Length)
+            {
+                throw new ArgumentException("Компонента с таким индексом не сущеествует");
+            }
+
             this.VectorComponents[n] = value;
         }
 
-        /*public static Vector SumVectors(Vector first, Vector second)
+        public static Vector SumVectors(Vector first, Vector second)
         {
+            Vector longVector;
+            Vector shortVector;
 
-        }*///TODO Сначала спросить каким именно способом лучше
+            if (first.GetSize() > second.GetSize())
+            {
+                longVector = first;
+                shortVector = second;
+            }
+            else
+            {
+                longVector = second;
+                shortVector = first;
+            }
+
+            var resultvVector = new Vector(longVector);
+
+            for (int i = 0; i < shortVector.GetSize(); i++)
+            {
+                resultvVector.VectorComponents[i] += shortVector.VectorComponents[i];
+            }
+
+            return resultvVector;
+        }
+
+        public static Vector SubtractionVectors(Vector first, Vector second)
+        {
+            Vector longVector;
+            Vector shortVector;
+
+            if (first.GetSize() > second.GetSize())
+            {
+                longVector = new Vector(first);
+                shortVector = new Vector(second);
+                shortVector.TurnBackVector();
+            }
+            else
+            {
+                longVector = new Vector(second);
+                longVector.TurnBackVector();
+
+                shortVector = first;
+            }
+
+            var resultvVector = new Vector(longVector);
+
+            for (int i = 0; i < shortVector.GetSize(); i++)
+            {
+                resultvVector.VectorComponents[i] += shortVector.VectorComponents[i];
+            }
+
+            return resultvVector;
+        }
+
+        public static double ScalarMultiply(Vector first, Vector second)
+        {
+            var count = (first.GetSize() < second.GetSize()) ? first.GetSize() : second.GetSize();
+
+            var result = 0.0;
+
+            for (int i = 0; i < count; i++)
+            {
+                result += first.VectorComponents[i] * second.VectorComponents[i];
+            }
+
+            return result;
+        }
 
         public override string ToString()
         {
-            var sb = new StringBuilder();
-            for (var i = 0; i < this.GetSize() - 1; i++)
-            {
-                sb.Append($"{this.VectorComponents[i]}, ");
-            }
-            sb.Append($"{this.VectorComponents[this.GetSize() - 1]}");
+            return string.Join(", ", this.VectorComponents);
 
-            return sb.ToString();
         }
 
         public override bool Equals(object obj)
