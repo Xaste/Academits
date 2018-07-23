@@ -78,7 +78,7 @@ namespace VectorExercise
                 {
                     answerVector.VectorComponents[i] = vector.VectorComponents[i];
                 }
-                else if (vector.GetSize() - 1 <= i)
+                else if (vector.GetSize() - 1 < i)
                 {
                     answerVector.VectorComponents[i] = this.VectorComponents[i];
                 }
@@ -142,7 +142,7 @@ namespace VectorExercise
             return VectorComponents[n];
         }
 
-        public void SetVectorCombonentByIndex(double value, int n)
+        public void SetVectorCombonentByIndex(int n, double value)
         {
             if (n >= VectorComponents.Length)
             {

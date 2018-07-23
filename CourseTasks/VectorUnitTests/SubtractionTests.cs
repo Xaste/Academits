@@ -5,7 +5,7 @@ using VectorExercise;
 namespace VectorUnitTests
 {
     [TestClass]
-    public class StaticSubstractionTest
+    public class SubstractionTests
     {
         [TestMethod]
         public void TestMethod2()

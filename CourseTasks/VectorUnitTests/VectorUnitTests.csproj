@@ -48,8 +48,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StaticSubtractionTest.cs" />
-    <Compile Include="StaticSumTest.cs" />
+    <Compile Include="SubtractionTests.cs" />
+    <Compile Include="SumTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
