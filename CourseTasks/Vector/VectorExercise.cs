@@ -40,7 +40,6 @@ namespace VectorExercise
 
             Console.WriteLine(Vector.ScalarMultiply(vector3, vector2));
 
-
             Console.WriteLine();
         }
     }

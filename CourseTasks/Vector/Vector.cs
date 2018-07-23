@@ -16,7 +16,8 @@ namespace VectorExercise
             {
                 throw new ArgumentException("Размерность вектора должена быть больше 0");
             }
-            this.VectorComponents = new double[n];
+
+            VectorComponents = new double[n];
         }
 
         public Vector(Vector vect)
@@ -25,16 +26,21 @@ namespace VectorExercise
 
             for (var i = 0; i < vect.GetSize(); i++)
             {
-                this.VectorComponents[i] = vect.VectorComponents[i];
+                VectorComponents[i] = vect.VectorComponents[i];
             }
         }
 
         public Vector(double[] array)
         {
+            if (array.Length <= 0)
+            {
+                throw new ArgumentException("Размерность вектора должена быть больше 0");
+            }
+
             this.VectorComponents = new double[array.Length];
             for (var i = 0; i < array.Length; i++)
             {
-                this.VectorComponents[i] = array[i];
+                VectorComponents[i] = array[i];
             }
         }
 
@@ -51,12 +57,12 @@ namespace VectorExercise
             {
                 if (i < array.Length)
                 {
-                    this.VectorComponents[i] = array[i];
+                    VectorComponents[i] = array[i];
 
                 }
                 else
                 {
-                    this.VectorComponents[i] = 0;
+                    VectorComponents[i] = 0;
                 }
             }
         }
@@ -168,14 +174,14 @@ namespace VectorExercise
                 shortVector = first;
             }
 
-            var resultvVector = new Vector(longVector);
+            var resultVector = new Vector(longVector);
 
             for (int i = 0; i < shortVector.GetSize(); i++)
             {
-                resultvVector.VectorComponents[i] += shortVector.VectorComponents[i];
+                resultVector.VectorComponents[i] += shortVector.VectorComponents[i];
             }
 
-            return resultvVector;
+            return resultVector;
         }
 
         public static Vector SubtractionVectors(Vector first, Vector second)
@@ -197,14 +203,14 @@ namespace VectorExercise
                 shortVector = first;
             }
 
-            var resultvVector = new Vector(longVector);
+            var resultVector = new Vector(longVector);
 
             for (int i = 0; i < shortVector.GetSize(); i++)
             {
-                resultvVector.VectorComponents[i] += shortVector.VectorComponents[i];
+                resultVector.VectorComponents[i] += shortVector.VectorComponents[i];
             }
 
-            return resultvVector;
+            return resultVector;
         }
 
         public static double ScalarMultiply(Vector first, Vector second)
