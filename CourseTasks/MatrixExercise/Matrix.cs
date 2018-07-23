@@ -20,8 +20,24 @@ namespace MatrixExercise
             }
         }
 
+        public Matrix(Matrix matrix)
+        {
+            Rows = new Vector[matrix.Rows.Length];
+
+            for (int i = 0; i < Rows.Length; i++)
+            {
+                Rows[i] = new Vector(matrix.Rows[i].GetSize());
+
+                for (int j = 0; j < matrix.Rows[i].GetSize(); j++)
+                {
+                    Rows[i].VectorComponents[j] = matrix.Rows[i].VectorComponents[j];
+                }
+            }
+        }
+
         public Matrix(double[][] array)
         {
+            Rows = new Vector[array.GetLength(0)];
             for (int i = 0; i < array.GetLength(0); i++)
             {
                 Rows[i] = new Vector(array[i]);
@@ -49,16 +65,17 @@ namespace MatrixExercise
 
         public override string ToString()
         {
-            var sb = new StringBuilder();
-            sb.Append("{ ");
-            foreach (var vector in Rows)
-            {
-                sb.Append("{ ");
-                sb.Append(vector.GetSize());
-                sb.Append(" }");
-            }
-            sb.Append(" }");
+            var arrayStrings = new string[Rows.Length];
 
+            for (int i = 0; i < Rows.Length; i++)
+            {
+                arrayStrings[i] = Rows[i].ToString();
+            }
+
+            var sb = new StringBuilder();
+            sb.Append("{{ ");
+            sb.Append(string.Join(" }, { ", arrayStrings));
+            sb.Append(" }}");
             return sb.ToString();
         }
     }
