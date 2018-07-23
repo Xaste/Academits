@@ -230,7 +230,6 @@ namespace VectorExercise
         public override string ToString()
         {
             return string.Join(", ", this.VectorComponents);
-
         }
 
         public override bool Equals(object obj)

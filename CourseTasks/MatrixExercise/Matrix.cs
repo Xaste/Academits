@@ -19,5 +19,47 @@ namespace MatrixExercise
                 Rows[i] = new Vector(m);
             }
         }
+
+        public Matrix(double[][] array)
+        {
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                Rows[i] = new Vector(array[i]);
+            }
+        }
+
+        public Matrix(Vector[] vectors)
+        {
+            for (int i = 0; i < vectors.Length; i++)
+            {
+                Rows[i] = new Vector(vectors[i]);
+            }
+        }
+
+        public int GetSize()
+        {
+            var count = 0;
+            foreach (var vector in Rows)
+            {
+                count += vector.GetSize();
+            }
+
+            return count;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("{ ");
+            foreach (var vector in Rows)
+            {
+                sb.Append("{ ");
+                sb.Append(vector.GetSize());
+                sb.Append(" }");
+            }
+            sb.Append(" }");
+
+            return sb.ToString();
+        }
     }
 }
