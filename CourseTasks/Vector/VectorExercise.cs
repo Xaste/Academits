@@ -17,10 +17,14 @@ namespace VectorExercise
             var vector1 = new Vector(array1);
             var vector2 = new Vector(array2);
             var vector3 = new Vector(array3);
+            var vector4 = new Vector(vector1);
+            var vector5 = new Vector(3, array1);
+            var vector6 = new Vector(10, array1);
+            var vector7 = new Vector(5, array1);
 
             Console.WriteLine(vector1);
 
-            vector1.SetVectorCombonentByIndex(0, 10);
+            vector1.SetVectorCombonentByIndex(55, 10);
             Console.WriteLine(vector1);
 
             var component = vector1.GetVectorComponentByIndex(0);

@@ -33,15 +33,21 @@ namespace VectorUnitTests
             Assert.AreEqual(vectorStaticResult2, vectorSumAnswer1);
             Assert.AreEqual(vectorStaticResult3, vectorSumAnswer2);
 
-            var vectorNoStaticResult1 = vector1.SumVector(vector2);
-            var vectorNoStaticResult2 = vector2.SumVector(vector1);
-            var vectorNoStaticResult3 = vector1.SumVector(vector3);
-            var vectorNoStaticResult4 = vector3.SumVector(vector1);
+            vector1.SumVector(vector2);
+            Assert.AreEqual(vector1, vectorSumAnswer1);
+            vector1 = new Vector(array1);
 
-            Assert.AreEqual(vectorNoStaticResult1, vectorSumAnswer1);
-            Assert.AreEqual(vectorNoStaticResult2, vectorSumAnswer1);
-            Assert.AreEqual(vectorNoStaticResult3, vectorSumAnswer2);
-            Assert.AreEqual(vectorNoStaticResult4, vectorSumAnswer2);
+            vector2.SumVector(vector1);
+            Assert.AreEqual(vector2, vectorSumAnswer1);
+            vector2 = new Vector(array2);
+
+            vector1.SumVector(vector3);
+            Assert.AreEqual(vector1, vectorSumAnswer2);
+            vector1 = new Vector(array1);
+
+            vector3.SumVector(vector1);
+            Assert.AreEqual(vector3, vectorSumAnswer2);
+            vector3 = new Vector(array3);
         }
     }
 }

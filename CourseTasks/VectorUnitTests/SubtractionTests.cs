@@ -37,6 +37,23 @@ namespace VectorUnitTests
             Assert.AreEqual(vectorResult2, vectorSubAnswer2);
             Assert.AreEqual(vectorResult3, vectorSubAnswer3);
             Assert.AreEqual(vectorResult4, vectorSubAnswer4);
+
+            vector1.SubVector(vector2);
+            Assert.AreEqual(vector1, vectorSubAnswer1);
+            vector1 = new Vector(array1);
+
+            vector2.SubVector(vector1);
+            Assert.AreEqual(vectorResult2, vectorSubAnswer2);
+            vector2 = new Vector(array2);
+
+            vector1.SubVector(vector3);
+            Assert.AreEqual(vector1, vectorSubAnswer3);
+            vector1 = new Vector(array1);
+
+            vector3.SubVector(vector1);
+            Assert.AreEqual(vector3, vectorSubAnswer4);
+            vector3 = new Vector(array2);
+
         }
     }
 }

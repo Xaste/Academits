@@ -8,7 +8,7 @@ namespace VectorExercise
 {
     public class Vector
     {
-        public double[] VectorComponents { get; set; }
+        private double[] vectorComponents;
 
         public Vector(int n)
         {
@@ -17,17 +17,13 @@ namespace VectorExercise
                 throw new ArgumentException("Размерность вектора должена быть больше 0");
             }
 
-            VectorComponents = new double[n];
+            vectorComponents = new double[n];
         }
 
         public Vector(Vector vect)
         {
-            this.VectorComponents = new double[vect.GetSize()];
-
-            for (var i = 0; i < vect.GetSize(); i++)
-            {
-                VectorComponents[i] = vect.VectorComponents[i];
-            }
+            vectorComponents = new double[vect.GetSize()];
+            Array.Copy(vect.vectorComponents, vectorComponents, this.GetSize());
         }
 
         public Vector(double[] array)
@@ -36,12 +32,9 @@ namespace VectorExercise
             {
                 throw new ArgumentException("Размерность вектора должена быть больше 0");
             }
+            vectorComponents = new double[array.Length];
 
-            this.VectorComponents = new double[array.Length];
-            for (var i = 0; i < array.Length; i++)
-            {
-                VectorComponents[i] = array[i];
-            }
+            Array.Copy(array, vectorComponents, array.Length);
         }
 
         public Vector(int n, double[] array)
@@ -51,73 +44,41 @@ namespace VectorExercise
                 throw new ArgumentException("Размерность вектора должена быть больше 0");
             }
 
-            this.VectorComponents = new double[n];
+            this.vectorComponents = new double[n];
 
-            for (var i = 0; i < n; i++)
-            {
-                if (i < array.Length)
-                {
-                    VectorComponents[i] = array[i];
-
-                }
-                else
-                {
-                    VectorComponents[i] = 0;
-                }
-            }
+            Array.Copy(array, vectorComponents, Math.Min(array.Length, n));
         }
 
         public int GetSize()
         {
-            return VectorComponents.Length;
+            return vectorComponents.Length;
         }
 
-        public Vector SumVector(Vector vector)
+        public void SumVector(Vector vector)
         {
-            var maxVectorLength = Math.Max(this.GetSize(), vector.GetSize());
+            Array.Resize(ref vectorComponents, Math.Max(this.GetSize(), vector.GetSize()));
 
-            var answerVector = new Vector(maxVectorLength);
-
-            for (int i = 0; i < maxVectorLength; i++)
+            for (int i = 0; i < Math.Min(vector.GetSize(), this.GetSize()); i++)
             {
-                if (this.GetSize() - 1 < i)
-                {
-                    answerVector.VectorComponents[i] = vector.VectorComponents[i];
-                }
-                else if (vector.GetSize() - 1 < i)
-                {
-                    answerVector.VectorComponents[i] = this.VectorComponents[i];
-                }
-                else
-                {
-                    answerVector.VectorComponents[i] = VectorComponents[i] + vector.VectorComponents[i];
-                }
+                vectorComponents[i] += vector.vectorComponents[i];
             }
-
-            return answerVector;
         }
 
-        public Vector SubVector(Vector vector)
+        public void SubVector(Vector vector)
         {
-            var maxVectorLength = Math.Max(this.GetSize(), vector.GetSize());
-            var firsVector = new Vector(maxVectorLength, this.VectorComponents);
-            var secondVector = new Vector(maxVectorLength, vector.VectorComponents);
+            Array.Resize(ref vectorComponents, Math.Max(this.GetSize(), vector.GetSize()));
 
-            var answerVector = new Vector(maxVectorLength);
-
-            for (int i = 0; i < maxVectorLength; i++)
+            for (int i = 0; i < Math.Min(vector.GetSize(), this.GetSize()); i++)
             {
-                answerVector.VectorComponents[i] = firsVector.VectorComponents[i] - secondVector.VectorComponents[i];
+                vectorComponents[i] -= vector.vectorComponents[i];
             }
-
-            return answerVector;
         }
 
         public void ScalarMultiplication(int scalar)
         {
             for (int i = 0; i < this.GetSize(); i++)
             {
-                this.VectorComponents[i] *= scalar;
+                this.vectorComponents[i] *= scalar;
             }
         }
 
@@ -130,9 +91,9 @@ namespace VectorExercise
         {
             double sum = 0;
 
-            for (int i = 0; i < this.GetSize(); i++)
+            foreach (var item in vectorComponents)
             {
-                sum += Math.Pow(VectorComponents[i], 2);
+                sum += Math.Pow(item, 2);
             }
 
             return Math.Sqrt(sum);
@@ -140,88 +101,50 @@ namespace VectorExercise
 
         public double GetVectorComponentByIndex(int n)
         {
-            if (n >= VectorComponents.Length)
+            if (n < 0 || n >= vectorComponents.Length)
             {
-                throw new ArgumentException("Компонента с таким индексом не сущеествует");
+                throw new ArgumentOutOfRangeException("Компонента с таким индексом не сущеествует");
             }
 
-            return VectorComponents[n];
+            return vectorComponents[n];
         }
 
         public void SetVectorCombonentByIndex(int n, double value)
         {
-            if (n >= VectorComponents.Length)
+            if (n < 0 || n >= vectorComponents.Length)
             {
-                throw new ArgumentException("Компонента с таким индексом не сущеествует");
+                throw new ArgumentOutOfRangeException("Компонента с таким индексом не сущеествует");
             }
 
-            this.VectorComponents[n] = value;
+            this.vectorComponents[n] = value;
         }
 
         public static Vector SumVectors(Vector first, Vector second)
         {
-            Vector longVector;
-            Vector shortVector;
+            var vector = new Vector(first);
+            vector.SumVector(second);
 
-            if (first.GetSize() > second.GetSize())
-            {
-                longVector = first;
-                shortVector = second;
-            }
-            else
-            {
-                longVector = second;
-                shortVector = first;
-            }
-
-            var resultVector = new Vector(longVector);
-
-            for (int i = 0; i < shortVector.GetSize(); i++)
-            {
-                resultVector.VectorComponents[i] += shortVector.VectorComponents[i];
-            }
-
-            return resultVector;
+            return vector;
         }
 
         public static Vector SubtractionVectors(Vector first, Vector second)
         {
-            Vector longVector;
-            Vector shortVector;
+            var vector = new Vector(first);
 
-            if (first.GetSize() > second.GetSize())
-            {
-                longVector = new Vector(first);
-                shortVector = new Vector(second);
-                shortVector.TurnBackVector();
-            }
-            else
-            {
-                longVector = new Vector(second);
-                longVector.TurnBackVector();
+            vector.SubVector(second);
 
-                shortVector = first;
-            }
-
-            var resultVector = new Vector(longVector);
-
-            for (int i = 0; i < shortVector.GetSize(); i++)
-            {
-                resultVector.VectorComponents[i] += shortVector.VectorComponents[i];
-            }
-
-            return resultVector;
+            return vector;
         }
 
         public static double ScalarMultiply(Vector first, Vector second)
         {
-            var count = (first.GetSize() < second.GetSize()) ? first.GetSize() : second.GetSize();
+            var count = Math.Min(first.GetSize(), second.GetSize());
 
             var result = 0.0;
 
             for (int i = 0; i < count; i++)
             {
-                result += first.VectorComponents[i] * second.VectorComponents[i];
+                result += first.vectorComponents[i] * second.vectorComponents[i];
             }
 
             return result;
@@ -229,8 +152,12 @@ namespace VectorExercise
 
         public override string ToString()
         {
-            return string.Join(", ", this.VectorComponents);
+            var sb = new StringBuilder();
+            sb.Append("{ ");
+            sb.Append(string.Join(", ", this.vectorComponents));
+            sb.Append(" }");
 
+            return sb.ToString();
         }
 
         public override bool Equals(object obj)
@@ -254,7 +181,7 @@ namespace VectorExercise
 
             for (int i = 0; i < this.GetSize(); i++)
             {
-                if (this.VectorComponents[i] != vector.VectorComponents[i])
+                if (this.vectorComponents[i] != vector.vectorComponents[i])
                 {
                     return false;
                 }
@@ -270,7 +197,7 @@ namespace VectorExercise
 
             for (int i = 0; i < this.GetSize(); i++)
             {
-                hash = hash * prime + VectorComponents[i].GetHashCode();
+                hash = hash * prime + vectorComponents[i].GetHashCode();
             }
 
             return hash;
