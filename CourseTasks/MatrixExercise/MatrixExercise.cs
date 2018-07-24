@@ -13,7 +13,7 @@ namespace MatrixExercise
         {
             var matrix1 = new Matrix(5, 4);
 
-            var array1 = new double[][] { new double[] { 1, 2, 3 }, new double[] { 2, 3, 4 }, new double[] { 1, 2 }, new double[] { 1 } };
+            var array1 = new double[][] { new double[] { 1, 2, 3 }, new double[] { 0, 2, 3, 4 }, new double[] { 1, 2 }, new double[] { 1, 2, 3, 4, 5, 6 } };
             var array2 = new double[] { 17, 22, 33, 14, 5 };
             var array3 = new double[] { 1, 2, 3, 4 };
 
@@ -21,7 +21,9 @@ namespace MatrixExercise
 
             var matrix3 = new Matrix(matrix2);
 
-            var vectorArray = new Vector[] { new Vector(5), new Vector(array2) };
+            var vectorArray = new Vector[] { new Vector(8), new Vector(array2) };
+
+            Matrix matrix4 = new Matrix(vectorArray);
 
             var vector = matrix3.GetVectorRowByIndex(1);
 

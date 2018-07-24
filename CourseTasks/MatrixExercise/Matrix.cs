@@ -32,19 +32,34 @@ namespace MatrixExercise
 
         public Matrix(double[][] array)
         {
+            var maxLength = 0;
+            for (int i = 0; i < array.GetLength(0); i++)//TODO Подумать, может можно сделать лучше
+            {
+                maxLength = Math.Max(maxLength, array[i].Length);
+            }
+
             rows = new Vector[array.GetLength(0)];
 
             for (int i = 0; i < rows.Length; i++)
             {
-                rows[i] = new Vector(array[i]);
+                rows[i] = new Vector(maxLength, array[i]);
             }
         }
 
         public Matrix(Vector[] vectors)
         {
+            var maxLength = 0;
+
+            foreach (var item in vectors)
+            {
+                maxLength = Math.Max(maxLength, item.GetSize());
+            }
+            rows = new Vector[vectors.Length];
+
             for (int i = 0; i < vectors.Length; i++)
             {
-                rows[i] = new Vector(vectors[i]);
+                rows[i] = new Vector(maxLength);//TODO Можно через статическиую одной операцией, но стоит ли?
+                rows[i].SumVector(vectors[i]);
             }
         }
 
@@ -69,9 +84,15 @@ namespace MatrixExercise
             rows[n] = new Vector(vector);
         }
 
-        public Vector GetVectorColumnByIndex(int n)//TODO НЕ ДОДЕЛАНО!!!
+        public Vector GetVectorColumnByIndex(int n)//TODO Need to check!!!
         {
-            return new Vector(1);
+            var array = new double[rows.Length];
+
+            for (int i = 0; i < rows.Length; i++)
+            {
+                array[i] = rows[i].GetVectorComponentByIndex(n);
+            }
+            return new Vector(array);
         }
 
         public override string ToString()
