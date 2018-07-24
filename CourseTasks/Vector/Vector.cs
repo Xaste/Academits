@@ -58,7 +58,8 @@ namespace VectorExercise
         {
             Array.Resize(ref vectorComponents, Math.Max(this.GetSize(), vector.GetSize()));
 
-            for (int i = 0; i < Math.Min(vector.GetSize(), this.GetSize()); i++)
+            var minLength = Math.Min(vector.GetSize(), this.GetSize());
+            for (int i = 0; i < minLength; i++)
             {
                 vectorComponents[i] += vector.vectorComponents[i];
             }
@@ -68,7 +69,8 @@ namespace VectorExercise
         {
             Array.Resize(ref vectorComponents, Math.Max(this.GetSize(), vector.GetSize()));
 
-            for (int i = 0; i < Math.Min(vector.GetSize(), this.GetSize()); i++)
+            var minLength = Math.Min(vector.GetSize(), this.GetSize());
+            for (int i = 0; i < minLength; i++)
             {
                 vectorComponents[i] -= vector.vectorComponents[i];
             }
@@ -140,7 +142,7 @@ namespace VectorExercise
         {
             var count = Math.Min(first.GetSize(), second.GetSize());
 
-            var result = 0.0;
+            double result = 0;
 
             for (int i = 0; i < count; i++)
             {
