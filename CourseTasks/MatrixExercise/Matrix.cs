@@ -9,38 +9,34 @@ namespace MatrixExercise
 {
     class Matrix
     {
-        public Vector[] Rows { get; set; }
+        private Vector[] rows;
 
         public Matrix(int n, int m)
         {
-            Rows = new Vector[n];
+            rows = new Vector[n];
             for (int i = 0; i < n; i++)
             {
-                Rows[i] = new Vector(m);
+                rows[i] = new Vector(m);
             }
         }
 
         public Matrix(Matrix matrix)
         {
-            Rows = new Vector[matrix.Rows.Length];
+            rows = new Vector[matrix.rows.Length];
 
-            for (int i = 0; i < Rows.Length; i++)
+            for (int i = 0; i < rows.Length; i++)
             {
-                Rows[i] = new Vector(matrix.Rows[i].GetSize());
-
-                for (int j = 0; j < matrix.Rows[i].GetSize(); j++)
-                {
-                    Rows[i].VectorComponents[j] = matrix.Rows[i].VectorComponents[j];
-                }
+                rows[i] = new Vector(matrix.rows[i]);
             }
         }
 
         public Matrix(double[][] array)
         {
-            Rows = new Vector[array.GetLength(0)];
-            for (int i = 0; i < array.GetLength(0); i++)
+            rows = new Vector[array.GetLength(0)];
+
+            for (int i = 0; i < rows.Length; i++)
             {
-                Rows[i] = new Vector(array[i]);
+                rows[i] = new Vector(array[i]);
             }
         }
 
@@ -48,14 +44,14 @@ namespace MatrixExercise
         {
             for (int i = 0; i < vectors.Length; i++)
             {
-                Rows[i] = new Vector(vectors[i]);
+                rows[i] = new Vector(vectors[i]);
             }
         }
 
         public int GetSize()
         {
             var count = 0;
-            foreach (var vector in Rows)
+            foreach (var vector in rows)
             {
                 count += vector.GetSize();
             }
@@ -63,19 +59,34 @@ namespace MatrixExercise
             return count;
         }
 
+        public Vector GetVectorRowByIndex(int n)
+        {
+            return new Vector(rows[n]);
+        }
+
+        public void SetVectorRowByIndex(int n, Vector vector)
+        {
+            rows[n] = new Vector(vector);
+        }
+
+        public Vector GetVectorColumnByIndex(int n)//TODO НЕ ДОДЕЛАНО!!!
+        {
+            return new Vector(1);
+        }
+
         public override string ToString()
         {
-            var arrayStrings = new string[Rows.Length];
+            var arrayStrings = new string[rows.Length];
 
-            for (int i = 0; i < Rows.Length; i++)
+            for (int i = 0; i < rows.Length; i++)
             {
-                arrayStrings[i] = Rows[i].ToString();
+                arrayStrings[i] = rows[i].ToString();
             }
 
             var sb = new StringBuilder();
-            sb.Append("{{ ");
-            sb.Append(string.Join(" }, { ", arrayStrings));
-            sb.Append(" }}");
+            sb.Append("{ ");
+            sb.Append(string.Join(", ", arrayStrings));
+            sb.Append(" }");
             return sb.ToString();
         }
     }
