@@ -109,7 +109,7 @@ namespace VectorExercise
             return vectorComponents[n];
         }
 
-        public void SetVectorCombonentByIndex(int n, double value)
+        public void SetVectorComponentByIndex(int n, double value)
         {
             if (n < 0 || n >= vectorComponents.Length)
             {

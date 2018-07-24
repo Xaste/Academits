@@ -24,7 +24,7 @@ namespace VectorExercise
 
             Console.WriteLine(vector1);
 
-            vector1.SetVectorCombonentByIndex(55, 10);
+            vector1.SetVectorComponentByIndex(0, 10);
             Console.WriteLine(vector1);
 
             var component = vector1.GetVectorComponentByIndex(0);
