@@ -45,6 +45,15 @@ namespace MatrixExercise
 
             double determinant = matrix5.GetDeterminant();
 
+            var array5 = new double[][] { new double[] { 2, 1, 3 }, new double[] { 6, 4, 5 } };
+
+            var array6 = new double[][] { new double[] { 3, 1 }, new double[] { 1, 2 }, new double[] { 5, 3 } };
+
+            var matrix6 = new Matrix(array5);
+            var matrix7 = new Matrix(array6);
+
+            var matrix8 = matrix6.MultiplyMatrix(matrix7);
+
             Console.WriteLine(matrix1);
 
             Console.WriteLine(matrix2);

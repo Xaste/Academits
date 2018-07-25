@@ -19,12 +19,12 @@ namespace MatrixExercise
             }
         }
 
-        public Matrix(int n, int m)
+        public Matrix(int rows, int columns)
         {
-            rows = new Vector[n];
-            for (int i = 0; i < n; i++)
+            this.rows = new Vector[rows];
+            for (int i = 0; i < rows; i++)
             {
-                rows[i] = new Vector(m);
+                this.rows[i] = new Vector(columns);
             }
         }
 
@@ -167,6 +167,30 @@ namespace MatrixExercise
             }
 
             return determinant;
+        }
+
+        public Matrix MultiplyMatrix(Matrix matrix)//TODO Доделать!
+        {
+            if (this.ColumnCount != matrix.rows.Length)
+            {
+                throw new InvalidOperationException("Количество столбцов исходной матрицы должно быть равно количеству строк матрицы множителя.");
+            }
+
+            Matrix answerMatrix = new Matrix(this.rows.Length, matrix.ColumnCount);
+
+            for (int i = 0; i < matrix.ColumnCount; i++)
+            {
+                var component = 0.0;
+
+                for (int j = 0; j < matrix.ColumnCount; j++)//вообще не то
+                {
+                    component += this.rows[i].GetVectorComponentByIndex(j) * matrix.rows[j].GetVectorComponentByIndex(i);
+
+                    answerMatrix.rows[i].SetVectorComponentByIndex(j, component);//Кажется нужно делать через сложение векторов
+                }
+            }
+
+            return answerMatrix;
         }
 
         public override string ToString()
