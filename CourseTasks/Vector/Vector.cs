@@ -76,7 +76,7 @@ namespace VectorExercise
             }
         }
 
-        public void ScalarMultiplication(int scalar)
+        public void ScalarMultiplication(double scalar)
         {
             for (int i = 0; i < this.GetSize(); i++)
             {

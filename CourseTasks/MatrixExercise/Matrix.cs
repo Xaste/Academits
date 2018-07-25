@@ -11,6 +11,14 @@ namespace MatrixExercise
     {
         private Vector[] rows;
 
+        public int ColumnCount
+        {
+            get
+            {
+                return rows[0].GetSize();
+            }
+        }
+
         public Matrix(int n, int m)
         {
             rows = new Vector[n];
@@ -93,6 +101,72 @@ namespace MatrixExercise
                 array[i] = rows[i].GetVectorComponentByIndex(n);
             }
             return new Vector(array);
+        }
+
+        public void TransposeMatrix()
+        {
+            //var ColumnArray = new Vector[MatrixLength];
+            var matrix = new Matrix(this);
+
+            Array.Resize(ref rows, matrix.ColumnCount);
+
+            for (int i = 0; i < matrix.ColumnCount; i++)
+            {
+                this.rows[i] = matrix.GetVectorColumnByIndex(i);
+            }
+        }
+
+        public void MultiplyByScalar(int scalar)
+        {
+            for (int i = 0; i < rows.Length; i++)
+            {
+                rows[i].ScalarMultiplication(scalar);
+            }
+        }
+
+        public double GetDeterminant()
+        {
+            if (rows.Length != this.ColumnCount)
+            {
+                throw new InvalidOperationException("Для нахождения определителя матрица должна быть квадратна");
+            }
+
+            Matrix matrix = new Matrix(this);
+
+            var determinant = 1.0;
+            for (int i = 0; i < matrix.rows.Length - 1; i++)
+            {
+                if (matrix.rows[i].GetVectorComponentByIndex(i) == 0)
+                {
+                    var k = i;
+                    while (matrix.rows[k].GetVectorComponentByIndex(i) == 0)
+                    {
+                        ++k;
+                    }
+
+                    var temp = matrix.rows[i];//Переставляем строку с ненулевым элементом на первую строку (меняем местами)
+                    matrix.rows[i] = matrix.rows[k];
+                    matrix.rows[k] = temp;
+                    determinant *= -1;
+                }
+
+                determinant *= matrix.rows[i].GetVectorComponentByIndex(i);
+
+                for (int j = i + 1; j < rows.Length; j++)
+                {
+                    if (matrix.rows[j].GetVectorComponentByIndex(i) != 0)
+                    {
+                        Vector vector = new Vector(matrix.rows[i]);//неудобно что вектор сам меняется, приходится создавать новый для умножения на скаляр
+
+                        vector.ScalarMultiplication(matrix.rows[j].GetVectorComponentByIndex(i) / matrix.rows[i].GetVectorComponentByIndex(i));
+                        vector.TurnBackVector();
+
+                        matrix.rows[j].SumVector(vector);
+                    }
+                }
+            }
+
+            return determinant;
         }
 
         public override string ToString()
