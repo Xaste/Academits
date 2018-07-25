@@ -22,11 +22,11 @@ namespace MatrixExercise
 
             var matrix3 = new Matrix(matrix2);
 
-            Vector vectorColumn = matrix3.GetVectorColumnByIndex(1);
+            var vectorColumn = matrix3.GetVectorColumnByIndex(1);
 
             var vectorArray = new Vector[] { new Vector(8), new Vector(array2) };
 
-            Matrix matrix4 = new Matrix(vectorArray);
+            var matrix4 = new Matrix(vectorArray);
 
             var a = matrix3.ColumnCount;
             matrix3.TransposeMatrix();
@@ -43,7 +43,7 @@ namespace MatrixExercise
 
             var matrix5 = new Matrix(array4);
 
-            double determinant = matrix5.GetDeterminant();
+            var determinant = matrix5.GetDeterminant();
 
             var array5 = new double[][] { new double[] { 2, 1, 3 }, new double[] { 6, 4, 5 } };
 
@@ -52,7 +52,15 @@ namespace MatrixExercise
             var matrix6 = new Matrix(array5);
             var matrix7 = new Matrix(array6);
 
-            var matrix8 = matrix6.MultiplyMatrix(matrix7);
+            var matrix8 = Matrix.MultiplyByMatrix(matrix6, matrix7);
+
+            var array7 = new double[][] { new double[] { 2, 4, 0 }, new double[] { -2, 1, 3 }, new double[] { -1, 0, 1 } };
+            var array8 = new double[] { 1, 2, -1};
+
+            var matrix9 = new Matrix(array7);
+            var vector3 = new Vector(array8);
+
+            var vector4 = matrix9.MultiplyByVector(vector3);
 
             Console.WriteLine(matrix1);
 

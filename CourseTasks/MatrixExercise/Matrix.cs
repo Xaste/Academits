@@ -22,7 +22,7 @@ namespace MatrixExercise
         public Matrix(int rows, int columns)
         {
             this.rows = new Vector[rows];
-            for (int i = 0; i < rows; i++)
+            for (var i = 0; i < rows; i++)
             {
                 this.rows[i] = new Vector(columns);
             }
@@ -32,7 +32,7 @@ namespace MatrixExercise
         {
             rows = new Vector[matrix.rows.Length];
 
-            for (int i = 0; i < rows.Length; i++)
+            for (var i = 0; i < rows.Length; i++)
             {
                 rows[i] = new Vector(matrix.rows[i]);
             }
@@ -41,14 +41,14 @@ namespace MatrixExercise
         public Matrix(double[][] array)
         {
             var maxLength = 0;
-            for (int i = 0; i < array.GetLength(0); i++)//TODO Подумать, может можно сделать лучше
+            for (var i = 0; i < array.GetLength(0); i++)//TODO Подумать, может можно сделать лучше
             {
                 maxLength = Math.Max(maxLength, array[i].Length);
             }
 
             rows = new Vector[array.GetLength(0)];
 
-            for (int i = 0; i < rows.Length; i++)
+            for (var i = 0; i < rows.Length; i++)
             {
                 rows[i] = new Vector(maxLength, array[i]);
             }
@@ -64,7 +64,7 @@ namespace MatrixExercise
             }
             rows = new Vector[vectors.Length];
 
-            for (int i = 0; i < vectors.Length; i++)
+            for (var i = 0; i < vectors.Length; i++)
             {
                 rows[i] = new Vector(maxLength);//TODO Можно через статическиую одной операцией, но стоит ли?
                 rows[i].SumVector(vectors[i]);
@@ -96,7 +96,7 @@ namespace MatrixExercise
         {
             var array = new double[rows.Length];
 
-            for (int i = 0; i < rows.Length; i++)
+            for (var i = 0; i < rows.Length; i++)
             {
                 array[i] = rows[i].GetVectorComponentByIndex(n);
             }
@@ -105,12 +105,11 @@ namespace MatrixExercise
 
         public void TransposeMatrix()
         {
-            //var ColumnArray = new Vector[MatrixLength];
             var matrix = new Matrix(this);
 
             Array.Resize(ref rows, matrix.ColumnCount);
 
-            for (int i = 0; i < matrix.ColumnCount; i++)
+            for (var i = 0; i < matrix.ColumnCount; i++)
             {
                 this.rows[i] = matrix.GetVectorColumnByIndex(i);
             }
@@ -118,9 +117,9 @@ namespace MatrixExercise
 
         public void MultiplyByScalar(int scalar)
         {
-            for (int i = 0; i < rows.Length; i++)
+            foreach (var vector in rows)
             {
-                rows[i].ScalarMultiplication(scalar);
+                vector.ScalarMultiplication(scalar);
             }
         }
 
@@ -131,15 +130,17 @@ namespace MatrixExercise
                 throw new InvalidOperationException("Для нахождения определителя матрица должна быть квадратна");
             }
 
-            Matrix matrix = new Matrix(this);
+            var matrix = new Matrix(this);
 
             var determinant = 1.0;
-            for (int i = 0; i < matrix.rows.Length - 1; i++)
+
+            const double epsilon = 1E-10;
+            for (var i = 0; i < matrix.rows.Length - 1; i++)
             {
-                if (matrix.rows[i].GetVectorComponentByIndex(i) == 0)
+                if (Math.Abs(matrix.rows[i].GetVectorComponentByIndex(i)) < epsilon)
                 {
                     var k = i;
-                    while (matrix.rows[k].GetVectorComponentByIndex(i) == 0)
+                    while (Math.Abs(matrix.rows[k].GetVectorComponentByIndex(i)) < epsilon)
                     {
                         ++k;
                     }
@@ -152,43 +153,95 @@ namespace MatrixExercise
 
                 determinant *= matrix.rows[i].GetVectorComponentByIndex(i);
 
-                for (int j = i + 1; j < rows.Length; j++)
+                for (var j = i + 1; j < rows.Length; j++)
                 {
-                    if (matrix.rows[j].GetVectorComponentByIndex(i) != 0)
-                    {
-                        Vector vector = new Vector(matrix.rows[i]);//неудобно что вектор сам меняется, приходится создавать новый для умножения на скаляр
+                    if (Math.Abs(matrix.rows[j].GetVectorComponentByIndex(i)) < epsilon) continue;
 
-                        vector.ScalarMultiplication(matrix.rows[j].GetVectorComponentByIndex(i) / matrix.rows[i].GetVectorComponentByIndex(i));
-                        vector.TurnBackVector();
+                    var vector = new Vector(matrix.rows[i]);//неудобно что вектор сам меняется, приходится создавать новый для умножения на скаляр
 
-                        matrix.rows[j].SumVector(vector);
-                    }
+                    vector.ScalarMultiplication(matrix.rows[j].GetVectorComponentByIndex(i) / matrix.rows[i].GetVectorComponentByIndex(i));
+                    vector.TurnBackVector();
+
+                    matrix.rows[j].SumVector(vector);
                 }
             }
 
             return determinant;
         }
 
-        public Matrix MultiplyMatrix(Matrix matrix)//TODO Доделать!
+        public static Matrix MultiplyByMatrix(Matrix first, Matrix second)
         {
-            if (this.ColumnCount != matrix.rows.Length)
+            if (first.ColumnCount != second.rows.Length)
             {
                 throw new InvalidOperationException("Количество столбцов исходной матрицы должно быть равно количеству строк матрицы множителя.");
             }
 
-            Matrix answerMatrix = new Matrix(this.rows.Length, matrix.ColumnCount);
+            var answerMatrix = new Matrix(first.rows.Length, second.ColumnCount);
 
-            for (int i = 0; i < matrix.ColumnCount; i++)
+            for (var i = 0; i < answerMatrix.rows.Length; i++)
             {
-                var component = 0.0;
-
-                for (int j = 0; j < matrix.ColumnCount; j++)//вообще не то
+                for (var j = 0; j < answerMatrix.ColumnCount; j++)
                 {
-                    component += this.rows[i].GetVectorComponentByIndex(j) * matrix.rows[j].GetVectorComponentByIndex(i);
+                    var component = Vector.ScalarMultiply((first.GetVectorRowByIndex(i)), second.GetVectorColumnByIndex(j));
 
-                    answerMatrix.rows[i].SetVectorComponentByIndex(j, component);//Кажется нужно делать через сложение векторов
+                    answerMatrix.rows[i].SetVectorComponentByIndex(j, component);
                 }
             }
+
+            return answerMatrix;
+        }
+
+        public Vector MultiplyByVector(Vector vector)
+        {
+            var answerVector = new Vector(this.rows.Length);
+
+            for (var i = 0; i < answerVector.GetSize(); i++)
+            {
+                answerVector.SetVectorComponentByIndex(i, Vector.ScalarMultiply(this.rows[i], vector));
+            }
+
+            return answerVector;
+        }
+
+        public void AddMatrix(Matrix matrix)
+        {
+            if (this.rows.Length != matrix.rows.Length || this.ColumnCount != matrix.ColumnCount)
+            {
+                throw new InvalidOperationException("Матрицы должны быть одинаковой размерности!");
+            }
+
+            for (var i = 0; i < this.rows.Length; i++)
+            {
+                this.rows[i].SumVector(matrix.GetVectorRowByIndex(i));
+                this.rows[i].SumVector(matrix.rows[i]);
+            }
+        }
+
+        public static Matrix MatrixAddition(Matrix first, Matrix second)
+        {
+            var answerMatrix = new Matrix(first);
+            answerMatrix.AddMatrix(second);
+
+            return answerMatrix;
+        }
+
+        public void SubtractionMatrix(Matrix matrix)
+        {
+            if (this.rows.Length != matrix.rows.Length || this.ColumnCount != matrix.ColumnCount)
+            {
+                throw new InvalidOperationException("Матрицы должны быть одинаковой размерности!");
+            }
+
+            for (var i = 0; i < this.rows.Length; i++)
+            {
+                this.rows[i].SubVector(matrix.rows[i]);
+            }
+        }
+
+        public static Matrix MatrixSubtraction(Matrix first, Matrix second)
+        {
+            var answerMatrix = new Matrix(first);
+            answerMatrix.SubtractionMatrix(second);
 
             return answerMatrix;
         }
@@ -197,7 +250,7 @@ namespace MatrixExercise
         {
             var arrayStrings = new string[rows.Length];
 
-            for (int i = 0; i < rows.Length; i++)
+            for (var i = 0; i < rows.Length; i++)
             {
                 arrayStrings[i] = rows[i].ToString();
             }
