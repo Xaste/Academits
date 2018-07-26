@@ -115,7 +115,6 @@ namespace MatrixExercise
             if (vector.GetSize() == ColumnCount)
             {
                 rows[n] = new Vector(vector);
-
             }
             else
             {
@@ -187,7 +186,7 @@ namespace MatrixExercise
                     var temp = matrix.rows[i];//Переставляем строку с ненулевым элементом на первую строку (меняем местами)
                     matrix.rows[i] = matrix.rows[k];
                     matrix.rows[k] = temp;
-                    determinant *= -1;
+                    determinant *= -1;//С каждой перестановкой знак определителя меняется
                 }
 
                 determinant *= matrix.rows[i].GetVectorComponentByIndex(i);
