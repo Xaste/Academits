@@ -52,7 +52,7 @@ namespace MatrixExercise
             var matrix6 = new Matrix(array5);
             var matrix7 = new Matrix(array6);
 
-            var matrix8 = Matrix.MultiplyByMatrix(matrix6, matrix7);
+            var matrix8 = Matrix.MultiplyMatrixs(matrix6, matrix7);
 
             var array7 = new double[][] { new double[] { 2, 4, 0 }, new double[] { -2, 1, 3 }, new double[] { -1, 0, 1 } };
             var array8 = new double[] { 1, 2, -1};

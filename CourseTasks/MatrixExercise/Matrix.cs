@@ -207,7 +207,7 @@ namespace MatrixExercise
             return determinant;
         }
 
-        public static Matrix MultiplyByMatrix(Matrix first, Matrix second)
+        public static Matrix MultiplyMatrixs(Matrix first, Matrix second)
         {
             if (first.ColumnCount != second.RowsCount)
             {
