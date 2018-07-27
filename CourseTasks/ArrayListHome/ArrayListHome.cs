@@ -12,27 +12,33 @@ namespace ArrayListHome
         static void Main(string[] args)
         {
             var arrayList = new List<string>();
-
-            using (StreamReader reader = new StreamReader("input.txt"))
+            try
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                using (StreamReader reader = new StreamReader("input.txt"))
                 {
-                    arrayList.Add(line);
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        arrayList.Add(line);
+                    }
                 }
             }
-
-            var arrayListInt = new List<int>() { 1, 22, 15, 17, 338 };
-
-            for (int i = 0; i < arrayListInt.Count; i++)
+            catch (FileNotFoundException)
             {
-                if (arrayListInt[i] % 2 == 0)
+                Console.WriteLine("Файл input.txt не найден.");
+            }
+
+            var arrayListInt = new List<int> { 1, 22, 15, 17, 338, 0, 17, 22 };
+
+            for (var i = 0; i < arrayListInt.Count; i++)
+            {
+                if (arrayListInt[i] % 2 == 0 && arrayListInt[i] != 0)
                 {
                     arrayListInt.RemoveAt(i);
                 }
             }
 
-            var arrayListRepeat = new List<int>() { 1, 5, 2, 1, 3, 5 };
+            var arrayListRepeat = new List<int> { 1, 5, 2, 1, 3, 5 };
 
             var arrayListNoRepeat = new List<int>();
 
