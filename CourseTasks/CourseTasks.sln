@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorUnitTests", "VectorUn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixExercise", "MatrixExercise\MatrixExercise.csproj", "{C50ADA68-C081-42F4-88F9-2B23A5B52E79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArrayListHome", "ArrayListHome\ArrayListHome.csproj", "{2B58C34E-C1CA-4575-B253-714C4E73BF3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C50ADA68-C081-42F4-88F9-2B23A5B52E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C50ADA68-C081-42F4-88F9-2B23A5B52E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C50ADA68-C081-42F4-88F9-2B23A5B52E79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B58C34E-C1CA-4575-B253-714C4E73BF3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B58C34E-C1CA-4575-B253-714C4E73BF3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B58C34E-C1CA-4575-B253-714C4E73BF3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B58C34E-C1CA-4575-B253-714C4E73BF3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
