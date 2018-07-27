@@ -28,13 +28,14 @@ namespace ArrayListHome
                 Console.WriteLine("Файл input.txt не найден.");
             }
 
-            var arrayListInt = new List<int> { 1, 22, 15, 17, 338, 0, 17, 22 };
+            var arrayListInt1 = new List<int> { 2, 22, 15, 17, 338, 0, 17, 22 };
 
-            for (var i = 0; i < arrayListInt.Count; i++)
+            for (var i = 0; i < arrayListInt1.Count; i++)
             {
-                if (arrayListInt[i] % 2 == 0 && arrayListInt[i] != 0)
+                if (arrayListInt1[i] % 2 == 0)
                 {
-                    arrayListInt.RemoveAt(i);
+                    arrayListInt1.RemoveAt(i);
+                    --i;
                 }
             }
 
