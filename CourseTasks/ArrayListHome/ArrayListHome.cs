@@ -12,6 +12,7 @@ namespace ArrayListHome
         static void Main(string[] args)
         {
             var arrayList = new List<string>();
+
             using (StreamReader reader = new StreamReader("input.txt"))
             {
                 string line;
@@ -41,6 +42,7 @@ namespace ArrayListHome
                 {
                     continue;
                 }
+
                 arrayListNoRepeat.Add(item);
             }
         }
