@@ -30,6 +30,11 @@ namespace MatrixExercise
 
         public Matrix(int rows, int columns)
         {
+            if (rows <=0 || columns <= 0)
+            {
+                throw new ArgumentException("Число столбцов или колонок не может быть 0");
+            }
+
             this.rows = new Vector[rows];
             for (var i = 0; i < rows; i++)
             {
