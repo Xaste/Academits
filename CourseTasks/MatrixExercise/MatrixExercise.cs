@@ -13,12 +13,17 @@ namespace MatrixExercise
         {
             var matrix1 = new Matrix(5, 4);
 
-            var array1 = new double[][] { new double[] { 1, 2, 3 }, new double[] { 0, 2, 3, 4 }, new double[] { 1, 2 }, new double[] { 1, 2, 3, 4, 5, 6 } };
+            //var array1 = new double[][] { new double[] { 1, 2, 3 }, new double[] { 2, 3, 4 }, new double[] { 1, 2, 3 }, new double[] { 1, 2, 3 } };
+            var array1 = new double[,] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }, { 10, 11, 12 } };
+            var array11 = new double[,] { { 1, 2, 3 }, { 2, 3, 4 }, { 5, 6, 7 }, { 8, 9, 10 } };
             var array2 = new double[] { 17, 22, 33, 14, 5 };
             var array3 = new double[] { 1, 2, 3, 4 };
             var array4 = new double[][] { new double[] { 0, 0, 1, 1 }, new double[] { 2, 2, 2, 2 }, new double[] { 3, 3, 0, 3 }, new double[] { 0, 4, 0, 4 } };
 
             var matrix2 = new Matrix(array1);
+            var matrix22 = new Matrix(array11);
+
+            var matrix33 = Matrix.MatrixAddition(matrix2, matrix22);
 
             var matrix3 = new Matrix(matrix2);
 
@@ -28,7 +33,9 @@ namespace MatrixExercise
 
             var matrix4 = new Matrix(vectorArray);
 
-            var a = matrix3.ColumnCount;
+            var a = matrix3.ColumnsCount;
+            matrix3.TransposeMatrix();
+
             matrix3.TransposeMatrix();
 
             matrix3.MultiplyByScalar(5);
@@ -41,26 +48,26 @@ namespace MatrixExercise
 
             vector2 = matrix3.GetVectorRowByIndex(1);
 
-            var matrix5 = new Matrix(array4);
+            //var matrix5 = new Matrix(array4);
 
-            var determinant = matrix5.GetDeterminant();
+            //var determinant = matrix5.GetDeterminant();
 
             var array5 = new double[][] { new double[] { 2, 1, 3 }, new double[] { 6, 4, 5 } };
 
             var array6 = new double[][] { new double[] { 3, 1 }, new double[] { 1, 2 }, new double[] { 5, 3 } };
 
-            var matrix6 = new Matrix(array5);
-            var matrix7 = new Matrix(array6);
+            //var matrix6 = new Matrix(array5);
+            //var matrix7 = new Matrix(array6);
 
-            var matrix8 = Matrix.MultiplyMatrixs(matrix6, matrix7);
+            //var matrix8 = Matrix.MultiplyMatrixs(matrix6, matrix7);
 
             var array7 = new double[][] { new double[] { 2, 4, 0 }, new double[] { -2, 1, 3 }, new double[] { -1, 0, 1 } };
             var array8 = new double[] { 1, 2, -1};
 
-            var matrix9 = new Matrix(array7);
+            //var matrix9 = new Matrix(array7);
             var vector3 = new Vector(array8);
 
-            var vector4 = matrix9.MultiplyByVector(vector3);
+            //var vector4 = matrix9.MultiplyByVector(vector3);
 
             Console.WriteLine(matrix1);
 

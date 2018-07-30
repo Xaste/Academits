@@ -152,6 +152,25 @@ namespace VectorExercise
             return result;
         }
 
+        public void TrimVector()
+        {
+            var size = 0;
+
+            for (var i = 1; i < this.GetSize(); i++)
+            {
+                if (vectorComponents[i] != 0)
+                {
+                    size = i + 1;
+                }
+            }
+            if (size == 0)
+            {
+                return;
+            }
+
+            Array.Resize(ref vectorComponents, size);
+        }
+
         public override string ToString()
         {
             var sb = new StringBuilder();
