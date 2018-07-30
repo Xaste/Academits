@@ -17,7 +17,7 @@ namespace MatrixExercise
             var array1 = new double[,] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }, { 10, 11, 12 } };
             var array11 = new double[,] { { 1, 2, 3 }, { 2, 3, 4 }, { 5, 6, 7 }, { 8, 9, 10 } };
             var array2 = new double[] { 17, 22, 33, 14, 5 };
-            var array3 = new double[] { 1, 2, 3, 4 };
+            var array3 = new double[] { 1, 2, 3};
             var array4 = new double[][] { new double[] { 0, 0, 1, 1 }, new double[] { 2, 2, 2, 2 }, new double[] { 3, 3, 0, 3 }, new double[] { 0, 4, 0, 4 } };
 
             var matrix2 = new Matrix(array1);

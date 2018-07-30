@@ -7,7 +7,7 @@ using VectorExercise;
 
 namespace MatrixExercise
 {
-    class Matrix
+    public class Matrix
     {
         private Vector[] rows;
 
@@ -209,7 +209,7 @@ namespace MatrixExercise
             var determinant = 1.0;
 
             const double epsilon = 1E-10;
-            for (var i = 0; i < matrix.RowsCount - 1; i++)
+            for (var i = 0; i < matrix.RowsCount; i++)
             {
                 if (Math.Abs(matrix.rows[i].GetVectorComponentByIndex(i)) < epsilon)
                 {
