@@ -10,11 +10,40 @@ namespace ListExercise
     {
         private ListItem<T> head;
 
-        public MyList(T data)
+        public MyList(params T[] data)
         {
-            head = new ListItem<T>(data);
+            head = new ListItem<T>(data[0], new ListItem<T>());
+            var p = head.GetNext();
+
+            for (var i = 1; i < data.Length; i++)
+            {
+                p.SetData(data[i]);
+
+                if (i < data.Length - 1)
+                {
+                    p.SetNext(new ListItem<T>());
+                    p = p.GetNext();
+                }
+            }
         }
 
-        //public SetNext
+        public int GetListLength()
+        {
+            var count = 1;
+            var p = head;
+
+            while (p.GetNext() != null)
+            {
+                ++count;
+                p = p.GetNext();
+            }
+
+            return count;
+        }
+
+        public T GetFirstElement()
+        {
+            return head.GetData();
+        }
     }
 }
