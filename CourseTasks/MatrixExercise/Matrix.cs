@@ -44,6 +44,11 @@ namespace MatrixExercise
 
         public Matrix(Matrix matrix)
         {
+            if (matrix.RowsCount == 0 || matrix.ColumnsCount == 0)
+            {
+                throw new ArgumentException("Число столбцов или колонок не может быть 0");
+            }
+
             rows = new Vector[matrix.RowsCount];
 
             for (var i = 0; i < RowsCount; i++)
@@ -123,9 +128,7 @@ namespace MatrixExercise
             }
             else
             {
-                var tempVector = new Vector(vector);
-                tempVector.SumVector(new Vector(ColumnsCount));
-                rows[n] = tempVector;
+                rows[n] = new Vector(vector);
             }
         }
 
@@ -148,44 +151,26 @@ namespace MatrixExercise
 
         public void TransposeMatrix()
         {
-            var isNeedRowsIncrease = false;
-            if (ColumnsCount > RowsCount)
+            var columnArray = new Vector[ColumnsCount];
+
+            for (var i = 0; i < ColumnsCount; i++)
             {
-                Array.Resize(ref rows, ColumnsCount);
-                rows[ColumnsCount - 1] = new Vector(ColumnsCount);
-            }
-            else
-            {
-                isNeedRowsIncrease = true;
+                columnArray[i] = this.GetVectorColumnByIndex(i);
             }
 
-            var startColumns = ColumnsCount;
-            var startRows = RowsCount;
+            bool isNeedResize = ColumnsCount < RowsCount;
 
-            for (var i = 0; i < startColumns; i++)
+            Array.Resize(ref rows, ColumnsCount);
+
+            var beforeColumnCount = ColumnsCount;
+            for (var i = 0; i < beforeColumnCount; i++)
             {
-
-                if (isNeedRowsIncrease)
-                {
-                    rows[i].SubVector(new Vector(RowsCount));
-                }
-
-                for (var j = i + 1; j < startRows; j++)
-                {
-                    var temp = rows[i].GetVectorComponentByIndex(j);
-                    rows[i].SetVectorComponentByIndex(j, rows[j].GetVectorComponentByIndex(i));
-                    rows[j].SetVectorComponentByIndex(i, temp);
-                }
-
-                if (!isNeedRowsIncrease)
-                {
-                    rows[i].TrimVector();
-                }
+                rows[i] = columnArray[i];
             }
 
-            if (startRows != startColumns && isNeedRowsIncrease)
+            if (isNeedResize)
             {
-                Array.Resize(ref rows, startColumns);
+                Array.Resize(ref rows, beforeColumnCount);
             }
         }
 
@@ -259,7 +244,7 @@ namespace MatrixExercise
             {
                 for (var j = 0; j < answerMatrix.ColumnsCount; j++)
                 {
-                    var component = Vector.ScalarMultiply((first.rows[i]), second.GetVectorColumnByIndex(j));
+                    var component = Vector.ScalarMultiply(first.rows[i], second.GetVectorColumnByIndex(j));
 
                     answerMatrix.rows[i].SetVectorComponentByIndex(j, component);
                 }
@@ -339,17 +324,18 @@ namespace MatrixExercise
 
         public override string ToString()
         {
-            var arrayStrings = new string[RowsCount];
-
-            for (var i = 0; i < RowsCount; i++)
-            {
-                arrayStrings[i] = rows[i].ToString();
-            }
-
             var sb = new StringBuilder();
             sb.Append("{ ");
-            sb.Append(string.Join(", ", arrayStrings));
+
+            for (var i = 0; i < RowsCount - 1; i++)
+            {
+                sb.Append(rows[i].ToString());
+                sb.Append(", ");
+            }
+
+            sb.Append(rows[RowsCount - 1]).ToString();
             sb.Append(" }");
+
             return sb.ToString();
         }
     }
