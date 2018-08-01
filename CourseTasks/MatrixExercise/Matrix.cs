@@ -90,7 +90,7 @@ namespace MatrixExercise
 
             if (maxLength == 0)
             {
-                throw new ArgumentException("В массиве векторов нет ни одно вектора ненулевого размера")
+                throw new ArgumentException("В массиве векторов нет ни одно вектора ненулевого размера");
             }
 
             rows = new Vector[vectors.Length];
