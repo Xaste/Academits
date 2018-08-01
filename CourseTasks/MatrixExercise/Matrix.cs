@@ -27,7 +27,6 @@ namespace MatrixExercise
             }
         }
 
-
         public Matrix(int rows, int columns)
         {
             if (rows <= 0 || columns <= 0)
@@ -152,13 +151,7 @@ namespace MatrixExercise
                 columnArray[i] = this.GetVectorColumnByIndex(i);
             }
 
-            Array.Resize(ref rows, ColumnsCount);
-
-            for (var i = 0; i < columnArray.Length; i++)
-            {
-                rows[i] = columnArray[i];
-            }
-
+            rows = columnArray;
         }
 
         public void MultiplyByScalar(double scalar)
