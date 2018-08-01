@@ -9,15 +9,54 @@ namespace ArrayListExercise
 {
     class MyList<T> : IList<T>
     {
-        public T this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private T[] items = new T[10];
+        private int length;
 
-        public int Count => throw new NotImplementedException();
+        public int Count
+        {
+            get
+            {
+                return length;
+            }
+        }
+
+        public T this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= length)
+                {
+                    throw new ArgumentOutOfRangeException("Элемента с таким индексом не существует");
+                }
+                return items[index];
+            }
+
+            set
+            {
+                if (index < 0 || index >= length)
+                {
+                    throw new ArgumentOutOfRangeException("Элемента с таким индексом не существует");
+                }
+                items[index] = value;
+            }
+        }
 
         public bool IsReadOnly => throw new NotImplementedException();
 
         public void Add(T item)
         {
-            throw new NotImplementedException();
+            if (length >= items.Length)
+            {
+                IncreaseCapacity();
+            }
+
+            items[length] = item;
+            ++length;
+        }
+
+        private void IncreaseCapacity()
+        {
+            Array.Resize(ref items, items.Length * 2);
         }
 
         public void Clear()
