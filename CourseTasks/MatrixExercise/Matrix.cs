@@ -44,11 +44,6 @@ namespace MatrixExercise
 
         public Matrix(Matrix matrix)
         {
-            if (matrix.RowsCount == 0 || matrix.ColumnsCount == 0)
-            {
-                throw new ArgumentException("Число столбцов или колонок не может быть 0");
-            }
-
             rows = new Vector[matrix.RowsCount];
 
             for (var i = 0; i < RowsCount; i++)
@@ -92,6 +87,12 @@ namespace MatrixExercise
             {
                 maxLength = Math.Max(maxLength, item.GetSize());
             }
+
+            if (maxLength == 0)
+            {
+                throw new ArgumentException("В массиве векторов нет ни одно вектора ненулевого размера")
+            }
+
             rows = new Vector[vectors.Length];
 
             for (var i = 0; i < vectors.Length; i++)
@@ -122,14 +123,7 @@ namespace MatrixExercise
                 throw new ArgumentException("Вектор не соответствует размерам матрицы");
             }
 
-            if (vector.GetSize() == ColumnsCount)
-            {
-                rows[n] = new Vector(vector);
-            }
-            else
-            {
-                rows[n] = new Vector(vector);
-            }
+            rows[n] = new Vector(vector);
         }
 
         public Vector GetVectorColumnByIndex(int n)
@@ -158,20 +152,13 @@ namespace MatrixExercise
                 columnArray[i] = this.GetVectorColumnByIndex(i);
             }
 
-            bool isNeedResize = ColumnsCount < RowsCount;
-
             Array.Resize(ref rows, ColumnsCount);
 
-            var beforeColumnCount = ColumnsCount;
-            for (var i = 0; i < beforeColumnCount; i++)
+            for (var i = 0; i < columnArray.Length; i++)
             {
                 rows[i] = columnArray[i];
             }
 
-            if (isNeedResize)
-            {
-                Array.Resize(ref rows, beforeColumnCount);
-            }
         }
 
         public void MultiplyByScalar(double scalar)
