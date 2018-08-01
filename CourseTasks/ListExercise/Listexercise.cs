@@ -13,7 +13,7 @@ namespace ListExercise
         {
             var list = new MyList<int>(new int[] { 1, 2, 3, 4, 5 });
 
-            var length = list.GetListLength();
+            var length = list.ListLength;
             Console.WriteLine(length);
             Console.WriteLine();
 
@@ -53,6 +53,13 @@ namespace ListExercise
             list.ReverseList();
 
             var list2 = new MyList<int>(list);
+
+            var list3 = new MyList<int>(new int[] { 1 });
+            list3.RemoveElementByData(1);
+            list3.InsertFirstElement(1);
+            list3.RemoveElementByIndex(0);
+            list3.InsertElementByIndex(0, 1);
+            list3.RemoveFirstElement();
         }
     }
 }

@@ -11,6 +11,8 @@ namespace ListExercise
         private T data;
         private ListItem<T> next;
 
+        public T Data { get => data; set => data = value; }
+
         public ListItem()
         {
 
@@ -18,23 +20,13 @@ namespace ListExercise
 
         public ListItem(T data)
         {
-            this.data = data;
+            this.Data = data;
         }
 
         public ListItem(T data, ListItem<T> next)
         {
-            this.data = data;
+            this.Data = data;
             this.next = next;
-        }
-
-        public T GetData()
-        {
-            return data;
-        }
-
-        public void SetData(T data)
-        {
-            this.data = data;
         }
 
         public ListItem<T> GetNext()

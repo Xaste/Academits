@@ -10,64 +10,86 @@ namespace ListExercise
     {
         private ListItem<T> head;
 
+        private int listLength;
+
+        public int ListLength
+        {
+            get => listLength;
+        }
+
         public MyList(params T[] data)
         {
-            head = new ListItem<T>(data[0], new ListItem<T>());
-            var p = head.GetNext();
-
-            for (var i = 1; i < data.Length; i++)
+            if (data.Length == 1)
             {
-                p.SetData(data[i]);
+                head = new ListItem<T>(data[0], null);
+            }
+            else
+            {
+                head = new ListItem<T>(data[0], new ListItem<T>());
+                var p = head.GetNext();
 
-                if (i < data.Length - 1)
+                for (var i = 1; i < data.Length; i++)
                 {
-                    p.SetNext(new ListItem<T>());
-                    p = p.GetNext();
+                    p.Data = data[i];
+
+                    if (i < data.Length - 1)
+                    {
+                        p.SetNext(new ListItem<T>());
+                        p = p.GetNext();
+                    }
                 }
             }
+
+            listLength = data.Length;
         }
 
         public MyList(MyList<T> list)
         {
-            head = new ListItem<T>(list.head.GetData(), new ListItem<T>());
+            head = new ListItem<T>(list.head.Data, new ListItem<T>());
             var p = head.GetNext();
 
-            for (var i = 1; i < list.GetListLength(); i++)
+            for (var i = 1; i < list.ListLength; i++)
             {
-                p.SetData(list.GetElementByIndex(i));
+                p.Data = list.GetElementByIndex(i);
 
-                if (i < list.GetListLength() - 1)
+                if (i < list.ListLength - 1)
                 {
                     p.SetNext(new ListItem<T>());
                     p = p.GetNext();
                 }
             }
+
+            this.listLength = list.ListLength;
         }
 
-        public int GetListLength()
+        private ListItem<T> GetLink(int index)
         {
-            var count = 1;
+            var n = 0;
             var p = head;
 
-            while (p.GetNext() != null)
+            while (n != index)
             {
-                ++count;
+                ++n;
                 p = p.GetNext();
             }
 
-            return count;
+            return p;
         }
 
         public T GetFirstElement()
         {
-            return head.GetData();
+            if (ReferenceEquals(head, null))
+            {
+                throw new InvalidOperationException("Список пуст");
+            }
+            return head.Data;
         }
 
         public T GetElementByIndex(int n)
         {
-            if (n < 0 || n >= GetListLength())
+            if (n < 0 || n >= ListLength)
             {
-                throw new IndexOutOfRangeException("В списке нет элемента с таим индексом");
+                throw new IndexOutOfRangeException("В списке нет элемента с таким индексом");
             }
 
             if (n == 0)
@@ -75,127 +97,112 @@ namespace ListExercise
                 return GetFirstElement();
             }
 
-            var index = 0;
-            var p = head;
+            return GetLink(n).Data;
 
-            while (index != n)
-            {
-                ++index;
-                p = p.GetNext();
-            }
-
-            return p.GetData();
         }
 
         public T SetElementByIndex(int n, T newData)
         {
-            if (n < 0 || n >= GetListLength())
+            if (n < 0 || n >= ListLength)
             {
-                throw new IndexOutOfRangeException("В списке нет элемента с таим индексом");
+                throw new IndexOutOfRangeException("В списке нет элемента с таким индексом");
             }
 
-            var index = 0;
-            var p = head;
+            var p = GetLink(n);
 
-            while (index != n)
-            {
-                ++index;
-                p = p.GetNext();
-            }
-
-            var oldData = p.GetData();
-            p.SetData(newData);
+            var oldData = p.Data;
+            p.Data = newData;
 
             return oldData;
         }
 
         public T RemoveElementByIndex(int n)
         {
-            if (n < 0 || n >= GetListLength())
+            if (n < 0 || n >= ListLength)
             {
-                throw new IndexOutOfRangeException("В списке нет элемента с таим индексом");
+                throw new IndexOutOfRangeException("В списке нет элемента с таким индексом");
             }
+
             if (n == 0)
             {
                 return RemoveFirstElement();
             }
 
-            var index = 0;
-            var p = head;
-            var previous = p;
+            var p = GetLink(n - 1);
 
-            while (index != n)
-            {
-                ++index;
-                previous = p;
-                p = p.GetNext();
-            }
+            var deleteValue = p.GetNext().Data;
 
-            previous.SetNext(p.GetNext());
+            p.SetNext(p.GetNext().GetNext());
 
-            return p.GetData();
+            --listLength;
+
+            return deleteValue;
         }
 
         public void InsertFirstElement(T data)
         {
             head = new ListItem<T>(data, head);
+
+            ++listLength;
         }
 
         public void InsertElementByIndex(int n, T data)
         {
-            if (n < 0 || n >= GetListLength())
-            {
-                throw new IndexOutOfRangeException("В списке нет элемента с таим индексом");
-            }
-
-            var index = 0;
-            var p = head;
-            var previous = p;
 
             if (n == 0)
             {
                 InsertFirstElement(data);
+                return;
+            }
+
+            if (n < 0 || n > ListLength)
+            {
+                throw new IndexOutOfRangeException("В списке нет элемента с таким индексом");
             }
             else
             {
-                while (index != n)
-                {
-                    ++index;
-                    previous = p;
-                    p = p.GetNext();
-                }
-
-                var insert = new ListItem<T>(data, p);
-                previous.SetNext(insert);
+                var p = GetLink(n - 1);
+                var insert = new ListItem<T>(data, p.GetNext());
+                p.SetNext(insert);
+                ++listLength;
             }
+        }
+
+        private ListItem<T> GetLink(T data, out int index)
+        {
+            var p = head;
+            index = 0;
+
+            while (!(ReferenceEquals(p, null)) && !(p.Data.Equals(data)))
+            {
+                ++index;
+                p = p.GetNext();
+            }
+
+            return p;
         }
 
         public bool RemoveElementByData(T data)
         {
-            var p = head;
-            var index = 0;
-            var previous = p;
-
-            while (!(p is null) && !(p.GetData().Equals(data)))
-            {
-                ++index;
-                previous = p;
-                p = p.GetNext();
-            }
+            var p = GetLink(data, out int index);
 
             if (p == null)
             {
                 return false;
             }
 
-            this.RemoveElementByIndex(index);
+            RemoveElementByIndex(index);
+
             return true;
         }
 
         public T RemoveFirstElement()
         {
-            var answer = head.GetData();
+            var answer = head.Data;
             head = head.GetNext();
+
+            --listLength;
+
             return answer;
         }
 
@@ -225,7 +232,7 @@ namespace ListExercise
 
             for (var p = head; p != null; p = p.GetNext())
             {
-                sb.Append(p.GetData());
+                sb.Append(p.Data);
                 sb.Append(" ");
             }
 
