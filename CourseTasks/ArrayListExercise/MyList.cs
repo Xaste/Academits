@@ -56,17 +56,36 @@ namespace ArrayListExercise
 
         private void IncreaseCapacity()
         {
-            Array.Resize(ref items, items.Length * 2);
+            const int minLengthIncrease = 10;
+
+            if (items.Length < minLengthIncrease / 2)
+            {
+                Array.Resize(ref items, minLengthIncrease);
+            }
+            else
+            {
+                Array.Resize(ref items, items.Length * 2);
+            }
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            Array.Resize(ref items, 0);
+
+            length = 0;
         }
 
         public bool Contains(T item)
         {
-            throw new NotImplementedException();
+            foreach (var e in items)
+            {
+                if (e.Equals(item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -96,7 +115,12 @@ namespace ArrayListExercise
 
         public void RemoveAt(int index)
         {
-            throw new NotImplementedException();
+            if (index < 0 || index >= length)
+            {
+                throw new ArgumentOutOfRangeException("Элемента с таким индексом не существует");
+            }
+
+
         }
 
         IEnumerator IEnumerable.GetEnumerator()
