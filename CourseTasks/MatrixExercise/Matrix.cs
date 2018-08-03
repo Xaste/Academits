@@ -179,7 +179,7 @@ namespace MatrixExercise
                 if (Math.Abs(matrix.rows[i].GetVectorComponentByIndex(i)) < epsilon)
                 {
                     var k = i;
-                    while (Math.Abs(matrix.rows[k].GetVectorComponentByIndex(i)) < epsilon)
+                    while (Math.Abs(matrix.rows[k].GetVectorComponentByIndex(i)) < epsilon)//TODO Если все нули нужно продумать!!!!
                     {
                         ++k;
                     }
