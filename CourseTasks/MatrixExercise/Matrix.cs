@@ -182,6 +182,11 @@ namespace MatrixExercise
                     while (Math.Abs(matrix.rows[k].GetVectorComponentByIndex(i)) < epsilon)//TODO Если все нули нужно продумать!!!!
                     {
                         ++k;
+
+                        if (k == matrix.RowsCount)
+                        {
+                            return 0;
+                        }
                     }
 
                     var temp = matrix.rows[i];//Переставляем строку с ненулевым элементом на первую строку (меняем местами)
