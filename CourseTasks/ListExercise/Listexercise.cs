@@ -21,7 +21,7 @@ namespace ListExercise
             Console.WriteLine(firstElement);
             Console.WriteLine();
 
-            var thirdElement = list.GetElementByIndex(2);
+            var thirdElement = list.GetElementByIndex(0);
             Console.WriteLine(thirdElement);
             Console.WriteLine();
 
@@ -52,6 +52,9 @@ namespace ListExercise
 
             list.ReverseList();
 
+            Console.WriteLine(list);
+            Console.WriteLine();
+
             var list2 = new MyList<int>(list);
 
             var list3 = new MyList<int>(new int[] { 1 });
@@ -60,6 +63,10 @@ namespace ListExercise
             list3.RemoveElementByIndex(0);
             list3.InsertElementByIndex(0, 1);
             list3.RemoveFirstElement();
+
+            var list4 = new MyList<int>(list3);
+
+            var list5 = new MyList<int>(new int[] { });
         }
     }
 }

@@ -8,10 +8,9 @@ namespace ListExercise
 {
     class ListItem<T>
     {
-        private T data;
-        private ListItem<T> next;
+        public ListItem<T> Next { get; set; }
 
-        public T Data { get => data; set => data = value; }
+        public T Data { get; set; }
 
         public ListItem()
         {
@@ -26,17 +25,7 @@ namespace ListExercise
         public ListItem(T data, ListItem<T> next)
         {
             this.Data = data;
-            this.next = next;
-        }
-
-        public ListItem<T> GetNext()
-        {
-            return next;
-        }
-
-        public void SetNext(ListItem<T> next)
-        {
-            this.next = next;
+            this.Next = next;
         }
     }
 }

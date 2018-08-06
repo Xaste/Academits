@@ -10,23 +10,23 @@ namespace ListExercise
     {
         private ListItem<T> head;
 
-        private int listLength;
+        public int ListLength { get; private set; }
 
-        public int ListLength
-        {
-            get => listLength;
-        }
 
         public MyList(params T[] data)
         {
-            if (data.Length == 1)
+            if (data.Length == 0)
+            {
+                head = null;
+            }
+            else if (data.Length == 1)
             {
                 head = new ListItem<T>(data[0], null);
             }
             else
             {
                 head = new ListItem<T>(data[0], new ListItem<T>());
-                var p = head.GetNext();
+                var p = head.Next;
 
                 for (var i = 1; i < data.Length; i++)
                 {
@@ -34,35 +34,43 @@ namespace ListExercise
 
                     if (i < data.Length - 1)
                     {
-                        p.SetNext(new ListItem<T>());
-                        p = p.GetNext();
+                        p.Next = new ListItem<T>();
+                        p = p.Next;
                     }
                 }
             }
 
-            listLength = data.Length;
+            ListLength = data.Length;
         }
 
         public MyList(MyList<T> list)
         {
-            head = new ListItem<T>(list.head.Data, new ListItem<T>());
-            var p = head.GetNext();
-
-            for (var i = 1; i < list.ListLength; i++)
+            if (list.head == null)
             {
-                p.Data = list.GetElementByIndex(i);
-
-                if (i < list.ListLength - 1)
-                {
-                    p.SetNext(new ListItem<T>());
-                    p = p.GetNext();
-                }
+                head = list.head;
+                this.ListLength = list.ListLength;
             }
+            else
+            {
+                head = new ListItem<T>(list.head.Data, new ListItem<T>());
+                var p = head.Next;
 
-            this.listLength = list.ListLength;
+                for (var i = 1; i < list.ListLength; i++)
+                {
+                    p.Data = list.GetElementByIndex(i);
+
+                    if (i < list.ListLength - 1)
+                    {
+                        p.Next = new ListItem<T>();
+                        p = p.Next;
+                    }
+                }
+
+                this.ListLength = list.ListLength;
+            }
         }
 
-        private ListItem<T> GetLink(int index)
+        private ListItem<T> GetLinkByIndex(int index)
         {
             var n = 0;
             var p = head;
@@ -70,10 +78,57 @@ namespace ListExercise
             while (n != index)
             {
                 ++n;
-                p = p.GetNext();
+                p = p.Next;
             }
 
             return p;
+        }
+
+        private ListItem<T> GetPreviusLinkByIndex(int index)
+        {
+            var i = 0;
+            var p = head;
+
+            while (i != index - 1)
+            {
+                ++i;
+                p = p.Next;
+            }
+
+            return p;
+        }
+
+        private ListItem<T> GetPreviusLinkByData(T data)
+        {
+            var p = head;
+            var previous = head;
+
+            while (!ReferenceEquals(p, null))
+            {
+                if (p.Data.Equals(data))
+                {
+                    return previous;
+                }
+
+                previous = p;
+                p = p.Next;
+            }
+
+            return null;
+        }
+
+        private bool RemoveElementByPreviousLink(ListItem<T> link)
+        {
+            if (link == null)
+            {
+                return false;
+            }
+
+            link.Next = link.Next.Next;
+
+            --ListLength;
+
+            return true;
         }
 
         public T GetFirstElement()
@@ -92,12 +147,7 @@ namespace ListExercise
                 throw new IndexOutOfRangeException("В списке нет элемента с таким индексом");
             }
 
-            if (n == 0)
-            {
-                return GetFirstElement();
-            }
-
-            return GetLink(n).Data;
+            return GetLinkByIndex(n).Data;
 
         }
 
@@ -108,7 +158,7 @@ namespace ListExercise
                 throw new IndexOutOfRangeException("В списке нет элемента с таким индексом");
             }
 
-            var p = GetLink(n);
+            var p = GetLinkByIndex(n);
 
             var oldData = p.Data;
             p.Data = newData;
@@ -128,13 +178,11 @@ namespace ListExercise
                 return RemoveFirstElement();
             }
 
-            var p = GetLink(n - 1);
+            var p = GetPreviusLinkByIndex(n);
 
-            var deleteValue = p.GetNext().Data;
+            var deleteValue = p.Next.Data;
 
-            p.SetNext(p.GetNext().GetNext());
-
-            --listLength;
+            RemoveElementByPreviousLink(p);
 
             return deleteValue;
         }
@@ -143,12 +191,11 @@ namespace ListExercise
         {
             head = new ListItem<T>(data, head);
 
-            ++listLength;
+            ++ListLength;
         }
 
         public void InsertElementByIndex(int n, T data)
         {
-
             if (n == 0)
             {
                 InsertFirstElement(data);
@@ -161,67 +208,64 @@ namespace ListExercise
             }
             else
             {
-                var p = GetLink(n - 1);
-                var insert = new ListItem<T>(data, p.GetNext());
-                p.SetNext(insert);
-                ++listLength;
+                var p = GetLinkByIndex(n - 1);
+                var insert = new ListItem<T>(data, p.Next);
+                p.Next = insert;
+
+                ++ListLength;
             }
-        }
-
-        private ListItem<T> GetLink(T data, out int index)
-        {
-            var p = head;
-            index = 0;
-
-            while (!(ReferenceEquals(p, null)) && !(p.Data.Equals(data)))
-            {
-                ++index;
-                p = p.GetNext();
-            }
-
-            return p;
         }
 
         public bool RemoveElementByData(T data)
         {
-            var p = GetLink(data, out int index);
+            var p = GetPreviusLinkByData(data);
 
-            if (p == null)
+            if (p == head)
             {
-                return false;
+                RemoveFirstElement();
+                return true;
             }
 
-            RemoveElementByIndex(index);
+            return RemoveElementByPreviousLink(p);
 
-            return true;
         }
 
         public T RemoveFirstElement()
         {
-            var answer = head.Data;
-            head = head.GetNext();
+            if (ReferenceEquals(head, null))
+            {
+                throw new InvalidOperationException("Список пуст");
+            }
 
-            --listLength;
+            var answer = head.Data;
+            head = head.Next;
+
+            --ListLength;
 
             return answer;
         }
 
         public void ReverseList()
         {
-            var first = head;
-            var middle = head.GetNext();
-            var last = middle.GetNext();
-
-            first.SetNext(null);
-            while (last != null)
+            if (ReferenceEquals(head, null))
             {
-                middle.SetNext(first);
-                first = middle;
-                middle = last;
-                last = last.GetNext();
+                throw new InvalidOperationException("Список пуст");
             }
 
-            middle.SetNext(first);
+            var first = head;
+            var middle = head.Next;
+            var last = middle.Next;
+
+            first.Next = null;
+            while (last != null)
+            {
+                middle.Next = first;
+                first = middle;
+                middle = last;
+                last = last.Next;
+            }
+
+            middle.Next = first;
 
             head = middle;
         }
@@ -230,11 +274,15 @@ namespace ListExercise
         {
             var sb = new StringBuilder();
 
-            for (var p = head; p != null; p = p.GetNext())
+
+            var p = head;
+            for (; p.Next != null; p = p.Next)
             {
                 sb.Append(p.Data);
-                sb.Append(" ");
+                sb.Append(", ");
             }
+
+            sb.Append(p.Data);
 
             return sb.ToString();
         }
