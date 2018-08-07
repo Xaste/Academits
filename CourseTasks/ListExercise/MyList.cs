@@ -12,7 +12,6 @@ namespace ListExercise
 
         public int ListLength { get; private set; }
 
-
         public MyList(params T[] data)
         {
             if (data.Length == 0)
@@ -25,16 +24,14 @@ namespace ListExercise
             }
             else
             {
-                head = new ListItem<T>(data[0], new ListItem<T>());
+                head = new ListItem<T>(data[0], new ListItem<T>(data[1]));
                 var p = head.Next;
 
-                for (var i = 1; i < data.Length; i++)
+                for (var i = 2; i < data.Length; i++)
                 {
-                    p.Data = data[i];
-
-                    if (i < data.Length - 1)
+                    if (i < data.Length)
                     {
-                        p.Next = new ListItem<T>();
+                        p.Next = new ListItem<T>(data[i]);
                         p = p.Next;
                     }
                 }
@@ -52,18 +49,13 @@ namespace ListExercise
             }
             else
             {
-                head = new ListItem<T>(list.head.Data, new ListItem<T>());
+                head = new ListItem<T>(list.head.Data, new ListItem<T>(list.head.Next.Data));
                 var p = head.Next;
 
-                for (var i = 1; i < list.ListLength; i++)
+                for (var i = 2; i < list.ListLength; i++)
                 {
-                    p.Data = list.GetElementByIndex(i);
-
-                    if (i < list.ListLength - 1)
-                    {
-                        p.Next = new ListItem<T>();
-                        p = p.Next;
-                    }
+                    p.Next = new ListItem<T>(list.GetElementByIndex(i));
+                    p = p.Next;
                 }
 
                 this.ListLength = list.ListLength;
@@ -84,18 +76,25 @@ namespace ListExercise
             return p;
         }
 
-        private ListItem<T> GetPreviusLinkByIndex(int index)
+        public T RemoveElementByIndex(int n)
         {
-            var i = 0;
-            var p = head;
-
-            while (i != index - 1)
+            if (n < 0 || n >= ListLength)
             {
-                ++i;
-                p = p.Next;
+                throw new IndexOutOfRangeException("В списке нет элемента с таким индексом");
             }
 
-            return p;
+            if (n == 0)
+            {
+                return RemoveFirstElement();
+            }
+
+            var p = GetLinkByIndex(n - 1);
+
+            var deleteValue = p.Next.Data;
+
+            RemoveElementByPreviousLink(p);
+
+            return deleteValue;
         }
 
         private ListItem<T> GetPreviusLinkByData(T data)
@@ -105,7 +104,7 @@ namespace ListExercise
 
             while (!ReferenceEquals(p, null))
             {
-                if (p.Data.Equals(data))
+                if ((ReferenceEquals(data, null) && ReferenceEquals(p.Data, null)) || p.Data.Equals(data))// первую часть можно заменить на ReferenceEquals(data, p.Data) но не уверен что так будет корректно
                 {
                     return previous;
                 }
@@ -115,6 +114,21 @@ namespace ListExercise
             }
 
             return null;
+        }
+
+        public T RemoveFirstElement()
+        {
+            if (ReferenceEquals(head, null))
+            {
+                throw new InvalidOperationException("Список пуст");
+            }
+
+            var answer = head.Data;
+            head = head.Next;
+
+            --ListLength;
+
+            return answer;
         }
 
         private bool RemoveElementByPreviousLink(ListItem<T> link)
@@ -131,12 +145,27 @@ namespace ListExercise
             return true;
         }
 
+        public bool RemoveElementByData(T data)
+        {
+            var p = GetPreviusLinkByData(data);
+
+            if (p == head)
+            {
+                RemoveFirstElement();
+                return true;
+            }
+
+            return RemoveElementByPreviousLink(p);
+
+        }
+
         public T GetFirstElement()
         {
             if (ReferenceEquals(head, null))
             {
                 throw new InvalidOperationException("Список пуст");
             }
+
             return head.Data;
         }
 
@@ -164,27 +193,6 @@ namespace ListExercise
             p.Data = newData;
 
             return oldData;
-        }
-
-        public T RemoveElementByIndex(int n)
-        {
-            if (n < 0 || n >= ListLength)
-            {
-                throw new IndexOutOfRangeException("В списке нет элемента с таким индексом");
-            }
-
-            if (n == 0)
-            {
-                return RemoveFirstElement();
-            }
-
-            var p = GetPreviusLinkByIndex(n);
-
-            var deleteValue = p.Next.Data;
-
-            RemoveElementByPreviousLink(p);
-
-            return deleteValue;
         }
 
         public void InsertFirstElement(T data)
@@ -216,40 +224,11 @@ namespace ListExercise
             }
         }
 
-        public bool RemoveElementByData(T data)
-        {
-            var p = GetPreviusLinkByData(data);
-
-            if (p == head)
-            {
-                RemoveFirstElement();
-                return true;
-            }
-
-            return RemoveElementByPreviousLink(p);
-
-        }
-
-        public T RemoveFirstElement()
-        {
-            if (ReferenceEquals(head, null))
-            {
-                throw new InvalidOperationException("Список пуст");
-            }
-
-            var answer = head.Data;
-            head = head.Next;
-
-            --ListLength;
-
-            return answer;
-        }
-
         public void ReverseList()
         {
             if (ReferenceEquals(head, null))
             {
-                throw new InvalidOperationException("Список пуст");
+                return;
             }
 
             var first = head;
@@ -272,8 +251,13 @@ namespace ListExercise
 
         public override string ToString()
         {
-            var sb = new StringBuilder();
+            if (ReferenceEquals(head, null))// не уверен точно, надо ли просто возвращать пустую строку
+            {
+                //return "";
+                throw new InvalidOperationException("Список пуст");
+            }
 
+            var sb = new StringBuilder();
 
             var p = head;
             for (; p.Next != null; p = p.Next)

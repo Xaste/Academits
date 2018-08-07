@@ -12,11 +12,6 @@ namespace ListExercise
 
         public T Data { get; set; }
 
-        public ListItem()
-        {
-
-        }
-
         public ListItem(T data)
         {
             this.Data = data;

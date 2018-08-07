@@ -46,7 +46,10 @@ namespace ListExercise
             Console.WriteLine(isRemoved);
             Console.WriteLine(list);
 
-            list.RemoveElementByData(55);
+            isRemoved = list.RemoveElementByData(55);
+            Console.WriteLine(isRemoved);
+            Console.WriteLine(list);
+            Console.WriteLine();
             list.SetElementByIndex(1, 2);
             Console.WriteLine(list);
 
@@ -67,6 +70,11 @@ namespace ListExercise
             var list4 = new MyList<int>(list3);
 
             var list5 = new MyList<int>(new int[] { });
+
+            Console.WriteLine(list5);
+
+            var list6 = new MyList<string>(new string[] { "1", "2", null, "55" });
+            list6.RemoveElementByData(null);
         }
     }
 }
