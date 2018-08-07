@@ -44,18 +44,21 @@ namespace ListExercise
         {
             if (list.head == null)
             {
-                head = list.head;
-                this.ListLength = list.ListLength;
+                head = null;
+                this.ListLength = 0;
             }
             else
             {
                 head = new ListItem<T>(list.head.Data, new ListItem<T>(list.head.Next.Data));
                 var p = head.Next;
+                var pList = list.head.Next.Next;
 
                 for (var i = 2; i < list.ListLength; i++)
                 {
-                    p.Next = new ListItem<T>(list.GetElementByIndex(i));
+                    p.Next = new ListItem<T>(pList.Data);
+
                     p = p.Next;
+                    pList = pList.Next;
                 }
 
                 this.ListLength = list.ListLength;
@@ -97,14 +100,14 @@ namespace ListExercise
             return deleteValue;
         }
 
-        private ListItem<T> GetPreviusLinkByData(T data)
+        private ListItem<T> GetPreviousLinkByData(T data)
         {
             var p = head;
             var previous = head;
 
-            while (!ReferenceEquals(p, null))
+            while (!Object.Equals(p, null))
             {
-                if ((ReferenceEquals(data, null) && ReferenceEquals(p.Data, null)) || p.Data.Equals(data))// первую часть можно заменить на ReferenceEquals(data, p.Data) но не уверен что так будет корректно
+                if (Object.Equals(p.Data, data))
                 {
                     return previous;
                 }
@@ -118,7 +121,7 @@ namespace ListExercise
 
         public T RemoveFirstElement()
         {
-            if (ReferenceEquals(head, null))
+            if (Object.Equals(head, null))
             {
                 throw new InvalidOperationException("Список пуст");
             }
@@ -133,7 +136,7 @@ namespace ListExercise
 
         private bool RemoveElementByPreviousLink(ListItem<T> link)
         {
-            if (link == null)
+            if (Object.Equals(link, null))
             {
                 return false;
             }
@@ -147,7 +150,7 @@ namespace ListExercise
 
         public bool RemoveElementByData(T data)
         {
-            var p = GetPreviusLinkByData(data);
+            var p = GetPreviousLinkByData(data);
 
             if (p == head)
             {
@@ -161,7 +164,7 @@ namespace ListExercise
 
         public T GetFirstElement()
         {
-            if (ReferenceEquals(head, null))
+            if (Object.Equals(head, null))
             {
                 throw new InvalidOperationException("Список пуст");
             }
@@ -226,7 +229,7 @@ namespace ListExercise
 
         public void ReverseList()
         {
-            if (ReferenceEquals(head, null))
+            if (Object.Equals(head, null))
             {
                 return;
             }
@@ -251,10 +254,9 @@ namespace ListExercise
 
         public override string ToString()
         {
-            if (ReferenceEquals(head, null))// не уверен точно, надо ли просто возвращать пустую строку
+            if (Object.Equals(head, null))
             {
-                //return "";
-                throw new InvalidOperationException("Список пуст");
+                return "";
             }
 
             var sb = new StringBuilder();
