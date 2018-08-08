@@ -42,10 +42,15 @@ namespace ListExercise
 
         public MyList(MyList<T> list)
         {
-            if (list.head == null)
+            if (list.ListLength == 0)
             {
                 head = null;
                 this.ListLength = 0;
+            }
+            else if (list.ListLength == 1)
+            {
+                head = new ListItem<T>(list.head.Data);
+                this.ListLength = list.ListLength;
             }
             else
             {
@@ -105,9 +110,9 @@ namespace ListExercise
             var p = head;
             var previous = head;
 
-            while (!Object.Equals(p, null))
+            while (!ReferenceEquals(p, null))
             {
-                if (Object.Equals(p.Data, data))
+                if (object.Equals(p.Data, data))
                 {
                     return previous;
                 }
@@ -121,7 +126,7 @@ namespace ListExercise
 
         public T RemoveFirstElement()
         {
-            if (Object.Equals(head, null))
+            if (ReferenceEquals(head, null))
             {
                 throw new InvalidOperationException("Список пуст");
             }
@@ -136,7 +141,7 @@ namespace ListExercise
 
         private bool RemoveElementByPreviousLink(ListItem<T> link)
         {
-            if (Object.Equals(link, null))
+            if (ReferenceEquals(link, null))
             {
                 return false;
             }
@@ -164,7 +169,7 @@ namespace ListExercise
 
         public T GetFirstElement()
         {
-            if (Object.Equals(head, null))
+            if (ReferenceEquals(head, null))
             {
                 throw new InvalidOperationException("Список пуст");
             }
@@ -229,7 +234,7 @@ namespace ListExercise
 
         public void ReverseList()
         {
-            if (Object.Equals(head, null))
+            if (ReferenceEquals(head, null))
             {
                 return;
             }
@@ -254,9 +259,9 @@ namespace ListExercise
 
         public override string ToString()
         {
-            if (Object.Equals(head, null))
+            if (ReferenceEquals(head, null))
             {
-                return "";
+                return String.Empty;
             }
 
             var sb = new StringBuilder();

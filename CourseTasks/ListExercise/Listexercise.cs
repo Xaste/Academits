@@ -61,6 +61,8 @@ namespace ListExercise
             var list2 = new MyList<int>(list);
 
             var list3 = new MyList<int>(new int[] { 1 });
+            var listTemp = new MyList<int>(list3);
+            Console.WriteLine(listTemp);
             list3.RemoveElementByData(1);
             list3.InsertFirstElement(1);
             list3.RemoveElementByIndex(0);
