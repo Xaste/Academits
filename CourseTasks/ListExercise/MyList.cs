@@ -18,22 +18,15 @@ namespace ListExercise
             {
                 head = null;
             }
-            else if (data.Length == 1)
-            {
-                head = new ListItem<T>(data[0], null);
-            }
             else
             {
-                head = new ListItem<T>(data[0], new ListItem<T>(data[1]));
-                var p = head.Next;
+                head = new ListItem<T>(data[0]);
+                var p = head;
 
-                for (var i = 2; i < data.Length; i++)
+                for (var i = 1; i < data.Length; i++)
                 {
-                    if (i < data.Length)
-                    {
-                        p.Next = new ListItem<T>(data[i]);
-                        p = p.Next;
-                    }
+                    p.Next = new ListItem<T>(data[i]);
+                    p = p.Next;
                 }
             }
 
@@ -45,28 +38,24 @@ namespace ListExercise
             if (list.ListLength == 0)
             {
                 head = null;
-                this.ListLength = 0;
-            }
-            else if (list.ListLength == 1)
-            {
-                head = new ListItem<T>(list.head.Data);
-                this.ListLength = list.ListLength;
+                ListLength = 0;
             }
             else
             {
-                head = new ListItem<T>(list.head.Data, new ListItem<T>(list.head.Next.Data));
-                var p = head.Next;
-                var pList = list.head.Next.Next;
+                head = new ListItem<T>(list.head.Data);
 
-                for (var i = 2; i < list.ListLength; i++)
+                var p = head;
+                var pList = list.head;
+
+                for (var i = 1; i < list.ListLength; i++)
                 {
-                    p.Next = new ListItem<T>(pList.Data);
-
-                    p = p.Next;
                     pList = pList.Next;
+                    p.Next = new ListItem<T>(pList.Data);
+                    p = p.Next;
+
                 }
 
-                this.ListLength = list.ListLength;
+                ListLength = list.ListLength;
             }
         }
 
@@ -112,7 +101,7 @@ namespace ListExercise
 
             while (!ReferenceEquals(p, null))
             {
-                if (object.Equals(p.Data, data))
+                if (Equals(p.Data, data))
                 {
                     return previous;
                 }
@@ -261,7 +250,7 @@ namespace ListExercise
         {
             if (ReferenceEquals(head, null))
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             var sb = new StringBuilder();
