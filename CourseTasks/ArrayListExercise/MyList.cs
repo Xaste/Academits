@@ -9,8 +9,11 @@ namespace ArrayListExercise
 {
     class MyList<T> : IList<T>
     {
-        private T[] items = new T[10];
+        private const int defaultCapacity = 10;
+
+        private T[] items = new T[defaultCapacity];
         public int Count { get; private set; }
+
         private int modCount = 0;
 
         public T this[int index]
@@ -21,6 +24,7 @@ namespace ArrayListExercise
                 {
                     throw new ArgumentOutOfRangeException("Элемента с таким индексом не существует");
                 }
+
                 return items[index];
             }
 
@@ -30,16 +34,16 @@ namespace ArrayListExercise
                 {
                     throw new ArgumentOutOfRangeException("Элемента с таким индексом не существует");
                 }
+
                 items[index] = value;
+
+                modCount++;
             }
         }
 
-        public MyList()
-        {
+        public MyList() { }
 
-        }
-
-        public MyList(params T[] array)
+        public MyList(params T[] array)//TODO Проверить с 0 размером
         {
             items = new T[array.Length];
             Array.Copy(array, items, array.Length);
@@ -47,7 +51,17 @@ namespace ArrayListExercise
             Count = array.Length;
         }
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public MyList(int capacity)
+        {
+            if (capacity < 0)
+            {
+                throw new ArgumentOutOfRangeException("Начальный размер массива не может быть меньше нуля");
+            }
+
+            items = new T[capacity];
+        }
+
+        public bool IsReadOnly => items.IsReadOnly;
 
         public void Add(T item)
         {
@@ -58,11 +72,12 @@ namespace ArrayListExercise
 
             items[Count] = item;
             ++Count;
+            modCount++;
         }
 
         private void IncreaseCapacity()
         {
-            const int minLengthIncrease = 10;
+            const int minLengthIncrease = 100;
 
             if (items.Length < minLengthIncrease / 2)
             {
@@ -79,6 +94,7 @@ namespace ArrayListExercise
             Array.Resize(ref items, 0);
 
             Count = 0;
+            ++modCount;
         }
 
         public bool Contains(T item)
@@ -114,8 +130,14 @@ namespace ArrayListExercise
 
         public IEnumerator<T> GetEnumerator()
         {
+            var startModCount = modCount;
+
             for (var i = 0; i < Count; i++)
             {
+                if (modCount != startModCount)
+                {
+                    throw new InvalidOperationException("Список изменился за время обхода");
+                }
                 yield return items[i];
             }
         }
@@ -137,7 +159,7 @@ namespace ArrayListExercise
         {
             if (index < 0 || index >= Count)
             {
-                throw new IndexOutOfRangeException("Нет элемента с таким индексом");
+                throw new IndexOutOfRangeException("Невозможно добавить объект в указанный индекс");
             }
 
             if (Count >= items.Length - 1)
@@ -146,9 +168,10 @@ namespace ArrayListExercise
             }
             
             Array.Copy(sourceArray: items, sourceIndex: index, destinationArray: items, destinationIndex: index + 1, length: Count - index - 1);
-            items[index] = item;//TODO А если ссылка?
+            items[index] = item;
 
             Count++;
+            modCount++;
         }
 
         public bool Remove(T item)
@@ -169,6 +192,9 @@ namespace ArrayListExercise
             }
 
             RemoveAt(index);
+
+            modCount++;
+
             return true;
         }
 
@@ -185,11 +211,37 @@ namespace ArrayListExercise
             }
 
             --Count;
+            modCount++;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public int EnsureCapacity(int capacity)
+        {
+            if (capacity < 0)
+            {
+                throw new ArgumentOutOfRangeException("Длина массива не может быть меньше 0");
+            }
+            if (items.Length >= capacity)
+            {
+                return items.Length;
+            }
+
+            Array.Resize(ref items, capacity);
+            return items.Length;
+        }
+
+        public void TrimToSize()
+        {
+            if (Count == 0)
+            {
+                Array.Resize(ref items, defaultCapacity);
+            }
+
+            Array.Resize(ref items, Count);
         }
     }
 }

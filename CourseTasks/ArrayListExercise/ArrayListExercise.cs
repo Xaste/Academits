@@ -28,6 +28,14 @@ namespace ArrayListExercise
             {
                 Console.WriteLine(item);
             }
+
+            var list3 = new MyList<int>(13) { 55, 112 };
+
+            foreach (var item in list3)
+            {
+                Console.WriteLine(item);
+                //list3.Add(55);
+            }
         }
     }
 }
