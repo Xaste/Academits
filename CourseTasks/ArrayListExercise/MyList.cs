@@ -43,7 +43,7 @@ namespace ArrayListExercise
 
         public MyList() { }
 
-        public MyList(params T[] array)//TODO Проверить с 0 размером
+        public MyList(params T[] array)
         {
             items = new T[array.Length];
             Array.Copy(array, items, array.Length);
@@ -77,7 +77,7 @@ namespace ArrayListExercise
 
         private void IncreaseCapacity()
         {
-            const int minLengthIncrease = 100;
+            const int minLengthIncrease = 50;
 
             if (items.Length < minLengthIncrease / 2)
             {
@@ -91,7 +91,7 @@ namespace ArrayListExercise
 
         public void Clear()
         {
-            Array.Resize(ref items, 0);
+            items = new T[items.Length];
 
             Count = 0;
             ++modCount;
@@ -99,9 +99,9 @@ namespace ArrayListExercise
 
         public bool Contains(T item)
         {
-            foreach (var e in items)
+            foreach (var e in this)
             {
-                if (e.Equals(item))
+                if (Equals(e, item))
                 {
                     return true;
                 }
@@ -112,7 +112,7 @@ namespace ArrayListExercise
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            if (array == null)
+            if (ReferenceEquals(array, null))
             {
                 throw new ArgumentNullException("Ссылка на массив null");
             }
@@ -125,7 +125,7 @@ namespace ArrayListExercise
                 throw new ArgumentException("передаваемый массив больше доступного места в целевом массиве");
             }
 
-            Array.Copy(items, array, arrayIndex);
+            Array.Copy(items, 0, array, arrayIndex, Count);
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -142,7 +142,7 @@ namespace ArrayListExercise
             }
         }
 
-        public int IndexOf(T item)//TODO Должен кидать исключение, если в коллекции добавились, удалились элементы за время обхода
+        public int IndexOf(T item)
         {
             for (var i = 0; i < Count; i++)
             {
@@ -157,7 +157,7 @@ namespace ArrayListExercise
 
         public void Insert(int index, T item)
         {
-            if (index < 0 || index >= Count)
+            if (index < 0 || index > Count)
             {
                 throw new IndexOutOfRangeException("Невозможно добавить объект в указанный индекс");
             }
@@ -167,7 +167,7 @@ namespace ArrayListExercise
                 IncreaseCapacity();
             }
             
-            Array.Copy(sourceArray: items, sourceIndex: index, destinationArray: items, destinationIndex: index + 1, length: Count - index - 1);
+            Array.Copy(sourceArray: items, sourceIndex: index, destinationArray: items, destinationIndex: index + 1, length: Count - index);
             items[index] = item;
 
             Count++;
@@ -192,8 +192,6 @@ namespace ArrayListExercise
             }
 
             RemoveAt(index);
-
-            modCount++;
 
             return true;
         }
@@ -240,8 +238,10 @@ namespace ArrayListExercise
             {
                 Array.Resize(ref items, defaultCapacity);
             }
-
-            Array.Resize(ref items, Count);
+            else
+            {
+                Array.Resize(ref items, Count);
+            }
         }
     }
 }

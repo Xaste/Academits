@@ -36,6 +36,43 @@ namespace ArrayListExercise
                 Console.WriteLine(item);
                 //list3.Add(55);
             }
+
+            var list4 = new MyList<int>(new int[] { });
+            list4.Add(5);
+            list4.Remove(5);
+            list4.Add(1);
+            list4.Add(2);
+            list4.Add(3);
+            list4.RemoveAt(0);
+            //var no = list4[2];
+            list4.Add(4);
+            list4.Insert(2, 55);
+            //list4.Remove(55);
+
+            var contains55 = list4.Contains(66);
+            var index = list4.IndexOf(99);
+
+            var array = new int[10];
+            list4.CopyTo(array, 6);
+
+            list2.Clear();
+            list2.EnsureCapacity(55);
+            list2.EnsureCapacity(11);
+            list2.Add(1);
+            list2.TrimToSize();
+            list2.Clear();
+            list2.TrimToSize();
+
+            var listString = new MyList<string>(new string[] { "123", "234" });
+            listString.Add("sasda");
+            var contains = listString.Contains("123");
+            listString.TrimToSize();
+            listString.Clear();
+            listString.TrimToSize();
+            listString.Add("55");
+            contains = listString.Contains(null);
+            listString.Add(null);
+            contains = listString.Contains(null);
         }
     }
 }
