@@ -9,9 +9,9 @@ namespace ArrayListExercise
 {
     class MyList<T> : IList<T>
     {
-        private const int defaultCapacity = 10;
+        private const int DefaultCapacity = 10;
 
-        private T[] items = new T[defaultCapacity];
+        private T[] items = new T[DefaultCapacity];
         public int Count { get; private set; }
 
         private int modCount = 0;
@@ -61,7 +61,7 @@ namespace ArrayListExercise
             items = new T[capacity];
         }
 
-        public bool IsReadOnly => items.IsReadOnly;
+        public bool IsReadOnly => false;
 
         public void Add(T item)
         {
@@ -77,11 +77,11 @@ namespace ArrayListExercise
 
         private void IncreaseCapacity()
         {
-            const int minLengthIncrease = 50;
+            const int MinLengthIncrease = 50;
 
-            if (items.Length < minLengthIncrease / 2)
+            if (items.Length < MinLengthIncrease / 2)
             {
-                Array.Resize(ref items, minLengthIncrease);
+                Array.Resize(ref items, MinLengthIncrease);
             }
             else
             {
@@ -91,23 +91,13 @@ namespace ArrayListExercise
 
         public void Clear()
         {
-            items = new T[items.Length];
-
             Count = 0;
             ++modCount;
         }
 
         public bool Contains(T item)
         {
-            foreach (var e in this)
-            {
-                if (Equals(e, item))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return IndexOf(item) >= 0;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -166,8 +156,8 @@ namespace ArrayListExercise
             {
                 IncreaseCapacity();
             }
-            
-            Array.Copy(sourceArray: items, sourceIndex: index, destinationArray: items, destinationIndex: index + 1, length: Count - index);
+
+            Array.Copy(items, index, items, index + 1, Count - index);
             items[index] = item;
 
             Count++;
@@ -176,15 +166,7 @@ namespace ArrayListExercise
 
         public bool Remove(T item)
         {
-            var index = -1;
-            for (var i = 0; i < Count; i++)
-            {
-                if (Equals(item, items[i]))
-                {
-                    index = i;
-                    break;
-                }
-            }
+            var index = IndexOf(item);
 
             if (index == -1)
             {
@@ -236,9 +218,9 @@ namespace ArrayListExercise
         {
             if (Count == 0)
             {
-                Array.Resize(ref items, defaultCapacity);
+                Array.Resize(ref items, DefaultCapacity);
             }
-            else
+            else if (items.Length > Count)
             {
                 Array.Resize(ref items, Count);
             }
