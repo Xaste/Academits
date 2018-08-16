@@ -77,11 +77,11 @@ namespace ArrayListExercise
 
         private void IncreaseCapacity()
         {
-            const int MinLengthIncrease = 50;
+            const int minLengthIncrease = 50;
 
-            if (items.Length < MinLengthIncrease / 2)
+            if (items.Length < minLengthIncrease / 2)
             {
-                Array.Resize(ref items, MinLengthIncrease);
+                Array.Resize(ref items, minLengthIncrease);
             }
             else
             {
