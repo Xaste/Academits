@@ -11,8 +11,11 @@ namespace HashTableExercise
     {
         private List<T>[] items = new List<T>[100];
 
-        public int Count { get; }
+        public int Count { get; private set; }
         public bool IsReadOnly { get; }
+        private int modCount = 0;
+
+        private const int IndexForNull = 0;
 
         public MyHashTable(params T[] data)
         {
@@ -20,6 +23,8 @@ namespace HashTableExercise
             {
                 Add(e);
             }
+
+            Count = data.Length;
         }
 
         public MyHashTable(int capacity)
@@ -30,15 +35,27 @@ namespace HashTableExercise
             }
 
             items = new List<T>[capacity];
+            Count = 0;
         }
 
         public IEnumerator<T> GetEnumerator()
         {
+            var startModCount = modCount;
             foreach (var t in items)
             {
-                foreach (var VARIABLE in t)
+                if (ReferenceEquals(t, null))
                 {
-                    yield return VARIABLE;
+                    continue;
+                }
+
+                foreach (var e in t)
+                {
+                    if (modCount != startModCount)
+                    {
+                        throw new InvalidOperationException("Список изменился за время обхода");
+                    }
+
+                    yield return e;
                 }
             }
         }
@@ -50,12 +67,7 @@ namespace HashTableExercise
 
         public void Add(T item)
         {
-            if (ReferenceEquals(item, null))
-            {
-                throw new NullReferenceException("В хэщтаблицу нельзя добавить null");//TODO А точно нельзя?
-            }
-
-            var index = Math.Abs(item.GetHashCode() % items.Length);
+            var index = ReferenceEquals(item, null) ? IndexForNull : Math.Abs(item.GetHashCode() % items.Length);
 
             if (ReferenceEquals(items[index], null))
             {
@@ -63,19 +75,30 @@ namespace HashTableExercise
             }
 
             items[index].Add(item);
+
+            ++Count;
+            ++modCount;
         }
 
         public void Clear()
         {
             for (var i = 0; i < items.Length; i++)
             {
+                if (ReferenceEquals(items[i], null))
+                {
+                    continue;
+                }
+
                 items[i].Clear();
             }
+
+            Count = 0;
+            ++modCount;
         }
 
         public bool Contains(T item)
         {
-            var index = Math.Abs(item.GetHashCode() % items.Length);
+            var index = ReferenceEquals(item, null) ? IndexForNull : Math.Abs(item.GetHashCode() % items.Length);
 
             if (ReferenceEquals(items[index], null) || items[index].Count == 0)
             {
@@ -95,7 +118,26 @@ namespace HashTableExercise
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(array, null))
+            {
+                throw new ArgumentNullException("Ссылка на массив null");
+            }
+            if (arrayIndex < 0)
+            {
+                throw new ArgumentOutOfRangeException("индекс меньше 0");
+            }
+            if (Count > array.Length - arrayIndex)
+            {
+                throw new ArgumentException("передаваемый массив больше доступного места в целевом массиве");
+            }
+
+            var i = arrayIndex;
+
+            foreach (var e in this)
+            {
+                array[i] = e;
+                i++;
+            }
         }
 
         public bool Remove(T item)
@@ -105,8 +147,12 @@ namespace HashTableExercise
                 return false;
             }
 
-            var index = Math.Abs(item.GetHashCode() % items.Length);
+            var index = ReferenceEquals(item, null) ? IndexForNull : Math.Abs(item.GetHashCode() % items.Length);
+
             items[index].Remove(item);
+
+            --Count;
+            ++modCount;
 
             return true;
         }
