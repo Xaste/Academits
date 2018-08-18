@@ -53,6 +53,7 @@ namespace HashTableExercise
             
             table2.Clear();
             table2.Contains(null);
+            table2.Add("121da");
 
             var array2 = new string[10];
             table2.CopyTo(array2, 0);

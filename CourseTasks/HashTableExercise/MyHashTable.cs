@@ -9,13 +9,18 @@ namespace HashTableExercise
 {
     class MyHashTable<T> : ICollection<T>
     {
-        private List<T>[] items = new List<T>[100];
+        private readonly List<T>[] items = new List<T>[100];
 
-        public int Count { get; private set; }
-        public bool IsReadOnly { get; }
         private int modCount = 0;
 
         private const int IndexForNull = 0;
+
+        public int Count { get; private set; }
+
+        public bool IsReadOnly
+        {
+            get { return false; }
+        }
 
         public MyHashTable(params T[] data)
         {
@@ -67,7 +72,7 @@ namespace HashTableExercise
 
         public void Add(T item)
         {
-            var index = ReferenceEquals(item, null) ? IndexForNull : Math.Abs(item.GetHashCode() % items.Length);
+            var index = GetIndex(item);
 
             if (ReferenceEquals(items[index], null))
             {
@@ -82,14 +87,14 @@ namespace HashTableExercise
 
         public void Clear()
         {
-            for (var i = 0; i < items.Length; i++)
+            foreach (var t in items)
             {
-                if (ReferenceEquals(items[i], null))
+                if (ReferenceEquals(t, null))
                 {
                     continue;
                 }
 
-                items[i].Clear();
+                t.Clear();
             }
 
             Count = 0;
@@ -98,22 +103,14 @@ namespace HashTableExercise
 
         public bool Contains(T item)
         {
-            var index = ReferenceEquals(item, null) ? IndexForNull : Math.Abs(item.GetHashCode() % items.Length);
+            var index = GetIndex(item);
 
             if (ReferenceEquals(items[index], null) || items[index].Count == 0)
             {
                 return false;
             }
 
-            foreach (var e in items[index])
-            {
-                if (Equals(item, e))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return items[index].Contains(item);
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -142,20 +139,27 @@ namespace HashTableExercise
 
         public bool Remove(T item)
         {
-            if (!Contains(item))
+            var index = GetIndex(item);
+
+            if (ReferenceEquals(items[index], null))
             {
                 return false;
             }
 
-            var index = ReferenceEquals(item, null) ? IndexForNull : Math.Abs(item.GetHashCode() % items.Length);
+            if (items[index].Remove(item))
+            {
+                --Count;
+                ++modCount;
 
-            items[index].Remove(item);
+                return true;
+            }
 
-            --Count;
-            ++modCount;
-
-            return true;
+            return false;
         }
 
+        private int GetIndex(T item)
+        {
+            return ReferenceEquals(item, null) ? IndexForNull : Math.Abs(item.GetHashCode() % items.Length);
+        }
     }
 }
