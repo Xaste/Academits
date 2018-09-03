@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqHomeWork", "LinqHomeWor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputOutputExercise", "InputOutputExercise\InputOutputExercise.csproj", "{DE712DE7-4A23-424D-8E9E-9FA10628CE5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionExercise", "ReflectionExercise\ReflectionExercise.csproj", "{54D1EBF9-3B6D-446C-922A-425D6A36B4BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{DE712DE7-4A23-424D-8E9E-9FA10628CE5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE712DE7-4A23-424D-8E9E-9FA10628CE5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE712DE7-4A23-424D-8E9E-9FA10628CE5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54D1EBF9-3B6D-446C-922A-425D6A36B4BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54D1EBF9-3B6D-446C-922A-425D6A36B4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54D1EBF9-3B6D-446C-922A-425D6A36B4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54D1EBF9-3B6D-446C-922A-425D6A36B4BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
