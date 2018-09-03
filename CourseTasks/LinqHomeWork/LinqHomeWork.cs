@@ -8,10 +8,10 @@ namespace LinqHomeWork
 {
     class LinqHomeWork
     {
-        public static IEnumerable<double> GetSqrt(int count)
+        public static IEnumerable<double> GetSqrt()
         {
             var i = 1;
-            while (i <= count)
+            while (true)
             {
                 yield return Math.Sqrt(i);
                 ++i;
@@ -30,32 +30,37 @@ namespace LinqHomeWork
             var person8 = new Person { Name = "Ivan", Age = 40 };
 
 
-            var list = new List<Person>();
-            list.Add(person1);
-            list.Add(person2);
-            list.Add(person3);
-            list.Add(person4);
-            list.Add(person5);
-            list.Add(person6);
-            list.Add(person7);
-            list.Add(person8);
+            var list = new List<Person>() { person1, person2, person3, person4, person5, person6, person7, person8 };
 
             var uniqeNames = list
                 .Select(x => x.Name)
                 .Distinct()
                 .ToList();
 
-            Console.WriteLine("Имена: " + string.Join(", ", list.Select(x => x.Name).Distinct()));
+            Console.WriteLine("A) Уникальные имена:");
+            foreach (var item in uniqeNames)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine("Б) Уникальные имена в формате:");
+            Console.WriteLine("Имена: " + string.Join(", ", uniqeNames));
+
+            Console.WriteLine();
 
             var ageAverage = list
                 .Where(x => x.Age < 18)
-                .Select(x => x.Age)
-                .Average();
+                .Average(x => x.Age);
 
-            Console.WriteLine(ageAverage);
+            Console.WriteLine($"В) Средний возраст до 18 лет: {ageAverage}");
+
+            Console.WriteLine();
 
             var namesByAgeAverage = list
-                .GroupBy(p => p.Name).ToDictionary(p => p.Key, p => p.ToList());
+                .GroupBy(p => p.Name)
+                .ToDictionary(p => p.Key, p => p.Average(x => x.Age));
 
             var personsBetwen20To45 = list
                 .Where(x => x.Age >= 20 && x.Age <= 45)
@@ -71,7 +76,7 @@ namespace LinqHomeWork
             Console.WriteLine("Введите число: ");
             var count = Convert.ToInt32(Console.ReadLine());
 
-            foreach (var d in GetSqrt(count))
+            foreach (var d in GetSqrt().Take(count))
             {
                 Console.WriteLine(d);
             }
