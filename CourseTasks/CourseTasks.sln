@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputOutputExercise", "Inpu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionExercise", "ReflectionExercise\ReflectionExercise.csproj", "{54D1EBF9-3B6D-446C-922A-425D6A36B4BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializingExercise", "SerializingExercise\SerializingExercise.csproj", "{4BEA4DEE-4344-4AE9-969D-274EA24559E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{54D1EBF9-3B6D-446C-922A-425D6A36B4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54D1EBF9-3B6D-446C-922A-425D6A36B4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54D1EBF9-3B6D-446C-922A-425D6A36B4BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BEA4DEE-4344-4AE9-969D-274EA24559E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BEA4DEE-4344-4AE9-969D-274EA24559E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BEA4DEE-4344-4AE9-969D-274EA24559E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BEA4DEE-4344-4AE9-969D-274EA24559E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
