@@ -25,6 +25,20 @@ namespace ReflectionExercise
             ConstructorInfo ctor = type.GetConstructor(new Type[] { typeof(int) });
 
             var x = ctor.Invoke(new object[] { 10 });
+
+            var componentsInfo = x.GetType().GetField("vectorComponents", BindingFlags.Instance | BindingFlags.NonPublic);
+            var componentsData = (double[])componentsInfo.GetValue(x);
+
+            for (int i = 0; i < componentsData.Length; i++)
+            {
+                componentsData[i]++;
+            }
+
+            componentsInfo.SetValue(x, componentsData);
+
+            var m = type.GetMethod("ScalarMultiplication", new Type[] { typeof(double) });
+
+            var res = m.Invoke(x, new object[] { 2 });
         }
     }
 }
