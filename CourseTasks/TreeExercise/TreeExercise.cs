@@ -23,6 +23,10 @@ namespace TreeExercise
             tree.Add(4);
             tree.Add(3);
             tree.Add(6);
+
+            var tree2 = new Tree<int>(new int[] { 10, 5, 4, 7, 22 });
+
+            var findNode = tree2.FindNode(5);
         }
     }
 }
