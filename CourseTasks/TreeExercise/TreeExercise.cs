@@ -10,6 +10,19 @@ namespace TreeExercise
     {
         static void Main(string[] args)
         {
+            var tree0 = new Tree<string>(null);
+
+            tree0.Add("C");
+            tree0.Add("A");
+            tree0.Add("Z");
+            tree0.Add("B");
+
+            var tree = new Tree<int>(10);
+            tree.Add(5);
+            tree.Add(4);
+            tree.Add(4);
+            tree.Add(3);
+            tree.Add(6);
         }
     }
 }
