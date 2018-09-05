@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MatrixCustomSerializable.cs" />
+    <Compile Include="MatrixDefaultSerializable.cs" />
     <Compile Include="Rectangle.cs" />
     <Compile Include="SerializingExercise.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
