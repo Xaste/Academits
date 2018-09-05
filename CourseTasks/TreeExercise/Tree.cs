@@ -8,6 +8,6 @@ namespace TreeExercise
 {
     class Tree<T>
     {
-        private TreeElement<T> head;
+        
     }
 }

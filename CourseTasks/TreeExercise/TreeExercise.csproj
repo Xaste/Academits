@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Element.cs" />
+    <Compile Include="TreeNode.cs" />
     <Compile Include="Tree.cs" />
     <Compile Include="TreeExercise.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
