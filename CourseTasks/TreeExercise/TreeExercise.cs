@@ -44,6 +44,10 @@ namespace TreeExercise
 
             tree.RemoveNode(3);
             tree.RemoveNode(6);
+
+            var tree3 = new Tree<int>(10, 5, 20, 15, 25, 23, 22);
+
+            tree3.RemoveNode(20);
         }
     }
 }

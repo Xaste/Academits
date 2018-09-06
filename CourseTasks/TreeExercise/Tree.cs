@@ -209,6 +209,32 @@ namespace TreeExercise
 
                 return true;
             }
+            else
+            {
+                var MostLeftNode = targetNode.Right;
+                var previousOfMostLeft = MostLeftNode;
+                while (!ReferenceEquals(MostLeftNode.Left, null))
+                {
+                    previousOfMostLeft = MostLeftNode;
+                    MostLeftNode = MostLeftNode.Left;
+                }
+
+                previousOfMostLeft.Left = !ReferenceEquals(MostLeftNode.Right, null) ? MostLeftNode.Right : null;
+
+                MostLeftNode.Left = targetNode.Left;
+                MostLeftNode.Right = targetNode.Right;
+
+                if (isLeftForPrevious)
+                {
+                    previous.Left = MostLeftNode;
+                }
+                else
+                {
+                    previous.Right = MostLeftNode;
+                }
+
+                return true;
+            }
 
             return false;
         }
