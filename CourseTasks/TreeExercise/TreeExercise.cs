@@ -26,7 +26,24 @@ namespace TreeExercise
 
             var tree2 = new Tree<int>(new int[] { 10, 5, 4, 7, 22 });
 
-            var findNode = tree2.FindNode(5);
+            var findNode = tree2.GetPreviousNode(4);
+            var findNode2 = tree.FindNode(5);
+            var findNode3 = tree.FindNode(4);
+
+            var res = tree2.GoThroughWide().ToList();
+            foreach (var item in res)
+            {
+                item.value++;
+            }
+
+            var res2 = tree.GoThroughWide();
+            Console.WriteLine(tree2.GetCount());
+
+            tree.Add(2);
+            tree.Add(7);
+
+            tree.RemoveNode(3);
+            tree.RemoveNode(6);
         }
     }
 }

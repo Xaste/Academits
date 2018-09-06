@@ -70,7 +70,7 @@ namespace TreeExercise
             }
         }
 
-        public TreenNode<T> FindNode(T data)
+        public TreenNode<T> GetPreviousNode(T data)//TODO Сделать private
         {
             if (ReferenceEquals(data, null))
             {
@@ -78,16 +78,18 @@ namespace TreeExercise
             }
 
             var p = head;
+            TreenNode<T> previous = null;
             while (true)
             {
                 if (Equals(p.value, data))
                 {
-                    return p;
+                    return previous;
                 }
                 else if (p.value.CompareTo(data) > 0)
                 {
                     if (!ReferenceEquals(p.Left, null))
                     {
+                        previous = p;
                         p = p.Left;
                     }
                     else
@@ -99,6 +101,7 @@ namespace TreeExercise
                 {
                     if (!ReferenceEquals(p.Right, null))
                     {
+                        previous = p;
                         p = p.Right;
                     }
                     else
@@ -109,7 +112,20 @@ namespace TreeExercise
             }
         }
 
-        /*public T GoThroughWide() //FUNC
+        public TreenNode<T> FindNode(T data)
+        {
+            if (Equals(head.value, data))
+            {
+                return head;
+            }
+
+            var previous = GetPreviousNode(data);
+
+            return Equals(previous.Left.value, data) ? previous.Left : previous.Right;
+
+        }
+
+        public IEnumerable<TreenNode<T>> GoThroughWide() //FUNC
         {
             var queue = new Queue<TreenNode<T>>();
 
@@ -119,19 +135,82 @@ namespace TreeExercise
             {
                 var element = queue.Dequeue();
 
-                //WORK
+                yield return element;
 
-                if (element.Left != null)// Поменять на ?.
+                if (!Equals(element.Left, null))// Поменять на ?.
                 {
                     queue.Enqueue(element.Left);
                 }
 
-                if (element.Right != null)
+                if (!Equals(element.Right, null))
                 {
-                    queue.Enqueue(element.Right)
+                    queue.Enqueue(element.Right);
                 }
-                queue.Enqueue(element.Left);
+
             }
-        }*/
+        }
+
+        public int GetCount()
+        {
+            return GoThroughWide().Count();
+        }
+
+        public bool RemoveNode(T data)
+        {
+            if (Equals(head.value, data))//Удаление корня
+            {
+                return false;
+            }
+
+            var previous = GetPreviousNode(data);
+
+            var isLeftForPrevious = (Equals(previous.Left.value, data)) ? true : false;
+
+            var targetNode = (isLeftForPrevious) ? previous.Left : previous.Right;
+
+            if (ReferenceEquals(targetNode.Left, null) && ReferenceEquals(targetNode.Right, null))
+            {
+                if (isLeftForPrevious)
+                {
+                    previous.Left = null;
+                }
+                else
+                {
+                    previous.Right = null;
+                }
+                return true;
+            }
+            else if (ReferenceEquals(targetNode.Left, null) || ReferenceEquals(targetNode.Right, null))
+            {
+                var isOnlyLeftChild = ReferenceEquals(targetNode.Left, null) ? false : true;
+
+                if (!ReferenceEquals(targetNode.Left, null))
+                {
+                    if (isLeftForPrevious)
+                    {
+                        previous.Left = targetNode.Left;
+                    }
+                    else
+                    {
+                        previous.Right = targetNode.Left;
+                    }
+                }
+                else
+                {
+                    if (isLeftForPrevious)
+                    {
+                        previous.Left = targetNode.Right;
+                    }
+                    else
+                    {
+                        previous.Right = targetNode.Right;
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }
