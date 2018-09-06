@@ -157,9 +157,10 @@ namespace TreeExercise
 
         public bool RemoveNode(T data)
         {
+            bool isHeadDelete = false;
             if (Equals(head.value, data))//Удаление корня
             {
-                return false;
+                isHeadDelete = true;
             }
 
             var previous = GetPreviousNode(data);
