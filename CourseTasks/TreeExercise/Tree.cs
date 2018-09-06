@@ -171,13 +171,20 @@ namespace TreeExercise
 
             if (ReferenceEquals(targetNode.Left, null) && ReferenceEquals(targetNode.Right, null))
             {
-                if (isLeftForPrevious)
+                if (isHeadDelete)
                 {
-                    previous.Left = null;
+                    head = null;
                 }
                 else
                 {
-                    previous.Right = null;
+                    if (isLeftForPrevious)
+                    {
+                        previous.Left = null;
+                    }
+                    else
+                    {
+                        previous.Right = null;
+                    }
                 }
                 return true;
             }
