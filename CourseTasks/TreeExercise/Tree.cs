@@ -8,7 +8,7 @@ namespace TreeExercise
 {
     class Tree<T> where T : IComparable
     {
-        private TreenNode<T> head;
+        private TreeNode<T> head;
 
         /*public Tree(T root)
         {
@@ -39,7 +39,7 @@ namespace TreeExercise
 
             if (Equals(head, null))
             {
-                head = new TreenNode<T>(data);
+                head = new TreeNode<T>(data);
                 return;
             }
 
@@ -51,7 +51,7 @@ namespace TreeExercise
                 {
                     if (ReferenceEquals(p.Left, null))
                     {
-                        p.Left = new TreenNode<T>(data);
+                        p.Left = new TreeNode<T>(data);
                         break;
                     }
 
@@ -61,7 +61,7 @@ namespace TreeExercise
                 {
                     if (ReferenceEquals(p.Right, null))
                     {
-                        p.Right = new TreenNode<T>(data);
+                        p.Right = new TreeNode<T>(data);
                         break;
                     }
 
@@ -70,7 +70,7 @@ namespace TreeExercise
             }
         }
 
-        public TreenNode<T> GetPreviousNode(T data)//TODO Сделать private
+        public TreeNode<T> GetPreviousNode(T data)//TODO Сделать private
         {
             if (ReferenceEquals(data, null))
             {
@@ -78,7 +78,7 @@ namespace TreeExercise
             }
 
             var p = head;
-            TreenNode<T> previous = null;
+            TreeNode<T> previous = null;
             while (true)
             {
                 if (Equals(p.value, data))
@@ -112,7 +112,7 @@ namespace TreeExercise
             }
         }
 
-        public TreenNode<T> FindNode(T data)
+        public TreeNode<T> FindNode(T data)
         {
             if (Equals(head.value, data))
             {
@@ -122,40 +122,42 @@ namespace TreeExercise
             var previous = GetPreviousNode(data);
 
             return Equals(previous.Left.value, data) ? previous.Left : previous.Right;
-
         }
 
-        public IEnumerable<TreenNode<T>> GoThroughWide() //FUNC
+        public void GoThroughWide(Action<TreeNode<T>> f)
         {
-            var queue = new Queue<TreenNode<T>>();
+            var queue = new Queue<TreeNode<T>>();
 
             queue.Enqueue(head);
 
             while (queue.Count != 0)
             {
-                var element = queue.Dequeue();
+                var node = queue.Dequeue();
 
-                yield return element;
+                f(node);
 
-                if (!Equals(element.Left, null))// Поменять на ?.
+                if (!Equals(node.Left, null))// Поменять на ?.
                 {
-                    queue.Enqueue(element.Left);
+                    queue.Enqueue(node.Left);
                 }
 
-                if (!Equals(element.Right, null))
+                if (!Equals(node.Right, null))
                 {
-                    queue.Enqueue(element.Right);
+                    queue.Enqueue(node.Right);
                 }
-
             }
         }
 
         public int GetCount()
         {
-            return GoThroughWide().Count();
+            var i = 0;
+
+            GoThroughWide((x) => i++);
+
+            return i;
         }
 
-        public bool RemoveNode(T data)
+        public bool RemoveNode1(T data)
         {
             bool isHeadDelete = false;
             if (Equals(head.value, data))//Удаление корня
@@ -171,6 +173,111 @@ namespace TreeExercise
 
             if (ReferenceEquals(targetNode.Left, null) && ReferenceEquals(targetNode.Right, null))
             {
+                if (isHeadDelete)
+                {
+                    head = null;
+                }
+                else
+                {
+                    if (isLeftForPrevious)
+                    {
+                        previous.Left = null;
+                    }
+                    else
+                    {
+                        previous.Right = null;
+                    }
+                }
+                return true;
+            }
+            else if (ReferenceEquals(targetNode.Left, null) || ReferenceEquals(targetNode.Right, null))
+            {
+                var isOnlyLeftChild = ReferenceEquals(targetNode.Left, null) ? false : true;
+
+                if (!ReferenceEquals(targetNode.Left, null))
+                {
+                    if (isLeftForPrevious)
+                    {
+                        previous.Left = targetNode.Left;
+                    }
+                    else
+                    {
+                        previous.Right = targetNode.Left;
+                    }
+                }
+                else
+                {
+                    if (isLeftForPrevious)
+                    {
+                        previous.Left = targetNode.Right;
+                    }
+                    else
+                    {
+                        previous.Right = targetNode.Right;
+                    }
+                }
+
+                return true;
+            }
+            else
+            {
+                var MostLeftNode = targetNode.Right;
+                var previousOfMostLeft = MostLeftNode;
+                while (!ReferenceEquals(MostLeftNode.Left, null))
+                {
+                    previousOfMostLeft = MostLeftNode;
+                    MostLeftNode = MostLeftNode.Left;
+                }
+
+                previousOfMostLeft.Left = !ReferenceEquals(MostLeftNode.Right, null) ? MostLeftNode.Right : null;
+
+                MostLeftNode.Left = targetNode.Left;
+                MostLeftNode.Right = targetNode.Right;
+
+                if (isLeftForPrevious)
+                {
+                    previous.Left = MostLeftNode;
+                }
+                else
+                {
+                    previous.Right = MostLeftNode;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool RemoveNodeWithoutChilds(TreeNode<T> previous, bool isLeftFromPrevious)
+        {
+            if (ReferenceEquals(previous, null))//удаляем корень
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+
+        public bool RemoveNode(T data)
+        {
+            bool isHeadDelete = false;
+            if (Equals(head.value, data))//Удаление корня
+            {
+                isHeadDelete = true;
+            }
+
+            var previous = GetPreviousNode(data);
+
+            var isLeftForPrevious = (Equals(previous.Left.value, data)) ? true : false;
+
+            //var targetNode = (isLeftForPrevious) ? previous.Left : previous.Right;
+
+            if (ReferenceEquals(targetNode.Left, null) && ReferenceEquals(targetNode.Right, null))
+            {
+                RemoveNodeWithoutChilds(previous, isLeftForPrevious);
                 if (isHeadDelete)
                 {
                     head = null;

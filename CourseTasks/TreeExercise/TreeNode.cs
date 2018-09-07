@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace TreeExercise
 {
-    class TreenNode<T> where T : IComparable
+    class TreeNode<T> where T : IComparable
     {
-        public TreenNode<T> Left { get; set; }
-        public TreenNode<T> Right { get; set; }
+        public TreeNode<T> Left { get; set; }
+        public TreeNode<T> Right { get; set; }
 
         public T value;
 
-        public TreenNode(T data)
+        public TreeNode(T data)
         {
             this.value = data;
             Left = null;

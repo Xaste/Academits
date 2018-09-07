@@ -30,14 +30,10 @@ namespace TreeExercise
             var findNode2 = tree.FindNode(5);
             var findNode3 = tree.FindNode(4);
 
-            var res = tree2.GoThroughWide().ToList();
-            foreach (var item in res)
-            {
-                item.value++;
-            }
+            tree2.Add(55);
+            tree2.GoThroughWide((x) => x.value++);
 
-            var res2 = tree.GoThroughWide();
-            Console.WriteLine(tree2.GetCount());
+            var count = tree2.GetCount();
 
             tree.Add(2);
             tree.Add(7);
