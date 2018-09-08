@@ -26,12 +26,11 @@ namespace TreeExercise
 
             var tree2 = new Tree<int>(new int[] { 10, 5, 4, 7, 22 });
 
-            var findNode = tree2.GetPreviousNode(4);
             var findNode2 = tree.FindNode(5);
             var findNode3 = tree.FindNode(4);
 
             tree2.Add(55);
-            tree2.GoThroughWide((x) => x.value++);
+            tree2.GoThroughWide(x => x.Value++);
 
             var count = tree2.GetCount();
 
@@ -41,9 +40,11 @@ namespace TreeExercise
             tree.RemoveNode(3);
             tree.RemoveNode(6);
 
-            var tree3 = new Tree<int>(10, 5, 20, 15, 25, 23, 22);
+            var tree3 = new Tree<int>(10, 20, 15, 25, 23, 27, 26, 30, 24);
 
-            tree3.RemoveNode(10);
+            tree3.GoThroughDeepRecursion(x => x.Value++);
+
+            tree3.GoThroughDeep(x => x.Value--);
         }
     }
 }

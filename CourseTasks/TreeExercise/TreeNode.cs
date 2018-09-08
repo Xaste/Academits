@@ -11,13 +11,30 @@ namespace TreeExercise
         public TreeNode<T> Left { get; set; }
         public TreeNode<T> Right { get; set; }
 
-        public T value;
+        public T Value { get; set; }
 
         public TreeNode(T data)
         {
-            this.value = data;
+            Value = data;
             Left = null;
             Right = null;
+        }
+
+        internal List<TreeNode<T>> GetChildren()
+        {
+            var result = new List<TreeNode<T>>();
+
+            if (!ReferenceEquals(Left, null))
+            {
+                result.Add(Left);
+            }
+
+            if (!ReferenceEquals(Right, null))
+            {
+                result.Add(Right);
+            }
+
+            return result;
         }
     }
 }

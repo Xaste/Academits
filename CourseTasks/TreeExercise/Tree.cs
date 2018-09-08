@@ -10,11 +10,6 @@ namespace TreeExercise
     {
         private TreeNode<T> head;
 
-        /*public Tree(T root)
-        {
-            head = new TreenNode<T>(root);
-        }*/
-
         public Tree(params T[] data)
         {
             if (Equals(data, null) || data.Length == 0)
@@ -47,7 +42,7 @@ namespace TreeExercise
 
             while (true)
             {
-                if (p.value.CompareTo(data) > 0)
+                if (p.Value.CompareTo(data) > 0)
                 {
                     if (ReferenceEquals(p.Left, null))
                     {
@@ -70,7 +65,7 @@ namespace TreeExercise
             }
         }
 
-        public TreeNode<T> GetPreviousNode(T data)//TODO Сделать private
+        private TreeNode<T> GetPreviousNode(T data)
         {
             if (ReferenceEquals(data, null))
             {
@@ -79,13 +74,14 @@ namespace TreeExercise
 
             var p = head;
             TreeNode<T> previous = null;
+
             while (true)
             {
-                if (Equals(p.value, data))
+                if (Equals(p.Value, data))
                 {
                     return previous;
                 }
-                else if (p.value.CompareTo(data) > 0)
+                else if (p.Value.CompareTo(data) > 0)
                 {
                     if (!ReferenceEquals(p.Left, null))
                     {
@@ -114,14 +110,14 @@ namespace TreeExercise
 
         public TreeNode<T> FindNode(T data)
         {
-            if (Equals(head.value, data))
+            if (Equals(head.Value, data))
             {
                 return head;
             }
 
             var previous = GetPreviousNode(data);
 
-            return Equals(previous.Left.value, data) ? previous.Left : previous.Right;
+            return Equals(previous.Left.Value, data) ? previous.Left : previous.Right;
         }
 
         public void GoThroughWide(Action<TreeNode<T>> f)
@@ -136,7 +132,7 @@ namespace TreeExercise
 
                 f(node);
 
-                if (!Equals(node.Left, null))// Поменять на ?.
+                if (!Equals(node.Left, null))
                 {
                     queue.Enqueue(node.Left);
                 }
@@ -144,6 +140,46 @@ namespace TreeExercise
                 if (!Equals(node.Right, null))
                 {
                     queue.Enqueue(node.Right);
+                }
+            }
+        }
+
+        public void GoThroughDeepRecursion(Action<TreeNode<T>> f)
+        {
+            var p = head;
+            VisitNodeForDeepRecursion(f, p);
+        }
+
+        private static void VisitNodeForDeepRecursion(Action<TreeNode<T>> f, TreeNode<T> node)
+        {
+            f(node);
+
+            foreach (var treeNode in node.GetChildren())
+            {
+                VisitNodeForDeepRecursion(f, treeNode);
+            }
+        }
+
+        public void GoThroughDeep(Action<TreeNode<T>> f)
+        {
+            var stack = new Stack<TreeNode<T>>();
+
+            stack.Push(head);
+
+            while (stack.Count != 0)
+            {
+                var node = stack.Pop();
+
+                f(node);
+
+                if (!ReferenceEquals(node.Right, null))
+                {
+                    stack.Push(node.Right);
+                }
+
+                if (!ReferenceEquals(node.Left, null))
+                {
+                    stack.Push(node.Left);
                 }
             }
         }
@@ -157,134 +193,37 @@ namespace TreeExercise
             return i;
         }
 
-        public bool RemoveNode1(T data)
-        {
-            bool isHeadDelete = false;
-            if (Equals(head.value, data))//Удаление корня
-            {
-                isHeadDelete = true;
-            }
-
-            var previous = GetPreviousNode(data);
-
-            var isLeftForPrevious = (Equals(previous.Left.value, data)) ? true : false;
-
-            var targetNode = (isLeftForPrevious) ? previous.Left : previous.Right;
-
-            if (ReferenceEquals(targetNode.Left, null) && ReferenceEquals(targetNode.Right, null))
-            {
-                if (isHeadDelete)
-                {
-                    head = null;
-                }
-                else
-                {
-                    if (isLeftForPrevious)
-                    {
-                        previous.Left = null;
-                    }
-                    else
-                    {
-                        previous.Right = null;
-                    }
-                }
-                return true;
-            }
-            else if (ReferenceEquals(targetNode.Left, null) || ReferenceEquals(targetNode.Right, null))
-            {
-                var isOnlyLeftChild = ReferenceEquals(targetNode.Left, null) ? false : true;
-
-                if (!ReferenceEquals(targetNode.Left, null))
-                {
-                    if (isLeftForPrevious)
-                    {
-                        previous.Left = targetNode.Left;
-                    }
-                    else
-                    {
-                        previous.Right = targetNode.Left;
-                    }
-                }
-                else
-                {
-                    if (isLeftForPrevious)
-                    {
-                        previous.Left = targetNode.Right;
-                    }
-                    else
-                    {
-                        previous.Right = targetNode.Right;
-                    }
-                }
-
-                return true;
-            }
-            else
-            {
-                var MostLeftNode = targetNode.Right;
-                var previousOfMostLeft = MostLeftNode;
-                while (!ReferenceEquals(MostLeftNode.Left, null))
-                {
-                    previousOfMostLeft = MostLeftNode;
-                    MostLeftNode = MostLeftNode.Left;
-                }
-
-                previousOfMostLeft.Left = !ReferenceEquals(MostLeftNode.Right, null) ? MostLeftNode.Right : null;
-
-                MostLeftNode.Left = targetNode.Left;
-                MostLeftNode.Right = targetNode.Right;
-
-                if (isLeftForPrevious)
-                {
-                    previous.Left = MostLeftNode;
-                }
-                else
-                {
-                    previous.Right = MostLeftNode;
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool RemoveNodeWithoutChilds(TreeNode<T> previous, bool isLeftFromPrevious)
-        {
-            if (ReferenceEquals(previous, null))//удаляем корень
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-
         public bool RemoveNode(T data)
         {
-            bool isHeadDelete = false;
-            if (Equals(head.value, data))//Удаление корня
-            {
-                isHeadDelete = true;
-            }
+            var isHeadDelete = Equals(head.Value, data);
 
             var previous = GetPreviousNode(data);
 
-            var isLeftForPrevious = (Equals(previous.Left.value, data)) ? true : false;
+            if (!isHeadDelete && ReferenceEquals(GetPreviousNode(data), null))
+            {
+                return false;
+            }
 
-            //var targetNode = (isLeftForPrevious) ? previous.Left : previous.Right;
+            TreeNode<T> targetNode;
+
+            if (isHeadDelete)
+            {
+                targetNode = head;
+            }
+            else
+            {
+                targetNode = Equals(previous.Left.Value, data) ? previous.Left : previous.Right;
+            }
 
             if (ReferenceEquals(targetNode.Left, null) && ReferenceEquals(targetNode.Right, null))
             {
-                RemoveNodeWithoutChilds(previous, isLeftForPrevious);
                 if (isHeadDelete)
                 {
                     head = null;
                 }
                 else
                 {
-                    if (isLeftForPrevious)
+                    if (Equals(previous.Left.Value, data))
                     {
                         previous.Left = null;
                     }
@@ -295,13 +234,18 @@ namespace TreeExercise
                 }
                 return true;
             }
-            else if (ReferenceEquals(targetNode.Left, null) || ReferenceEquals(targetNode.Right, null))
+
+            if (ReferenceEquals(targetNode.Left, null) || ReferenceEquals(targetNode.Right, null))
             {
-                var isOnlyLeftChild = ReferenceEquals(targetNode.Left, null) ? false : true;
+                if (isHeadDelete)
+                {
+                    head = targetNode.Left ?? targetNode.Right;
+                    return true;
+                }
 
                 if (!ReferenceEquals(targetNode.Left, null))
                 {
-                    if (isLeftForPrevious)
+                    if (Equals(previous.Left.Value, data))
                     {
                         previous.Left = targetNode.Left;
                     }
@@ -312,7 +256,7 @@ namespace TreeExercise
                 }
                 else
                 {
-                    if (isLeftForPrevious)
+                    if (Equals(previous.Left.Value, data))
                     {
                         previous.Left = targetNode.Right;
                     }
@@ -324,34 +268,47 @@ namespace TreeExercise
 
                 return true;
             }
+
+            var mostLeftNode = targetNode.Right;
+
+            var previousOfMostLeft = mostLeftNode;
+
+            while (!ReferenceEquals(mostLeftNode.Left, null))
+            {
+                previousOfMostLeft = mostLeftNode;
+                mostLeftNode = mostLeftNode.Left;
+            }
+
+            if (!ReferenceEquals(mostLeftNode.Right, null))
+            {
+                previousOfMostLeft.Left = mostLeftNode.Right;
+                previousOfMostLeft.Right = null;
+            }
             else
             {
-                var MostLeftNode = targetNode.Right;
-                var previousOfMostLeft = MostLeftNode;
-                while (!ReferenceEquals(MostLeftNode.Left, null))
+                previousOfMostLeft.Left = null;
+            }
+
+            mostLeftNode.Left = targetNode.Left;
+            mostLeftNode.Right = targetNode.Right;
+
+            if (isHeadDelete)
+            {
+                head = mostLeftNode;
+            }
+            else
+            {
+                if (Equals(previous.Left.Value, data))
                 {
-                    previousOfMostLeft = MostLeftNode;
-                    MostLeftNode = MostLeftNode.Left;
-                }
-
-                previousOfMostLeft.Left = !ReferenceEquals(MostLeftNode.Right, null) ? MostLeftNode.Right : null;
-
-                MostLeftNode.Left = targetNode.Left;
-                MostLeftNode.Right = targetNode.Right;
-
-                if (isLeftForPrevious)
-                {
-                    previous.Left = MostLeftNode;
+                    previous.Left = mostLeftNode;
                 }
                 else
                 {
-                    previous.Right = MostLeftNode;
+                    previous.Right = mostLeftNode;
                 }
-
-                return true;
             }
 
-            return false;
+            return true;
         }
     }
 }
