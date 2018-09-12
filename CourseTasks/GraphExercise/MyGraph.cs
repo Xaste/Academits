@@ -34,7 +34,7 @@ namespace GraphExercise
             Count = array.GetLength(0);
         }
 
-        public void GoThroughWide()
+        public void GoThroughWide(Action<int> f)
         {
             var visited = new bool[Count];
 
@@ -58,7 +58,7 @@ namespace GraphExercise
                         continue;
                     }
 
-                    //work
+                    f(row);
 
                     visited[row] = true;
 
@@ -67,6 +67,46 @@ namespace GraphExercise
                         if (graph[row][j] > 0)
                         {
                             queue.Enqueue(j);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void GoThrougDeep(Action<int> f)
+        {
+            var visited = new bool[Count];
+
+            var stack = new Stack<int>();
+
+            for (var i = 0; i < visited.Length; i++)
+            {
+                if (visited[i] != false)
+                {
+                    continue;
+                }
+
+                stack.Push(i);
+
+                while (stack.Count > 0)
+                {
+                    var row = stack.Pop();
+
+                    if (visited[row])
+                    {
+                        continue;
+                    }
+
+                    f(row);
+
+                    visited[row] = true;
+
+                    //for (var j = 0; j < graph[row].Length; j++)
+                    for(var j = graph[row].Length - 1; j > 0; j--)
+                    {
+                        if (graph[row][j] > 0)
+                        {
+                            stack.Push(j);
                         }
                     }
                 }

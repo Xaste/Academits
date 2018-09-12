@@ -18,7 +18,11 @@ namespace GraphExercise
 
             var graph1 = new MyGraph(array1);
 
-            graph1.GoThroughWide();
+            graph1.GoThroughWide((x) => Console.WriteLine(x));
+
+            Console.WriteLine("-----------------------------------------");
+
+            graph1.GoThrougDeep(x => Console.WriteLine(x));
 
         }
     }

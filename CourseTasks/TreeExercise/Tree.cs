@@ -9,9 +9,13 @@ namespace TreeExercise
     class Tree<T> where T : IComparable
     {
         private TreeNode<T> head;
+        private IComparer<T> comparer;
+        public int Count { get; set; }
 
         public Tree(params T[] data)
         {
+            comparer = Comparer<T>.Default;
+
             if (Equals(data, null) || data.Length == 0)
             {
                 head = null;
@@ -23,6 +27,20 @@ namespace TreeExercise
                     Add(item);
                 }
             }
+
+            Count = data.Length;
+        }
+
+        public Tree(IComparer<T> comparer, params T[] data)
+        {
+            if (Equals(data, null) || data.Length == 0)
+            {
+                head = null;
+            }
+
+            this.comparer = comparer;
+
+            Count = data.Length;
         }
 
         public void Add(T data)
@@ -42,7 +60,8 @@ namespace TreeExercise
 
             while (true)
             {
-                if (p.Value.CompareTo(data) > 0)
+                //if (p.Value.CompareTo(data) > 0)
+                if (comparer.Compare(data, p.Value) < 0)
                 {
                     if (ReferenceEquals(p.Left, null))
                     {
@@ -63,6 +82,8 @@ namespace TreeExercise
                     p = p.Right;
                 }
             }
+
+            Count++;
         }
 
         private TreeNode<T> GetPreviousNode(T data)
@@ -184,15 +205,6 @@ namespace TreeExercise
             }
         }
 
-        public int GetCount()
-        {
-            var i = 0;
-
-            GoThroughWide((x) => i++);
-
-            return i;
-        }
-
         public bool RemoveNode(T data)
         {
             var isHeadDelete = Equals(head.Value, data);
@@ -232,6 +244,8 @@ namespace TreeExercise
                         previous.Right = null;
                     }
                 }
+
+                --Count;
                 return true;
             }
 
@@ -240,6 +254,9 @@ namespace TreeExercise
                 if (isHeadDelete)
                 {
                     head = targetNode.Left ?? targetNode.Right;
+
+                    --Count;
+
                     return true;
                 }
 
@@ -265,6 +282,8 @@ namespace TreeExercise
                         previous.Right = targetNode.Right;
                     }
                 }
+
+                --Count;
 
                 return true;
             }
@@ -307,6 +326,8 @@ namespace TreeExercise
                     previous.Right = mostLeftNode;
                 }
             }
+
+            --Count;
 
             return true;
         }
