@@ -9,12 +9,15 @@ namespace TreeExercise
     class Tree<T> where T : IComparable
     {
         private TreeNode<T> head;
-        private IComparer<T> comparer;
+        private IComparer<T> comparer = Comparer<T>.Default;
         public int Count { get; set; }
 
         public Tree(params T[] data)
         {
-            comparer = Comparer<T>.Default;
+            if (data.Length == 0)
+            {
+                throw new ArgumentException("В дерево должно быть передано хотя бы 1 значение");
+            }
 
             if (Equals(data, null) || data.Length == 0)
             {
@@ -33,6 +36,11 @@ namespace TreeExercise
 
         public Tree(IComparer<T> comparer, params T[] data)
         {
+            if (data.Length == 0)
+            {
+                throw new ArgumentException("В дерево должно быть передано хотя бы 1 значение");
+            }
+
             if (Equals(data, null) || data.Length == 0)
             {
                 head = null;
@@ -45,11 +53,6 @@ namespace TreeExercise
 
         public void Add(T data)
         {
-            if (ReferenceEquals(data, null))
-            {
-                throw new NullReferenceException("Попытка добавить null в бинарное дерево поиска");
-            }
-
             if (Equals(head, null))
             {
                 head = new TreeNode<T>(data);
@@ -88,11 +91,6 @@ namespace TreeExercise
 
         private TreeNode<T> GetPreviousNode(T data)
         {
-            if (ReferenceEquals(data, null))
-            {
-                throw new ArgumentNullException("Попытка найти null элемент");
-            }
-
             var p = head;
             TreeNode<T> previous = null;
 
@@ -102,7 +100,7 @@ namespace TreeExercise
                 {
                     return previous;
                 }
-                else if (p.Value.CompareTo(data) > 0)
+                else if (comparer.Compare(data, p.Value) < 0)
                 {
                     if (!ReferenceEquals(p.Left, null))
                     {

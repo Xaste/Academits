@@ -42,6 +42,11 @@ namespace TreeExercise
             Console.WriteLine();
 
             tree3.GoThroughDeep(x => Console.WriteLine(x.Value));
+
+            var stringTree = new Tree<string>("ddd", "bbb", "fff", null);
+            stringTree.Add(null);
+
+            var nullString = stringTree.FindNode(null);
         }
     }
 }
