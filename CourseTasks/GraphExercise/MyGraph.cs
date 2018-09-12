@@ -10,7 +10,7 @@ namespace GraphExercise
     {
         private readonly double[][] graph;
 
-        public int Count { get; set; }
+        public int Count { get; private set; }
 
         public MyGraph(double[,] array)
         {
@@ -73,7 +73,7 @@ namespace GraphExercise
             }
         }
 
-        public void GoThrougDeep(Action<double> f)
+        public void GoThroughDeep(Action<double> f)
         {
             var visited = new bool[Count];
 

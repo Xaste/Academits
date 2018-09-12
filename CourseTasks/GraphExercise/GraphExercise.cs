@@ -22,7 +22,7 @@ namespace GraphExercise
 
             Console.WriteLine("-----------------------------------------");
 
-            graph1.GoThrougDeep(x => Console.WriteLine(x));
+            graph1.GoThroughDeep(x => Console.WriteLine(x));
 
         }
     }
