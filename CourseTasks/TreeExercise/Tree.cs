@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace TreeExercise
 {
-    class Tree<T> where T : IComparable
+    class Tree<T>
     {
         private TreeNode<T> head;
         private IComparer<T> comparer = Comparer<T>.Default;
-        public int Count { get; set; }
+        public int Count { get; private set; }
 
         public Tree(params T[] data)
         {
@@ -63,7 +63,6 @@ namespace TreeExercise
 
             while (true)
             {
-                //if (p.Value.CompareTo(data) > 0)
                 if (comparer.Compare(data, p.Value) < 0)
                 {
                     if (ReferenceEquals(p.Left, null))
@@ -96,7 +95,7 @@ namespace TreeExercise
 
             while (true)
             {
-                if (Equals(p.Value, data))
+                if (comparer.Compare(p.Value, data) == 0)
                 {
                     return previous;
                 }
@@ -129,14 +128,14 @@ namespace TreeExercise
 
         public TreeNode<T> FindNode(T data)
         {
-            if (Equals(head.Value, data))
+            if (comparer.Compare(head.Value, data) == 0)
             {
                 return head;
             }
 
             var previous = GetPreviousNode(data);
 
-            return Equals(previous.Left.Value, data) ? previous.Left : previous.Right;
+            return comparer.Compare(previous.Left.Value, data) == 0 ? previous.Left : previous.Right;
         }
 
         public void GoThroughWide(Action<TreeNode<T>> f)
@@ -205,7 +204,7 @@ namespace TreeExercise
 
         public bool RemoveNode(T data)
         {
-            var isHeadDelete = Equals(head.Value, data);
+            var isHeadDelete = comparer.Compare(head.Value, data) == 0;
 
             var previous = GetPreviousNode(data);
 
@@ -222,7 +221,7 @@ namespace TreeExercise
             }
             else
             {
-                targetNode = Equals(previous.Left.Value, data) ? previous.Left : previous.Right;
+                targetNode = comparer.Compare(previous.Left.Value, data) == 0 ? previous.Left : previous.Right;
             }
 
             if (ReferenceEquals(targetNode.Left, null) && ReferenceEquals(targetNode.Right, null))
@@ -233,7 +232,7 @@ namespace TreeExercise
                 }
                 else
                 {
-                    if (Equals(previous.Left.Value, data))
+                    if (comparer.Compare(previous.Left.Value, data) == 0)
                     {
                         previous.Left = null;
                     }
@@ -260,7 +259,7 @@ namespace TreeExercise
 
                 if (!ReferenceEquals(targetNode.Left, null))
                 {
-                    if (Equals(previous.Left.Value, data))
+                    if (comparer.Compare(previous.Left.Value, data) == 0)
                     {
                         previous.Left = targetNode.Left;
                     }
@@ -271,7 +270,7 @@ namespace TreeExercise
                 }
                 else
                 {
-                    if (Equals(previous.Left.Value, data))
+                    if (comparer.Compare(previous.Left.Value, data) == 0)
                     {
                         previous.Left = targetNode.Right;
                     }
@@ -315,7 +314,7 @@ namespace TreeExercise
             }
             else
             {
-                if (Equals(previous.Left.Value, data))
+                if (comparer.Compare(previous.Left.Value, data) == 0)
                 {
                     previous.Left = mostLeftNode;
                 }

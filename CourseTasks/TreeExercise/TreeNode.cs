@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TreeExercise
 {
-    class TreeNode<T> where T : IComparable
+    class TreeNode<T>
     {
         public TreeNode<T> Left { get; set; }
         public TreeNode<T> Right { get; set; }
