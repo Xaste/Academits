@@ -6,18 +6,15 @@ using System.Windows.Forms;
 
 namespace TemperatureUIExercise
 {
-    static class Program
+    static class TemperatureUIExercise
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            FormView view = new FormView();
-            Presenter presenter = new Presenter(view);
+            var view = new FormView();
+            var presenter = new Presenter(view);
             Application.Run(view);
         }
     }

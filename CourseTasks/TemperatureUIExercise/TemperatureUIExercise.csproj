@@ -54,7 +54,7 @@
     </Compile>
     <Compile Include="Presenter\IView.cs" />
     <Compile Include="Presenter\Presenter.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="TemperatureUIExercise.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\TemperatureModel.cs" />
     <EmbeddedResource Include="View\Form1.resx">

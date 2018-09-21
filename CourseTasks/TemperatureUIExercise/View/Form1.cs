@@ -15,6 +15,8 @@ namespace TemperatureUIExercise
         public FormView()
         {
             InitializeComponent();
+            this.firstTemeratureLabel.Hide();
+            this.secondTemeratureLabel.Hide();
         }
 
         public double InputDegree => (double)inputDegree.Value;
@@ -27,31 +29,25 @@ namespace TemperatureUIExercise
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Convert(this, EventArgs.Empty);
+            firstTemeratureLabel.Show();
+            secondTemeratureLabel.Show();
+
+            Convert?.Invoke(this, EventArgs.Empty);
         }
 
-        private void inputDegreeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void InputDegreeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (inputDegreeComboBox.SelectedIndex == (int)TemperatureModel.TemperatureTypes.Celsius)
+            switch (inputDegreeComboBox.SelectedIndex)
             {
-                if (CelsiusSetted != null)
-                {
-                    CelsiusSetted(this, EventArgs.Empty);
-                }
-            }
-            else if (inputDegreeComboBox.SelectedIndex == (int)TemperatureModel.TemperatureTypes.Kelvin)
-            {
-                if (KelvinSetted != null)
-                {
-                    KelvinSetted(this, EventArgs.Empty);
-                }
-            }
-            else
-            {
-                if (FarenheitSetted != null)
-                {
-                    FarenheitSetted(this, EventArgs.Empty);
-                }
+                case (int)TemperatureModel.TemperatureTypes.Celsius:
+                    CelsiusSetted?.Invoke(this, EventArgs.Empty);
+                    break;
+                case (int)TemperatureModel.TemperatureTypes.Kelvin:
+                    KelvinSetted?.Invoke(this, EventArgs.Empty);
+                    break;
+                default:
+                    FarenheitSetted?.Invoke(this, EventArgs.Empty);
+                    break;
             }
         }
 
@@ -65,9 +61,9 @@ namespace TemperatureUIExercise
             inputDegree.Value = (decimal)value;
         }
 
-        private void inputDegree_ValueChanged(object sender, EventArgs e)
+        private void InputDegree_ValueChanged(object sender, EventArgs e)
         {
-            InputDegreeSetted(this, EventArgs.Empty);
+            InputDegreeSetted?.Invoke(this, EventArgs.Empty);
         }
 
         public void SetFirstLabel(string value)

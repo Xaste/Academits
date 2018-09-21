@@ -87,7 +87,7 @@
             this.inputDegree.Name = "inputDegree";
             this.inputDegree.Size = new System.Drawing.Size(100, 20);
             this.inputDegree.TabIndex = 2;
-            this.inputDegree.ValueChanged += new System.EventHandler(this.inputDegree_ValueChanged);
+            this.inputDegree.ValueChanged += new System.EventHandler(this.InputDegree_ValueChanged);
             // 
             // inputDegreeComboBox
             // 
@@ -100,7 +100,7 @@
             this.inputDegreeComboBox.Name = "inputDegreeComboBox";
             this.inputDegreeComboBox.Size = new System.Drawing.Size(121, 21);
             this.inputDegreeComboBox.TabIndex = 0;
-            this.inputDegreeComboBox.SelectedIndexChanged += new System.EventHandler(this.inputDegreeComboBox_SelectedIndexChanged);
+            this.inputDegreeComboBox.SelectedIndexChanged += new System.EventHandler(this.InputDegreeComboBox_SelectedIndexChanged);
             // 
             // groupBox2
             // 
