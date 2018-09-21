@@ -9,5 +9,10 @@ namespace TemperatureMVC
     class Controller
     {
         TemperatureModel model = new TemperatureModel();
+
+        public void RefreshView()
+        {
+
+        }
     }
 }

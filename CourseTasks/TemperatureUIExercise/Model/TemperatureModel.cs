@@ -10,7 +10,8 @@ namespace TemperatureUIExercise
     {
         private double _valueCelsius = 0;
         private double _valueFarenheit = 32;
-        private TemperatureTypes _temperatureType = TemperatureTypes.Kelvin;
+        private double _valueKelvin = 273.15;
+        private TemperatureTypes _temperatureType = TemperatureTypes.Celsius;
 
         public enum TemperatureTypes
         {
@@ -32,6 +33,7 @@ namespace TemperatureUIExercise
             {
                 _valueCelsius = value;
                 _valueFarenheit = _valueCelsius * 9 / 5 + 32;
+                _valueKelvin = _valueCelsius + 273.15;
             }
         }
 
@@ -42,6 +44,18 @@ namespace TemperatureUIExercise
             {
                 _valueFarenheit = value;
                 _valueCelsius = (_valueFarenheit - 32) * 5 / 9;
+                _valueKelvin = _valueCelsius + 273.15;
+            }
+        }
+
+        public double ValueKelvin
+        {
+            get { return _valueKelvin; }
+            set
+            {
+                _valueKelvin = value;
+                _valueCelsius = _valueKelvin - 273.15;
+                _valueFarenheit = _valueCelsius * 9 / 5 + 32;
             }
         }
     }

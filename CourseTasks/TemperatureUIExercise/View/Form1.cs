@@ -17,59 +17,77 @@ namespace TemperatureUIExercise
             InitializeComponent();
         }
 
-        public double InputDegree => throw new NotImplementedException();
+        public double InputDegree => (double)inputDegree.Value;
 
         public event EventHandler<EventArgs> FarenheitSetted;
         public event EventHandler<EventArgs> CelsiusSetted;
-
-        public void SetCelsius(double value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetFarenheit(double value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetTemperatureType(int value)
-        {
-            throw new NotImplementedException();
-        }
+        public event EventHandler<EventArgs> KelvinSetted;
+        public event EventHandler<EventArgs> InputDegreeSetted;
+        public event EventHandler<EventArgs> Convert;
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Привет");
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            //inputDegreeComboBox.SelectedIndex = 0;
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void secondTemperaturetextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void firstTemperaturetextBox_TextChanged(object sender, EventArgs e)
-        {
-
+            Convert(this, EventArgs.Empty);
         }
 
         private void inputDegreeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (inputDegreeComboBox.SelectedIndex == (int)TemperatureModel.TemperatureTypes.Celsius)
+            {
+                if (CelsiusSetted != null)
+                {
+                    CelsiusSetted(this, EventArgs.Empty);
+                }
+            }
+            else if (inputDegreeComboBox.SelectedIndex == (int)TemperatureModel.TemperatureTypes.Kelvin)
+            {
+                if (KelvinSetted != null)
+                {
+                    KelvinSetted(this, EventArgs.Empty);
+                }
+            }
+            else
+            {
+                if (FarenheitSetted != null)
+                {
+                    FarenheitSetted(this, EventArgs.Empty);
+                }
+            }
         }
 
         public void SetTemperatureType(TemperatureModel.TemperatureTypes value)
         {
             inputDegreeComboBox.SelectedIndex = (int)value;
+        }
+
+        public void SetInputDegree(double value)
+        {
+            inputDegree.Value = (decimal)value;
+        }
+
+        private void inputDegree_ValueChanged(object sender, EventArgs e)
+        {
+            InputDegreeSetted(this, EventArgs.Empty);
+        }
+
+        public void SetFirstLabel(string value)
+        {
+            firstTemeratureLabel.Text = value;
+        }
+
+        public void SetSecondLabel(string value)
+        {
+            secondTemeratureLabel.Text = value;
+        }
+
+        public void SetFirstResult(double value)
+        {
+            firstResult.Value = (decimal)value;
+        }
+
+        public void SetSecondResult(double value)
+        {
+            SecondResult.Value = (decimal)value;
         }
     }
 }
