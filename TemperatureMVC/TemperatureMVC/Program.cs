@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TemperatureUIExercise
+namespace TemperatureMVC
 {
     static class Program
     {
@@ -16,9 +16,7 @@ namespace TemperatureUIExercise
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            FormView view = new FormView();
-            Presenter presenter = new Presenter(view);
-            Application.Run(view);
+            Application.Run(new View());
         }
     }
 }
