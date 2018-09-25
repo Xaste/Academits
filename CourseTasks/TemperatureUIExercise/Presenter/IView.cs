@@ -24,9 +24,9 @@ namespace TemperatureUIExercise
 
         void FillTemperatures(int index1, int index2);
 
-        event EventHandler<EventArgs> FirstTemperatureSetted;
-        event EventHandler<EventArgs> SecondTemperatureSetted;
-        event EventHandler<EventArgs> FirstDegreeSetted;
-        event EventHandler<EventArgs> SecondDegreeSetted;
+        event EventHandler<EventArgs> FirstTemperatureSet;
+        event EventHandler<EventArgs> SecondTemperatureSet;
+        event EventHandler<EventArgs> FirstDegreeSet;
+        event EventHandler<EventArgs> SecondDegreeSet;
     }
 }

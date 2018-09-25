@@ -17,11 +17,11 @@ namespace TemperatureUIExercise
             _view.AddTemperaturesInCombobox(_model.Temperatures);
             
 
-            _view.FirstTemperatureSetted += new EventHandler<EventArgs>(OnFirstTemperatureSetted);
-            _view.SecondTemperatureSetted += new EventHandler<EventArgs>(OnSecondTemperatureSetted);
+            _view.FirstTemperatureSet += new EventHandler<EventArgs>(OnFirstTemperatureSetted);
+            _view.SecondTemperatureSet += new EventHandler<EventArgs>(OnSecondTemperatureSetted);
 
-            _view.FirstDegreeSetted += new EventHandler<EventArgs>(OnFirstDegreeSetted);
-            _view.SecondDegreeSetted += new EventHandler<EventArgs>(OnSecondDegreeSetted);
+            _view.FirstDegreeSet += new EventHandler<EventArgs>(OnFirstDegreeSetted);
+            _view.SecondDegreeSet += new EventHandler<EventArgs>(OnSecondDegreeSetted);
 
             FillTemperatures();
         }

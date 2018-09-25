@@ -23,20 +23,20 @@ namespace TemperatureUIExercise
         public string Temperature1 => (string)temperatureTypeComboBox1.SelectedItem;
         public string Temperature2 => (string)temperatureTypeComboBox2.SelectedItem;
  
-        public event EventHandler<EventArgs> FirstTemperatureSetted;
-        public event EventHandler<EventArgs> SecondTemperatureSetted;
+        public event EventHandler<EventArgs> FirstTemperatureSet;
+        public event EventHandler<EventArgs> SecondTemperatureSet;
 
-        public event EventHandler<EventArgs> FirstDegreeSetted;
-        public event EventHandler<EventArgs> SecondDegreeSetted;
+        public event EventHandler<EventArgs> FirstDegreeSet;
+        public event EventHandler<EventArgs> SecondDegreeSet;
 
         private void temperatureTypeComboBox1_SelectedValueChanged(object sender, EventArgs e)
         {
-            FirstTemperatureSetted?.Invoke(this, EventArgs.Empty);
+            FirstTemperatureSet?.Invoke(this, EventArgs.Empty);
         }
 
         private void temperatureTypeComboBox2_SelectedValueChanged(object sender, EventArgs e)
         {
-            SecondTemperatureSetted?.Invoke(this, EventArgs.Empty);
+            SecondTemperatureSet?.Invoke(this, EventArgs.Empty);
         }
 
         public void SetTemperatureDegree1(double value)
@@ -60,12 +60,12 @@ namespace TemperatureUIExercise
 
         private void TemperatureDegree1_ValueChanged(object sender, EventArgs e)
         {
-            FirstDegreeSetted?.Invoke(this, EventArgs.Empty);
+            FirstDegreeSet?.Invoke(this, EventArgs.Empty);
         }
 
         private void temperatureDegree2_ValueChanged(object sender, EventArgs e)
         {
-            SecondDegreeSetted?.Invoke(this, EventArgs.Empty);
+            SecondDegreeSet?.Invoke(this, EventArgs.Empty);
         }
 
         public void FillTemperatures(int index1, int index2)
