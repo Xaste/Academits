@@ -14,94 +14,54 @@ namespace TemperatureUIExercise
         public Presenter(IView view)
         {
             _view = view;
-            _view.CelsiusSetted += new EventHandler<EventArgs>(OnSetCelsius);
-            _view.FarenheitSetted += new EventHandler<EventArgs>(OnSetFarenheit);
-            _view.KelvinSetted += new EventHandler<EventArgs>(OnSetKelvin);
-            _view.InputDegreeSetted += new EventHandler<EventArgs>(OnSetDegree);
-            _view.Convert += new EventHandler<EventArgs>(OnConvert);
-            RefreshView();
+            _view.AddTemperaturesInCombobox(_model.Temperatures);
+            
+
+            _view.FirstTemperatureSetted += new EventHandler<EventArgs>(OnFirstTemperatureSetted);
+            _view.SecondTemperatureSetted += new EventHandler<EventArgs>(OnSecondTemperatureSetted);
+
+            _view.FirstDegreeSetted += new EventHandler<EventArgs>(OnFirstDegreeSetted);
+            _view.SecondDegreeSetted += new EventHandler<EventArgs>(OnSecondDegreeSetted);
+
+            FillTemperatures();
         }
 
-        private void OnSetCelsius(object sender, EventArgs e)
+        private void FillTemperatures()
         {
-            _model.TemperatureType = TemperatureModel.TemperatureTypes.Celsius;
-            RefreshView();
-        }
-
-        private void OnSetFarenheit(object sender, EventArgs e)
-        {
-            _model.TemperatureType = TemperatureModel.TemperatureTypes.Farenheit;
-            RefreshView();
-
-        }
-
-        private void OnSetKelvin(object sender, EventArgs e)
-        {
-            _model.TemperatureType = TemperatureModel.TemperatureTypes.Kelvin;
-            RefreshView();
-        }
-
-        private void OnSetDegree(object sender, EventArgs e)
-        {
-            if (_model.TemperatureType is TemperatureModel.TemperatureTypes.Celsius)
+            if (_model.Temperatures.Count > 2)
             {
-                _model.ValueCelsius = _view.InputDegree;
+                _view.FillTemperatures(0, 1);
             }
-            else if (_model.TemperatureType is TemperatureModel.TemperatureTypes.Kelvin)
+            else if (_model.Temperatures.Count == 1)
             {
-                _model.ValueKelvin = _view.InputDegree;
+                _view.FillTemperatures(0, 0);
             }
             else
             {
-                _model.ValueFarenheit = _view.InputDegree;
+                throw new ArgumentException("Нет температур");
             }
         }
 
-        public void OnConvert(object sender, EventArgs e)
+        private void OnFirstTemperatureSetted(object sender, EventArgs e)
         {
-            if (_model.TemperatureType == TemperatureModel.TemperatureTypes.Celsius)
-            {
-                _view.SetFirstLabel("Келвин");
-                _view.SetSecondLabel("Фаренгейт");
-
-                _view.SetFirstResult(_model.ValueKelvin);
-                _view.SetSecondResult(_model.ValueFarenheit);
-            }
-            else if(_model.TemperatureType == TemperatureModel.TemperatureTypes.Kelvin)
-            {
-                _view.SetFirstLabel("Цельсий");
-                _view.SetSecondLabel("Фаренгейт");
-
-                _view.SetFirstResult(_model.ValueCelsius);
-                _view.SetSecondResult(_model.ValueFarenheit);
-            }
-            else
-            {
-                _view.SetFirstLabel("Цельсий");
-                _view.SetSecondLabel("Келвин");
-
-                _view.SetFirstResult(_model.ValueCelsius);
-                _view.SetSecondResult(_model.ValueKelvin);
-            }
-
+            _view.SetTemperatureDegree1(_model.Temperatures[_view.Temperature1][0](_model.ValueTemperature));
         }
 
-        private void RefreshView()
+        private void OnSecondTemperatureSetted(object sender, EventArgs e)
         {
-            _view.SetTemperatureType(_model.TemperatureType);
+            _view.SetTemperatureDegree2(_model.Temperatures[_view.Temperature2][0](_model.ValueTemperature));
+        }
 
-            if (Equals(_model.TemperatureType, TemperatureModel.TemperatureTypes.Celsius))
-            {
-                _view.SetInputDegree(_model.ValueCelsius);
-            }
-            else if (Equals(_model.TemperatureType, TemperatureModel.TemperatureTypes.Farenheit))
-            {
-                _view.SetInputDegree(_model.ValueFarenheit);
-            }
-            else
-            {
-                _view.SetInputDegree(_model.ValueKelvin);
-            }
+        private void OnFirstDegreeSetted(object sender, EventArgs e)
+        {
+            _model.ValueTemperature = _model.Temperatures[_view.Temperature1][1](_view.InputDegree1);
+            OnSecondTemperatureSetted(this, EventArgs.Empty);
+        }
+
+        private void OnSecondDegreeSetted(object sender, EventArgs e)
+        {
+            _model.ValueTemperature = _model.Temperatures[_view.Temperature2][1](_view.InputDegree2);
+            OnFirstTemperatureSetted(this, EventArgs.Empty);
         }
     }
 }

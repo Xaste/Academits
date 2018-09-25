@@ -8,28 +8,26 @@ namespace TemperatureUIExercise
 {
     public interface IView
     {
-        void SetInputDegree(double value);
+        double InputDegree1 { get; }
 
-        void SetTemperatureType(TemperatureModel.TemperatureTypes value);
+        double InputDegree2 { get; }
 
-        void SetFirstLabel(string value);
+        string Temperature1 { get; }
 
-        void SetSecondLabel(string value);
+        string Temperature2 { get; }
 
-        void SetFirstResult(double value);
+        void SetTemperatureDegree1(double value);
 
-        void SetSecondResult(double value);
+        void SetTemperatureDegree2(double value);
 
-        double InputDegree { get; }
+        void AddTemperaturesInCombobox(Dictionary<string, Func<double, double>[]> value);
 
-        event EventHandler<EventArgs> FarenheitSetted;
+        void FillTemperatures(int index1, int index2);
 
-        event EventHandler<EventArgs> CelsiusSetted;
+        event EventHandler<EventArgs> FirstTemperatureSetted;
+        event EventHandler<EventArgs> SecondTemperatureSetted;
+        event EventHandler<EventArgs> FirstDegreeSetted;
+        event EventHandler<EventArgs> SecondDegreeSetted;
 
-        event EventHandler<EventArgs> KelvinSetted;
-
-        event EventHandler<EventArgs> InputDegreeSetted;
-
-        event EventHandler<EventArgs> Convert;
     }
 }

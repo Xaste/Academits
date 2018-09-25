@@ -9,54 +9,17 @@ namespace TemperatureUIExercise
     public class TemperatureModel
     {
         private double _valueCelsius = 0;
-        private double _valueFarenheit = 32;
-        private double _valueKelvin = 273.15;
-        private TemperatureTypes _temperatureType = TemperatureTypes.Celsius;
 
-        public enum TemperatureTypes
+        private readonly Dictionary<string, Func<double, double>[]> _temperatures = new Dictionary<string, Func<double, double>[]>()
         {
-            Celsius,
-            Kelvin,
-            Farenheit
-        }
+            ["Celsius"] = new Func<double, double>[2] { x => x, x => x },
+            ["Kelvin"] = new Func<double, double>[2] { x => x + 273, x => x - 273 },
+            ["Farenheit"] = new Func<double, double>[2] { x => x * 9 / 5 + 32, x => (x - 32) * 5 / 9 }
 
-        public TemperatureTypes TemperatureType
-        {
-            get { return _temperatureType; }
-            set { _temperatureType = value; }
-        }
+        };
 
-        public double ValueCelsius
-        {
-            get { return _valueCelsius; }
-            set
-            {
-                _valueCelsius = value;
-                _valueFarenheit = _valueCelsius * 9 / 5 + 32;
-                _valueKelvin = _valueCelsius + 273.15;
-            }
-        }
+        public Dictionary<string, Func<double, double>[]> Temperatures => _temperatures;
 
-        public double ValueFarenheit
-        {
-            get { return _valueFarenheit; }
-            set
-            {
-                _valueFarenheit = value;
-                _valueCelsius = (_valueFarenheit - 32) * 5 / 9;
-                _valueKelvin = _valueCelsius + 273.15;
-            }
-        }
-
-        public double ValueKelvin
-        {
-            get { return _valueKelvin; }
-            set
-            {
-                _valueKelvin = value;
-                _valueCelsius = _valueKelvin - 273.15;
-                _valueFarenheit = _valueCelsius * 9 / 5 + 32;
-            }
-        }
+        public double ValueTemperature { get => _valueCelsius; set => _valueCelsius = value; }
     }
 }

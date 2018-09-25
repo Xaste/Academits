@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace TemperatureUIExercise
 {
-    static class Program
+    static class Converter
     {
         /// <summary>
         /// The main entry point for the application.
