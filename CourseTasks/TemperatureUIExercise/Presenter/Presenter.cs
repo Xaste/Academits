@@ -8,8 +8,8 @@ namespace TemperatureUIExercise
 {
     public class Presenter
     {
-        private TemperatureModel _model = new TemperatureModel();
-        private IView _view;
+        private readonly TemperatureModel _model = new TemperatureModel();
+        private readonly IView _view;
 
         public Presenter(IView view)
         {

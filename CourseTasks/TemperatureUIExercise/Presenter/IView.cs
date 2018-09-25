@@ -28,6 +28,5 @@ namespace TemperatureUIExercise
         event EventHandler<EventArgs> SecondTemperatureSetted;
         event EventHandler<EventArgs> FirstDegreeSetted;
         event EventHandler<EventArgs> SecondDegreeSetted;
-
     }
 }

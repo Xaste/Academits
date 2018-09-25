@@ -16,8 +16,8 @@ namespace TemperatureUIExercise
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            FormView view = new FormView();
-            Presenter presenter = new Presenter(view);
+            var view = new FormView();
+            var presenter = new Presenter(view);
             Application.Run(view);
         }
     }
