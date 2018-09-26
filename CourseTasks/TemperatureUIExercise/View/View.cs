@@ -58,20 +58,30 @@ namespace TemperatureUIExercise
             }
         }
 
-        private void TemperatureDegree1_ValueChanged(object sender, EventArgs e)
+        /*private void TemperatureDegree1_ValueChanged(object sender, EventArgs e)
         {
-            FirstDegreeSetted(this, EventArgs.Empty);
-        }
+            FirstDegreeSetted(this, EventArgs.Empty);//TODO
+        }*/
 
-        private void temperatureDegree2_ValueChanged(object sender, EventArgs e)
+        /*private void temperatureDegree2_ValueChanged(object sender, EventArgs e)
         {
             SecondDegreeSetted(this, EventArgs.Empty);
-        }
+        }*/
 
         public void FillTemperatures(int index1, int index2)
         {
             temperatureTypeComboBox1.SelectedIndex = index1;
             temperatureTypeComboBox2.SelectedIndex = index2;
+        }
+
+        private void temperatureDegree1_KeyUp(object sender, KeyEventArgs e)
+        {
+            FirstDegreeSetted(this, EventArgs.Empty);
+        }
+
+        private void temperatureDegree2_KeyUp(object sender, KeyEventArgs e)
+        {
+            SecondDegreeSetted(this, EventArgs.Empty);
         }
     }
 }

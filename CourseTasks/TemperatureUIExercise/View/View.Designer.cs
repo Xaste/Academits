@@ -83,7 +83,8 @@
             this.temperatureDegree2.Name = "temperatureDegree2";
             this.temperatureDegree2.Size = new System.Drawing.Size(121, 20);
             this.temperatureDegree2.TabIndex = 3;
-            this.temperatureDegree2.ValueChanged += new System.EventHandler(this.temperatureDegree2_ValueChanged);
+            //this.temperatureDegree2.ValueChanged += new System.EventHandler(this.temperatureDegree2_ValueChanged);
+            this.temperatureDegree2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.temperatureDegree2_KeyUp);
             // 
             // temperatureDegree1
             // 
@@ -107,7 +108,7 @@
             this.temperatureDegree1.Name = "temperatureDegree1";
             this.temperatureDegree1.Size = new System.Drawing.Size(121, 20);
             this.temperatureDegree1.TabIndex = 2;
-            this.temperatureDegree1.ValueChanged += new System.EventHandler(this.TemperatureDegree1_ValueChanged);
+            this.temperatureDegree1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.temperatureDegree1_KeyUp);
             // 
             // temperatureTypeComboBox1
             // 
