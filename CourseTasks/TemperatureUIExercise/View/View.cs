@@ -23,20 +23,20 @@ namespace TemperatureUIExercise
         public string Temperature1 => (string)temperatureTypeComboBox1.SelectedItem;
         public string Temperature2 => (string)temperatureTypeComboBox2.SelectedItem;
  
-        public event EventHandler<EventArgs> FirstTemperatureSetted;
-        public event EventHandler<EventArgs> SecondTemperatureSetted;
+        public event EventHandler<EventArgs> FirstTemperatureSet;
+        public event EventHandler<EventArgs> SecondTemperatureSet;
 
-        public event EventHandler<EventArgs> FirstDegreeSetted;
-        public event EventHandler<EventArgs> SecondDegreeSetted;
+        public event EventHandler<EventArgs> FirstDegreeSet;
+        public event EventHandler<EventArgs> SecondDegreeSet;
 
         private void temperatureTypeComboBox1_SelectedValueChanged(object sender, EventArgs e)
         {
-            FirstTemperatureSetted(this, EventArgs.Empty);
+            FirstTemperatureSet?.Invoke(this, EventArgs.Empty);
         }
 
         private void temperatureTypeComboBox2_SelectedValueChanged(object sender, EventArgs e)
         {
-            SecondTemperatureSetted(this, EventArgs.Empty);
+            SecondTemperatureSet?.Invoke(this, EventArgs.Empty);
         }
 
         public void SetTemperatureDegree1(double value)
@@ -51,7 +51,7 @@ namespace TemperatureUIExercise
 
         public void AddTemperaturesInCombobox(Dictionary<string, Func<double, double>[]> value)
         {
-            foreach (KeyValuePair<string, Func<double, double>[]> item in value)
+            foreach (var item in value)
             {
                 temperatureTypeComboBox1.Items.Add(item.Key);
                 temperatureTypeComboBox2.Items.Add(item.Key);
