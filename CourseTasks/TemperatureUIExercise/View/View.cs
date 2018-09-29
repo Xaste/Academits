@@ -76,12 +76,12 @@ namespace TemperatureUIExercise
 
         private void temperatureDegree1_KeyUp(object sender, KeyEventArgs e)
         {
-            FirstDegreeSetted(this, EventArgs.Empty);
+            FirstDegreeSet(this, EventArgs.Empty);
         }
 
         private void temperatureDegree2_KeyUp(object sender, KeyEventArgs e)
         {
-            SecondDegreeSetted(this, EventArgs.Empty);
+            SecondDegreeSet(this, EventArgs.Empty);
         }
     }
 }
