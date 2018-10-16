@@ -77,7 +77,7 @@ namespace ADONetExercise
             {
                 connection.Open();
 
-                var sql = "UPDATE [dbo].[Product] SET Name = @name, Category_Id = @categoryId WHERE @condition;";
+                var sql = "UPDATE [dbo].[Product] SET [Name] = @name, [Category_Id] = @categoryId WHERE @condition;";
 
                 using (var command = new SqlCommand(sql, connection))
                 {
@@ -85,7 +85,7 @@ namespace ADONetExercise
 
                     command.Parameters.Add(new SqlParameter("@categoryId", newCategoryId) { SqlDbType = SqlDbType.Int });
 
-                    command.Parameters.Add(new SqlParameter("@condition", condition) { SqlDbType = SqlDbType.Text });
+                    command.Parameters.Add(new SqlParameter("@condition", condition));
 
                     command.ExecuteNonQuery();
                 }
