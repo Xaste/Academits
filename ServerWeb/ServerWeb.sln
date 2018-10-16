@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel", "Excel\Excel.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonExercise", "JsonExercise\JsonExercise.csproj", "{BD3C5D00-30FD-434E-B821-DDF5D29F3938}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADONetExercise", "ADONetExercise\ADONetExercise.csproj", "{F571CC65-7F09-4425-94ED-F0BBDC93B832}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BD3C5D00-30FD-434E-B821-DDF5D29F3938}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD3C5D00-30FD-434E-B821-DDF5D29F3938}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD3C5D00-30FD-434E-B821-DDF5D29F3938}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F571CC65-7F09-4425-94ED-F0BBDC93B832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F571CC65-7F09-4425-94ED-F0BBDC93B832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F571CC65-7F09-4425-94ED-F0BBDC93B832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F571CC65-7F09-4425-94ED-F0BBDC93B832}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
