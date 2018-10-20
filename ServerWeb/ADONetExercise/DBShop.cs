@@ -71,13 +71,13 @@ namespace ADONetExercise
             }
         }
 
-        public void UpdateProduct(string newName, int newCategoryId, string condition)
+        public void UpdateProduct(string newName, int newCategoryId, string nameCondition)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                var sql = "UPDATE [dbo].[Product] SET [Name] = @name, [Category_Id] = @categoryId WHERE @condition;";
+                var sql = "UPDATE [dbo].[Product] SET [Name] = @name, [Category_Id] = @categoryId WHERE Name = @condition;";
 
                 using (var command = new SqlCommand(sql, connection))
                 {
@@ -85,7 +85,7 @@ namespace ADONetExercise
 
                     command.Parameters.Add(new SqlParameter("@categoryId", newCategoryId) { SqlDbType = SqlDbType.Int });
 
-                    command.Parameters.Add(new SqlParameter("@condition", condition));
+                    command.Parameters.Add(new SqlParameter("@condition", nameCondition));
 
                     command.ExecuteNonQuery();
                 }
