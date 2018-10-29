@@ -22,7 +22,16 @@ namespace ADONetExercise
 
             //dbShop.CreateCategory("Блоки питания");
 
-            dbShop.UpdateProduct("Intel Core i77", 1, "[Name] = Intel Core i7");
+            //dbShop.UpdateProductByName("Intel Core i7", 1, "Intel Core i77");
+
+            //dbShop.RemoveProduct("Intel Core i7");
+
+            dbShop.PrintProducts();
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            dbShop.PrintProducts1();
         }
     }
 }
