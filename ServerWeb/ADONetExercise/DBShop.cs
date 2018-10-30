@@ -158,5 +158,55 @@ namespace ADONetExercise
                 }
             }
         }
+
+        public void Transaction()
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                var transaction = connection.BeginTransaction();
+                try
+                {
+                    var sql = "INSERT INTO [dbo].Category1(Name) VALUES(N'Принтеры');";
+
+                    var command = new SqlCommand(sql,connection);
+
+                    command.Transaction = transaction;
+                    command.ExecuteNonQuery();
+
+                    throw new Exception("Ошибка");
+
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                }
+            }
+        }
+
+        public void BadTransaction()
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                try
+                {
+                    var sql = "INSERT INTO [dbo].Category1(Name) VALUES(N'Принтеры');";
+
+                    var command = new SqlCommand(sql, connection);
+
+                    command.ExecuteNonQuery();
+
+                    throw new Exception("Ошибка");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
+        }
     }
 }

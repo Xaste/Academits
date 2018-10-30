@@ -32,6 +32,10 @@ namespace ADONetExercise
             Console.WriteLine();
 
             dbShop.PrintProducts1();
+
+            //dbShop.Transaction();
+
+            dbShop.BadTransaction();
         }
     }
 }
