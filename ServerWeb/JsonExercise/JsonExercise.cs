@@ -13,26 +13,40 @@ namespace JsonExercise
         static void Main(string[] args)
         {
             string input;
-            using (StreamReader reader = new StreamReader("TextFile1.txt"))
+            using (var reader = new StreamReader("TextFile1.txt"))
             {
                 input = reader.ReadLine();
             }
 
             var countries = JsonConvert.DeserializeObject<List<Country>>(input);
 
-            int globalPopulation = 0;
+            var globalPopulation = 0;
 
-            int globalCurrency = 0;
+            var currencyList = new HashSet<string>();
 
             foreach (var item in countries)
             {
                 globalPopulation += item.Population;
-                globalCurrency += item.Currencies.Count;
+
+                foreach (var currency in item.Currencies)
+                {
+                    if (!currencyList.Contains(currency.Name))
+                    {
+                        currencyList.Add(currency.Name);
+                    }
+                }
             }
 
             Console.WriteLine($"Население в файле: {globalPopulation}");
 
-            Console.WriteLine($"Валют: {globalCurrency}");
+            Console.WriteLine();
+
+            Console.WriteLine("Валюты:");
+
+            foreach (var currency in currencyList)
+            {
+                Console.WriteLine(currency);
+            }
         }
     }
 }
