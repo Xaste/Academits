@@ -85,7 +85,7 @@ namespace ADONetExercise
 
                     command.Parameters.Add(new SqlParameter("@categoryId", newCategoryId) { SqlDbType = SqlDbType.Int });
 
-                    command.Parameters.Add(new SqlParameter("@conditionName", conditionName) {SqlDbType = SqlDbType.NChar});
+                    command.Parameters.Add(new SqlParameter("@conditionName", conditionName) {SqlDbType = SqlDbType.NVarChar});
 
                     command.ExecuteNonQuery();
                 }
@@ -102,7 +102,7 @@ namespace ADONetExercise
 
                 using (var command = new SqlCommand(sql, connection))
                 {
-                    command.Parameters.Add(new SqlParameter("@name", name) {SqlDbType = SqlDbType.NChar});
+                    command.Parameters.Add(new SqlParameter("@name", name) {SqlDbType = SqlDbType.NVarChar});
 
                     var rowsAffected = command.ExecuteNonQuery();
 
