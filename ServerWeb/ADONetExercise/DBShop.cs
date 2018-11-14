@@ -39,8 +39,8 @@ namespace ADONetExercise
             {
                 connection.Open();
 
-                var sql = "INSERT INTO [dbo].[Product](Name, Category_Id)" +
-                    " VALUES(@name, @categoryId);";
+                var sql = @"INSERT INTO [dbo].[Product](Name, Category_Id)
+                            VALUES(@name, @categoryId);";
 
                 using (var command = new SqlCommand(sql, connection))
                 {
@@ -59,8 +59,8 @@ namespace ADONetExercise
             {
                 connection.Open();
 
-                var sql = "INSERT INTO [dbo].[Category1](Name)" +
-                    " VALUES(@name);";
+                var sql = @"INSERT INTO [dbo].[Category1](Name)
+                            VALUES(@name);";
 
                 using (var command = new SqlCommand(sql, connection))
                 {
@@ -117,10 +117,10 @@ namespace ADONetExercise
             {
                 connection.Open();
 
-                var sql = "SELECT [dbo].[Product].[Name], [dbo].[Category1].[Name]" +
-                          "FROM[dbo].[Product]" +
-                          "INNER JOIN[dbo].[Category1]" +
-                          "ON[dbo].[Category1].Id = [dbo].[Product].Category_Id;";
+                var sql = @"SELECT [dbo].[Product].[Name], [dbo].[Category1].[Name]
+                            FROM[dbo].[Product]
+                            INNER JOIN[dbo].[Category1]
+                            ON[dbo].[Category1].Id = [dbo].[Product].Category_Id;";
 
                 using (var command = new SqlCommand(sql, connection))
                 {
@@ -141,10 +141,10 @@ namespace ADONetExercise
             {
                 connection.Open();
 
-                var sql = "SELECT [dbo].[Product].[Name], [dbo].[Category1].[Name]" +
-                          "FROM[dbo].[Product]" +
-                          "INNER JOIN[dbo].[Category1]" +
-                          "ON[dbo].[Category1].Id = [dbo].[Product].Category_Id;";
+                var sql = @"SELECT [dbo].[Product].[Name], [dbo].[Category1].[Name]
+                            FROM[dbo].[Product]
+                            INNER JOIN[dbo].[Category1]
+                            ON[dbo].[Category1].Id = [dbo].[Product].Category_Id;";
 
                 var adapter = new SqlDataAdapter(sql, connection);
 
