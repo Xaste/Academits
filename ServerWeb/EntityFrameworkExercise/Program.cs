@@ -17,7 +17,7 @@ namespace EntityFrameworkExercise
                 db.Categories.Add(new Category { Name = "Мониторы" });
 
                 db.SaveChanges();
-            }*/
+            }/*
 
             /*using (var db = new ProductContext())
             {
@@ -47,6 +47,31 @@ namespace EntityFrameworkExercise
                 db.Products.Add(product);
                 db.SaveChanges();
             }*/
+
+            using (var db = new ProductContext())
+            {
+                var order = new Order
+                {
+                    Date = DateTime.Now,
+                    Customer = new Customer() {FirstName = "Vlad"},
+                    Products = new List<Product>
+                    {
+                        new Product
+                        {
+                            Name = "Intel core i7",
+                            Category = new Category {Name = "Процессоры"}
+                        },
+                        new Product
+                        {
+                            Name = "Asus Screen",
+                            Category = new Category() {Name = "Мониторы"}
+                        }
+                    }
+                };
+
+                db.Orders.Add(order);
+                db.SaveChanges();
+            }
 
             /*using (var db = new ProductContext())  //TODO Не работает, спросить
             {
