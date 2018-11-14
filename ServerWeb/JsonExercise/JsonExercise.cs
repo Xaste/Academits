@@ -30,7 +30,7 @@ namespace JsonExercise
 
                 foreach (var currency in item.Currencies)
                 {
-                    if (!currencyList.Contains(currency.Name))
+                    if (!ReferenceEquals(null, currency.Name) && !currencyList.Contains(currency.Name))
                     {
                         currencyList.Add(currency.Name);
                     }
