@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityFrameworkExercise
+namespace EntityFrameworkExercise.DB
 {
     class Customer
     {
@@ -16,5 +16,7 @@ namespace EntityFrameworkExercise
 
         public int Phone { get; set; }
         public string EMail { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EntityFrameworkExercise
+namespace EntityFrameworkExercise.DB
 {
     class Order
     {

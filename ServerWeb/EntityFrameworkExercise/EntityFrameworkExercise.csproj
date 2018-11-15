@@ -50,11 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Category.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="Order.cs" />
-    <Compile Include="Product.cs" />
-    <Compile Include="ProductContext.cs" />
+    <Compile Include="DB\Category.cs" />
+    <Compile Include="DB\Customer.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="DB\Order.cs" />
+    <Compile Include="DB\Product.cs" />
+    <Compile Include="DB\ProductContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
