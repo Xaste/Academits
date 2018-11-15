@@ -11,65 +11,52 @@ namespace EntityFrameworkExercise
     {
         static void Main(string[] args)
         {
-            /*using (var db = new ProductContext())
-            {
-                db.Categories.Add(new Category { Name = "Процессоры" });
-                db.Categories.Add(new Category { Name = "Мониторы" });
-
-                db.SaveChanges();
-            }/*
-
-            /*using (var db = new ProductContext())
-            {
-                var category = db.Categories.FirstOrDefault(c => c.Id == 1);
-                category.Name = "Процессоры Intel";
-                db.SaveChanges();
-            }*/
-
-            /*using (var db = new ProductContext())
-            {
-                var category = new Category { Id = 1 };
-
-                db.Entry(category).State = EntityState.Deleted;
-
-                db.SaveChanges();
-            }*/
-
-            /*using (var db = new ProductContext())
-            {
-                var product = new Product
-                {
-                    Name = "Intel Core i7",
-                    //Category = new Category { Name = "Процессоры" }
-                    Category = db.Categories.FirstOrDefault(c => c.Name == "Процессоры")
-                };
-
-                db.Products.Add(product);
-                db.SaveChanges();
-            }*/
-
             using (var db = new ProductContext())
             {
-                var order = new Order
+                var categoryProc = new Category { Name = "Процессоры" };
+                var categoryScreen = new Category { Name = "Мониторы" };
+
+                var product1 = new Product
                 {
-                    Date = DateTime.Now,
-                    Customer = new Customer() {FirstName = "Vlad"},
-                    Products = new List<Product>
-                    {
-                        new Product
-                        {
-                            Name = "Intel core i7",
-                            Category = new Category {Name = "Процессоры"}
-                        },
-                        new Product
-                        {
-                            Name = "Asus Screen",
-                            Category = new Category() {Name = "Мониторы"}
-                        }
-                    }
+                    Name = "Intel core i7",
+                    Category = categoryProc,
+                    Price = 25000
+                };
+                var product2 = new Product
+                {
+                    Name = "Asus Screen",
+                    Category = categoryScreen,
+                    Price = 30000
+                };
+                var prodcut3 = new Product
+                {
+                    Name = "Intel core i5",
+                    Category = categoryProc,
+                    Price = 15000
+                };
+                var product4 = new Product
+                {
+                    Name = "Asus Screen v2",
+                    Category = categoryScreen,
+                    Price = 50000
                 };
 
-                db.Orders.Add(order);
+                var order1 = new Order
+                {
+                    Date = DateTime.Now,
+                    Customer = new Customer() { FirstName = "Vlad", LastName = "Martyn", Phone = 7777777, EMail = "mail@mail.mail" },
+                    Products = new List<Product> { product1, product2 }
+                };
+                var order2 = new Order
+                {
+                    Date = DateTime.Now,
+                    Customer = new Customer() { FirstName = "Alex", LastName = "Smith", Phone = 6666666, EMail = "mail66@mail.mail" },
+                    Products = new List<Product> { product1, product2, prodcut3, product4 }
+                };
+
+                db.Orders.Add(order1);
+                db.Orders.Add(order2);
+
                 db.SaveChanges();
             }
 
