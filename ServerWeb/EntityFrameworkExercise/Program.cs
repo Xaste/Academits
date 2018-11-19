@@ -20,11 +20,11 @@ namespace EntityFrameworkExercise
 
             //Database.DeleteInDataBase();
 
-            var mostValuableProduct = Database.FindMostBuyableProduct();
+            //var mostValuableProduct = Database.FindMostBuyableProduct();
 
-            Console.WriteLine(mostValuableProduct);
+            //Console.WriteLine(mostValuableProduct);
 
-            Database.PrintCustomersExpenses();
+            //Database.PrintCustomersExpenses();
 
             Database.PrintCategoriesStatistic();
 

@@ -136,7 +136,7 @@ namespace EntityFrameworkExercise
             }
         }
 
-        public static void PrintCategoriesStatistic()
+        /*public static void PrintCategoriesStatistic()
         {
             Console.WriteLine();
             Console.WriteLine("Количество проданных товаров по категориям:");
@@ -145,12 +145,40 @@ namespace EntityFrameworkExercise
             {
                 var categoryList = db.Categories.ToList();
 
+                var ProductList = db.Products.ToList();
+
+                Dictionary<string, int> dictionary = new Dictionary<string, int>();
+
+                foreach (var product in ProductList)
+                {
+                    var k1 = db.Products.Where(x => x.Id == 1).ToList();
+                    var k2 = db.Categories.Where(x => x.Id == 1).ToList();
+
+                    var z = db.Categories.Where(x => x.Id == 1)
+                        .Select(x => x.Products).ToList();
+
+
+                    var k = db.Products
+                        .Where(x => x.Name == product.Name)
+                        .Select(x => x.Orders)
+                        .FirstOrDefault().Count;
+                    dictionary.Add(product.Name, k);
+                }
+
+
+
                 foreach (var category in categoryList)
                 {
                     Console.Write($"{category.Name} :");
 
                     //var productCount = db.Categories.Select(a => a.Products).ToList().FirstOrDefault();
                     var tt = db.Orders.Select(x => x.Products).ToList();
+
+                    var kk = db.Products.Select(x => x.Orders).ToList();
+
+                    var value = db.Products.Select(c => c.Orders).ToList();
+
+                    //var n = db.Products.ToDictionary(x => x.Name, x => x. x.Orders.FirstOrDefault().ToString());
 
 
                     var t = db.Orders
@@ -161,6 +189,6 @@ namespace EntityFrameworkExercise
                     Console.WriteLine(t);
                 }
             }
-        }
+        }*/
     }
 }

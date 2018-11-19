@@ -14,7 +14,7 @@ namespace EntityFrameworkExercise.DB
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
         public Product()
         {
