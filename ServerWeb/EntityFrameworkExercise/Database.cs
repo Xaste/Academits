@@ -44,19 +44,19 @@ namespace EntityFrameworkExercise
 
                 var order1 = new Order
                 {
-                    Date = DateTime.Now,
+                    PurchaseDate = DateTime.Now,
                     Customer = new Customer() { FirstName = "Vlad", LastName = "Martyn", Phone = 7777777, EMail = "mail@mail.mail" },
                     Products = new List<Product> { product1, product2, product3 }
                 };
                 var order2 = new Order
                 {
-                    Date = DateTime.Now,
+                    PurchaseDate = DateTime.Now,
                     Customer = new Customer() { FirstName = "Alex", LastName = "Smith", Phone = 6666666, EMail = "mail66@mail.mail" },
                     Products = new List<Product> { product1, product2, product3, product4 }
                 };
                 var order3 = new Order
                 {
-                    Date = DateTime.Now,
+                    PurchaseDate = DateTime.Now,
                     Customer = new Customer() { FirstName = "Alex", LastName = "Black", Phone = 6666661, EMail = "mail61@mail.mail" },
                     Products = new List<Product> { product3 }
                 };
