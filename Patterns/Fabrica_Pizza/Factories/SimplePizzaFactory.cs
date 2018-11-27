@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fabrica_Pizza
+namespace Fabrica_Pizza.Factories
 {
     public class SimplePizzaFactory
     {
@@ -14,9 +14,9 @@ namespace Fabrica_Pizza
         {
             Pizza pizza = null;
 
-            if (type.Equals("cheese"))
+            /*if (type.Equals("cheese"))
             {
-                pizza = new CheesePizza();
+                //pizza = new CheesePizza();
             }
             else if (type.Equals("pepperoni"))
             {
@@ -29,7 +29,7 @@ namespace Fabrica_Pizza
             else if (type.Equals("veggie"))
             {
                 pizza = new VeggiePizza();
-            }
+            }*/
 
             return pizza;
         }

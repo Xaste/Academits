@@ -17,6 +17,12 @@ namespace RandomList
             var node3 = new ListItem<int>(3, null, null);
             var node4 = new ListItem<int>(4, null, null);
 
+            ListItem<int> nodeNull = null;
+
+            var c = nodeNull?.Copy();
+            //var k = nodeNull.Copy();
+
+
             node1.Next = node2;
             node2.Next = node3;
             node3.Next = node4;

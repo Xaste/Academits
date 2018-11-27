@@ -43,15 +43,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ingridients\ChicagoPizzaIngredientFactory.cs" />
+    <Compile Include="Ingridients\Veggies\BlackOlives.cs" />
+    <Compile Include="Ingridients\Veggies\EggPlant.cs" />
+    <Compile Include="Ingridients\Clams\FreshClams.cs" />
+    <Compile Include="Ingridients\Clams\FrozenClams.cs" />
+    <Compile Include="Ingridients\Veggies\Garlic.cs" />
+    <Compile Include="Ingridients\Sauce\MarinaraSauce.cs" />
+    <Compile Include="Ingridients\Cheese\Mozzarella.cs" />
+    <Compile Include="Ingridients\Veggies\Mushroom.cs" />
+    <Compile Include="Ingridients\Veggies\Onion.cs" />
+    <Compile Include="Ingridients\Sauce\PlumTomatoSauce.cs" />
+    <Compile Include="Ingridients\Veggies\RedPepper.cs" />
+    <Compile Include="Ingridients\Cheese\ReggianoCheese.cs" />
+    <Compile Include="Ingridients\Pepperoni\SlicedPepperoni.cs" />
+    <Compile Include="Ingridients\Veggies\Spinach.cs" />
+    <Compile Include="Ingridients\Dough\ThickCrustDough.cs" />
+    <Compile Include="Ingridients\Dough\ThinCrustDough.cs" />
+    <Compile Include="Ingridients\Cheese\ICheese.cs" />
+    <Compile Include="Ingridients\Clams\IClams.cs" />
+    <Compile Include="Ingridients\Dough\IDough.cs" />
+    <Compile Include="Ingridients\IPizzaIngredientFactory.cs" />
+    <Compile Include="Ingridients\NYPizzaIngredientFactory.cs" />
+    <Compile Include="Ingridients\Pepperoni\IPepperoni.cs" />
+    <Compile Include="Ingridients\Sauce\ISauce.cs" />
+    <Compile Include="Ingridients\Veggies\IVeggies.cs" />
     <Compile Include="Pizza_types\CheesePizza.cs" />
+    <Compile Include="Pizza_types\ChicagoStyleCheesePizza.cs" />
+    <Compile Include="Pizza_types\NYStyleCheesePizza.cs" />
     <Compile Include="Pizza_types\ClamPizza.cs" />
+    <Compile Include="Factories\CaliforniaPizzaFactory.cs" />
+    <Compile Include="Factories\ChicagoPizzaFactory.cs" />
+    <Compile Include="Factories\NYPizzaFactory.cs" />
     <Compile Include="Pizza_types\PepperoniPizza.cs" />
     <Compile Include="Pizza_types\Pizza.cs" />
-    <Compile Include="PizzaStore.cs" />
+    <Compile Include="Stores\CaliforniaPizzaStore.cs" />
+    <Compile Include="Stores\ChicagoPizzaStore.cs" />
+    <Compile Include="Stores\NYPizzaStore.cs" />
+    <Compile Include="Stores\PizzaStore.cs" />
     <Compile Include="Pizza_types\VeggiePizza.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimplePizzaFactory.cs" />
+    <Compile Include="Factories\SimplePizzaFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

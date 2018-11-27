@@ -5,22 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fabrica_Pizza
+namespace Fabrica_Pizza.Stores
 {
-    public class PizzaStore
+    public abstract class PizzaStore
     {
-        SimplePizzaFactory factory;
+        //SimplePizzaFactory factory;
 
-        public PizzaStore(SimplePizzaFactory factory)
+        /*public PizzaStore(SimplePizzaFactory factory)
         {
             this.factory = factory;
-        }
+        }*/
 
         public Pizza OrderPizza(string type)
         {
-            Pizza pizza;
+            //Pizza pizza;
 
-            pizza = factory.CreatePizza(type);
+            var pizza = CreatePizza(type);
 
             pizza.Prepare();
             pizza.Bake();
@@ -29,5 +29,7 @@ namespace Fabrica_Pizza
 
             return pizza;
         }
+
+         abstract public Pizza CreatePizza(string type);
     }
 }
