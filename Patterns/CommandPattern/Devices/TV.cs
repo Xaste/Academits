@@ -8,16 +8,23 @@ namespace CommandPattern.Devices
 {
     class TV
     {
+        private string _location;
+
+        public TV(string location)
+        {
+            _location = location;
+        }
+
         public void On()
         {
-
+            Console.WriteLine($"{_location} TV is On");
         }
 
         public void Off()
         {
-
+            Console.WriteLine($"{_location} TV is Off");
         }
-        public void SetinputChannel()
+        public void SetInputChannel()
         {
 
         }

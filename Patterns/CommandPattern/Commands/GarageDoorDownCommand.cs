@@ -7,19 +7,18 @@ using System.Threading.Tasks;
 
 namespace CommandPattern.Commands
 {
-    class GarageDoorOpenCommand : ICommand
+    class GarageDoorDownCommand : ICommand
     {
-        private GarageDoor _door;
+        GarageDoor _garageDoor;
 
-        public GarageDoorOpenCommand(GarageDoor door)
+        public GarageDoorDownCommand(GarageDoor door)
         {
-            _door = door;
+            _garageDoor = door;
         }
 
         public void ExecuteCommand()
         {
-            _door.Up();
-            Console.WriteLine("Garage Door is Open");
+            _garageDoor.Down();
         }
 
         public void UndoCommand()

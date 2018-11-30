@@ -7,24 +7,22 @@ using System.Threading.Tasks;
 
 namespace CommandPattern.Commands
 {
-    class GarageDoorOpenCommand : ICommand
+    class CeilingFanOnCommand : ICommand
     {
-        private GarageDoor _door;
+        CeilingFan _fan;
 
-        public GarageDoorOpenCommand(GarageDoor door)
+        public CeilingFanOnCommand(CeilingFan fan)
         {
-            _door = door;
+            _fan = fan;
         }
-
         public void ExecuteCommand()
         {
-            _door.Up();
-            Console.WriteLine("Garage Door is Open");
+            _fan.High();
         }
 
         public void UndoCommand()
         {
-            throw new NotImplementedException();
+            _fan.Off();
         }
     }
 }

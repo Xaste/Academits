@@ -7,19 +7,20 @@ using System.Threading.Tasks;
 
 namespace CommandPattern.Commands
 {
-    class GarageDoorOpenCommand : ICommand
+    class StereoOnWithCDCommand : ICommand
     {
-        private GarageDoor _door;
-
-        public GarageDoorOpenCommand(GarageDoor door)
+        private Stereo _stereo;
+        
+        public StereoOnWithCDCommand(Stereo stereo)
         {
-            _door = door;
+            _stereo = stereo;
         }
 
         public void ExecuteCommand()
         {
-            _door.Up();
-            Console.WriteLine("Garage Door is Open");
+            _stereo.On();
+            _stereo.SetCD();
+            _stereo.SetVolume(11);
         }
 
         public void UndoCommand()

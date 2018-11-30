@@ -7,19 +7,22 @@ using System.Threading.Tasks;
 
 namespace CommandPattern.Commands
 {
-    class LigthOnCommand : ICommand
+    class TVOffCommand : ICommand
     {
-        Light _light;
+        TV _tv;
 
-        public LigthOnCommand(Light light)
+        public TVOffCommand(TV tv)
         {
-            _light = light;
+            _tv = tv;
         }
-
         public void ExecuteCommand()
         {
-            _light.On();
-            Console.WriteLine("Light On");
+            _tv.Off();
+        }
+
+        public void UndoCommand()
+        {
+            _tv.On();
         }
     }
 }

@@ -43,9 +43,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\GarageDooropenCommand.cs" />
+    <Compile Include="Commands\CeilingFanHighCommand.cs" />
+    <Compile Include="Commands\CeilingFanLowCommand.cs" />
+    <Compile Include="Commands\CeilingFanMediumCommand.cs" />
+    <Compile Include="Commands\CeilingFanOffCommand.cs" />
+    <Compile Include="Commands\CeilingFanOnCommand.cs" />
+    <Compile Include="Commands\GarageDoorDownCommand.cs" />
+    <Compile Include="Commands\GarageDoorOpenCommand.cs" />
+    <Compile Include="Commands\HottubOffCommand.cs" />
+    <Compile Include="Commands\HottubOnCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Commands\LigthOnCommand.cs" />
+    <Compile Include="Commands\LightOffCommand.cs" />
+    <Compile Include="Commands\LightOnCommand.cs" />
+    <Compile Include="Commands\NoCommand.cs" />
+    <Compile Include="Commands\MacroCommand.cs" />
+    <Compile Include="Commands\StereoOffCommand.cs" />
+    <Compile Include="Commands\StereoOnCommand.cs" />
+    <Compile Include="Commands\StereoOnWithCDCommand.cs" />
+    <Compile Include="Commands\TVOffCommand.cs" />
+    <Compile Include="Commands\TVOnCommand.cs" />
     <Compile Include="Devices\ApplianceControl.cs" />
     <Compile Include="Devices\CeilingFan.cs" />
     <Compile Include="Devices\CeilingLight.cs" />
@@ -62,6 +78,7 @@
     <Compile Include="Devices\TV.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoteControl.cs" />
     <Compile Include="SimpleRemoteControl.cs" />
   </ItemGroup>
   <ItemGroup>

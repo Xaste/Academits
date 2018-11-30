@@ -7,24 +7,22 @@ using System.Threading.Tasks;
 
 namespace CommandPattern.Commands
 {
-    class GarageDoorOpenCommand : ICommand
+    class HottubOnCommand : ICommand
     {
-        private GarageDoor _door;
+        Hottub _hottub;
 
-        public GarageDoorOpenCommand(GarageDoor door)
+        public HottubOnCommand(Hottub hottub)
         {
-            _door = door;
+            _hottub = hottub;
         }
-
         public void ExecuteCommand()
         {
-            _door.Up();
-            Console.WriteLine("Garage Door is Open");
+            _hottub.JetsOn();
         }
 
         public void UndoCommand()
         {
-            throw new NotImplementedException();
+            _hottub.JetsOff();
         }
     }
 }

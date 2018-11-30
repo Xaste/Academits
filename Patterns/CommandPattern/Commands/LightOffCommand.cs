@@ -7,24 +7,23 @@ using System.Threading.Tasks;
 
 namespace CommandPattern.Commands
 {
-    class GarageDoorOpenCommand : ICommand
+    class LightOffCommand : ICommand
     {
-        private GarageDoor _door;
+        private Light _light;
 
-        public GarageDoorOpenCommand(GarageDoor door)
+        public LightOffCommand(Light light)
         {
-            _door = door;
+            _light = light;
         }
 
         public void ExecuteCommand()
         {
-            _door.Up();
-            Console.WriteLine("Garage Door is Open");
+            _light.Off();
         }
 
         public void UndoCommand()
         {
-            throw new NotImplementedException();
+            _light.On();
         }
     }
 }

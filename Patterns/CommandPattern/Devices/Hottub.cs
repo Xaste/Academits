@@ -15,12 +15,12 @@ namespace CommandPattern.Devices
 
         public void JetsOn()
         {
-
+            Console.WriteLine("Hottub: JetsOn");
         }
 
         public void JetsOff()
         {
-
+            Console.WriteLine("Hottub: JetsOff");
         }
 
         public void SetTemperature()
