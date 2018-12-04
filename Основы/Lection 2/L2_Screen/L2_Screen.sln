@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L2_Screen", "L2_Screen\L2_Screen.csproj", "{FDA91B4F-5B8A-4BDB-B6C0-98E273A1E1DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FDA91B4F-5B8A-4BDB-B6C0-98E273A1E1DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA91B4F-5B8A-4BDB-B6C0-98E273A1E1DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA91B4F-5B8A-4BDB-B6C0-98E273A1E1DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA91B4F-5B8A-4BDB-B6C0-98E273A1E1DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {34F40BA0-730C-4CAB-9B29-935086A4629E}
+	EndGlobalSection
+EndGlobal
