@@ -13,13 +13,12 @@ namespace TextWrok
 {
     public partial class View : Form, IView
     {
-        //private string _inputFileName = null;
-
-        //private string _outputFileName = null;
-
         public View()
         {
             InitializeComponent();
+
+            SetInputFileTextBox("D:\\123_in.txt");
+            SetOutputTextBox("D:\\123_out.txt");
         }
 
         public string InputFileName => InputFileNameTextBox.Text;
@@ -30,13 +29,9 @@ namespace TextWrok
 
         public int MinWordLength => (int)WordMinLengthNumericUpDown.Value;
 
-        //public event EventHandler<EventArgs> InputFileSelect;
-
-        //public event EventHandler<EventArgs> OutputFileSelect;
-
         public event EventHandler<EventArgs> ConvertText;
 
-        private void ButtonFileOpen_Click(object sender, EventArgs e)//TODO Не должен задавать значение в модель, только в текст бокс, а он уже в модель
+        private void ButtonFileOpen_Click(object sender, EventArgs e)
         {
             using (var openFileDialog = new OpenFileDialog())
             {
@@ -48,17 +43,8 @@ namespace TextWrok
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     SetInputFileTextBox(openFileDialog.FileName);
-
-                    //InputFileNameTextBox.Text = openFileDialog.FileName;
                 }
             }
-
-            /*if (_inputFileName != null)
-            {
-                SetInputFileTextBox(_inputFileName);
-
-                //InputFileSelect?.Invoke(this, EventArgs.Empty);
-            }*/
         }
 
         private void SetInputFileTextBox(string text)
@@ -78,9 +64,6 @@ namespace TextWrok
 
         private void Convert_Click(object sender, EventArgs e)
         {
-            /*InputFileSelect?.Invoke(this, EventArgs.Empty);
-            OutputFileSelect?.Invoke(this, EventArgs.Empty);*/
-
             ConvertText?.Invoke(this, EventArgs.Empty);
         }
 
@@ -98,25 +81,43 @@ namespace TextWrok
                     SetOutputTextBox(saveFileDialog.FileName);                    
                 }
             }
-
-            //SetOutputTextBox(_outputFileName);
-
-            //OutputFileSelect?.Invoke(this, EventArgs.Empty);
         }
 
-        /*private void InputFileNameTextBox_KeyUp(object sender, KeyEventArgs e)
+        public void ShowResultText(string text)
         {
-            InputFileSelect?.Invoke(this, EventArgs.Empty);
-        }*/
-
-        /*private void InputFileNameTextBox_TextChanged(object sender, EventArgs e)//Looks like to delete
-        {
-            InputFileSelect?.Invoke(this, EventArgs.Empty);
+            if (OutputFileName == null)
+            {
+                throw new ArgumentNullException("OutputFile path is null");
+            }
+            using (var writer = new StreamWriter(OutputFileName))
+            {
+                writer.Write(text);
+            }
         }
 
-        private void OutputFileNameTextBox_TextChanged(object sender, EventArgs e)//Looks like to delete
+        public string GetText()
         {
-            OutputFileSelect?.Invoke(this, EventArgs.Empty);
-        }*/
+            if (InputFileName == null)
+            {
+                throw new ArgumentNullException("InputFile path is null");
+            }
+
+            string resultText = null;
+
+            try
+            {
+                using (var reader = new StreamReader(InputFileName))
+                {
+                    resultText = reader.ReadToEnd();
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine();
+                //throw;
+            }
+
+            return resultText;
+        }
     }
 }

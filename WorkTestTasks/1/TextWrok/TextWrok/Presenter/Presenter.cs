@@ -16,10 +16,6 @@ namespace TextWrok
         {
             _view = view;
 
-            //_view.InputFileSelect += new EventHandler<EventArgs>(OnInputFileSet);
-
-            //_view.OutputFileSelect += new EventHandler<EventArgs>(OnOutputFileSet);
-
             _view.ConvertText += new EventHandler<EventArgs>(OnConvert);
         }
 
@@ -37,7 +33,7 @@ namespace TextWrok
 
             if (!File.Exists(_view.OutputFileName))
             {
-               
+
                 _view.ShowMessage("Неверно указан итоговый(?) файл.", "Ошибка!");
                 result = false;
             }
@@ -45,61 +41,72 @@ namespace TextWrok
             return result;
         }
 
-        /*private void OnInputFileSet(object sender, EventArgs e)//TODO Должно выполняться после нажатия на кнопку!
+        private void GetText()
         {
-            _model.InputFileName = _view.InputFileName;
-            _model.InputString = File.ReadAllText(_view.InputFileName);
-        }*/
-
-        private void InputFileSet()
-        {
-            _model.InputFileName = _view.InputFileName;
-
-            _model.InputString = File.ReadAllText(_view.InputFileName);
+            _model.InputString = _view.GetText();
         }
 
-        /*private void OnOutputFileSet(object sender, EventArgs e)
+        /*private void OutputFileSet()
         {
             _model.OutputFileName = _view.OutputFileName;
         }*/
-
-        private void OutputFileSet()
-        {
-            _model.OutputFileName = _view.OutputFileName;
-        }
 
         private void OnConvert(object sender, EventArgs e)
         {
 
-            if(IsValidatedFiles())
+            //if (IsValidatedFiles())
+            //{
+            try
             {
-                InputFileSet();
-                OutputFileSet();
-
-                _model.MinWordLength = _view.MinWordLength;
-
-                _model.DeleteWords(_model.InputString);
-
-                if (_view.IsPunctuationDelete)
-                {
-                    _model.RemovePunctuation(_model.OutputString);
-                }
-
-                try
-                {
-                    File.WriteAllText(_view.OutputFileName, _model.OutputString);
-                }
-                catch (UnauthorizedAccessException error)
-                {
-                    _view.ShowMessage(error.Message, "Ошибка!");
-
-                    throw;
-                }
-
-                //File.WriteAllText(_view.OutputFileName, _model.OutputString);
-
-                _view.ShowMessage("Конвертация текста выполненена.", "Готово!");
+                GetText();
             }
+            catch (FileNotFoundException)
+            {
+                _view.ShowMessage("Не найден исходный файл", "Ошибка!");                
+                return;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                _view.ShowMessage("Нет доступа к  исходному файлу", "Ошибка!");
+                return;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            _model.MinWordLength = _view.MinWordLength;
+
+            _model.DeleteWords(_model.InputString);
+
+            if (_view.IsPunctuationDelete)
+            {
+                _model.RemovePunctuation(_model.OutputString);
+            }
+
+            try
+            {
+                _view.ShowResultText(_model.OutputString);
+            }
+            catch (FileNotFoundException)
+            {
+                _view.ShowMessage("Не найден файл для записи результата", "Ошибка!");
+                return;
+                
+            }
+            catch(UnauthorizedAccessException)
+            {
+                _view.ShowMessage("Нет доступа к файлу для записи результата", "Ошибка!");
+                return;
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+            _view.ShowResultText(_model.OutputString);
+
+            _view.ShowMessage("Конвертация текста выполненена.", "Готово!");
+            //}
         }
     }
 }

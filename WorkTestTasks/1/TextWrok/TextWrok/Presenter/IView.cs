@@ -18,10 +18,10 @@ namespace TextWrok
 
         void ShowMessage(string message, string caption);
 
-        //event EventHandler<EventArgs> InputFileSelect;
-
-        //event EventHandler<EventArgs> OutputFileSelect;
-
         event EventHandler<EventArgs> ConvertText;
+
+        void ShowResultText(string text);
+
+        string GetText();
     }
 }
