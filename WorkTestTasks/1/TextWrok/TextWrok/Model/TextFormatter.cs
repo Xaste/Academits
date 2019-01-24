@@ -19,11 +19,6 @@ namespace TextWrok
 
         public int MinWordLength { get; set; }
 
-        /*public TextFormatter(string inputString)
-        {
-            InputString = inputString;
-        }*/
-
         public void DeleteWords(string inputString)
         {
             var outputString = inputString;
@@ -63,7 +58,5 @@ namespace TextWrok
 
             OutputString = outputString;
         }
-
-
     }
 }

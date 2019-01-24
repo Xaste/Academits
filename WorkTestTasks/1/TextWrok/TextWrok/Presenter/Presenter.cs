@@ -23,15 +23,15 @@ namespace TextWrok
         {
             var result = true;
 
-            if (!File.Exists(_view.InputFileName))
+            if (!File.Exists(_view.InputFile))
             {
                 _view.ShowMessage("Неверно указан исходный файл.", "Ошибка!");
                 result = false;
             }
 
-            var a = File.Exists(_view.OutputFileName);
+            var a = File.Exists(_view.OutputFile);
 
-            if (!File.Exists(_view.OutputFileName))
+            if (!File.Exists(_view.OutputFile))
             {
 
                 _view.ShowMessage("Неверно указан итоговый(?) файл.", "Ошибка!");
@@ -46,33 +46,13 @@ namespace TextWrok
             _model.InputString = _view.GetText();
         }
 
-        /*private void OutputFileSet()
-        {
-            _model.OutputFileName = _view.OutputFileName;
-        }*/
-
         private void OnConvert(object sender, EventArgs e)
         {
+            _model.InputString = _view.GetText();
 
-            //if (IsValidatedFiles())
-            //{
-            try
+            if (ReferenceEquals(_model.InputString, null))
             {
-                GetText();
-            }
-            catch (FileNotFoundException)
-            {
-                _view.ShowMessage("Не найден исходный файл", "Ошибка!");                
                 return;
-            }
-            catch (UnauthorizedAccessException)
-            {
-                _view.ShowMessage("Нет доступа к  исходному файлу", "Ошибка!");
-                return;
-            }
-            catch (Exception)
-            {
-                throw;
             }
 
             _model.MinWordLength = _view.MinWordLength;
@@ -84,29 +64,8 @@ namespace TextWrok
                 _model.RemovePunctuation(_model.OutputString);
             }
 
-            try
-            {
-                _view.ShowResultText(_model.OutputString);
-            }
-            catch (FileNotFoundException)
-            {
-                _view.ShowMessage("Не найден файл для записи результата", "Ошибка!");
-                return;
-                
-            }
-            catch(UnauthorizedAccessException)
-            {
-                _view.ShowMessage("Нет доступа к файлу для записи результата", "Ошибка!");
-                return;
-            }
-            catch(Exception)
-            {
-                throw;
-            }
             _view.ShowResultText(_model.OutputString);
 
-            _view.ShowMessage("Конвертация текста выполненена.", "Готово!");
-            //}
         }
     }
 }

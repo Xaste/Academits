@@ -8,9 +8,9 @@ namespace TextWrok
 {
     public interface IView
     {
-        string InputFileName { get; }
+        string InputFile { get; }
 
-        string OutputFileName { get; }
+        string OutputFile { get; }
 
         bool IsPunctuationDelete { get; }
 

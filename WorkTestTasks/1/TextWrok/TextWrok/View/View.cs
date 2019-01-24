@@ -17,13 +17,13 @@ namespace TextWrok
         {
             InitializeComponent();
 
-            SetInputFileTextBox("D:\\123_in.txt");
-            SetOutputTextBox("D:\\123_out.txt");
+            //SetInputFileTextBox("D:\\123_in.txt");
+            //SetOutputTextBox("D:\\123_out.txt");
         }
 
-        public string InputFileName => InputFileNameTextBox.Text;
+        public string InputFile => InputFileNameTextBox.Text;
 
-        public string OutputFileName => OutputFileNameTextBox.Text;
+        public string OutputFile => OutputFileNameTextBox.Text;
 
         public bool IsPunctuationDelete => CheckBoxIsDeletePunctuation.Checked == true;
 
@@ -78,26 +78,51 @@ namespace TextWrok
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    SetOutputTextBox(saveFileDialog.FileName);                    
+                    SetOutputTextBox(saveFileDialog.FileName);
                 }
             }
         }
 
         public void ShowResultText(string text)
         {
-            if (OutputFileName == null)
+            if (OutputFile == null)
             {
                 throw new ArgumentNullException("OutputFile path is null");
             }
-            using (var writer = new StreamWriter(OutputFileName))
+
+            try
             {
-                writer.Write(text);
+                using (var writer = new StreamWriter(OutputFile))
+                {
+                    writer.Write(text);
+                }
+
+                ShowMessage("Конвертация текста выполненена.", "Готово!");
+            }
+            catch (FileNotFoundException e)
+            {
+                ShowMessage(e.Message, "Ошибка!");
+                return;
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                ShowMessage(e.Message, "Ошибка!");
+                return;
+            }
+            catch (ArgumentException e)
+            {
+                ShowMessage(e.Message, "Ошибка!");
+                return;
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
         public string GetText()
         {
-            if (InputFileName == null)
+            if (InputFile == null)
             {
                 throw new ArgumentNullException("InputFile path is null");
             }
@@ -106,18 +131,32 @@ namespace TextWrok
 
             try
             {
-                using (var reader = new StreamReader(InputFileName))
+                using (var reader = new StreamReader(InputFile))
                 {
                     resultText = reader.ReadToEnd();
                 }
+
+                return resultText;
+            }
+            catch (FileNotFoundException e)
+            {
+                ShowMessage(e.Message, "Ошибка!");
+                return null;
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                ShowMessage(e.Message, "Ошибка!");
+                return null;
+            }
+            catch(ArgumentException e)
+            {
+                ShowMessage(e.Message, "Ошибка!");
+                return null;
             }
             catch (Exception)
             {
-                Console.WriteLine();
-                //throw;
+                throw;
             }
-
-            return resultText;
-        }
+        }        
     }
 }
