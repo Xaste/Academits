@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace TextWrok
@@ -36,7 +37,7 @@ namespace TextWrok
                 if (removeLength < MinWordLength)
                 {
                     i -= removeLength;
-                    outputString = outputString.Remove(i, removeLength);                    
+                    outputString = outputString.Remove(i, removeLength);
                 }
             }
 
@@ -54,9 +55,14 @@ namespace TextWrok
                     outputString = outputString.Remove(i, 1);
                     i--;
                 }
-            }
+            }s
 
             OutputString = outputString;
+        }
+
+        public void RemovePunctuationRegex(string inputString)
+        {
+            OutputString = Regex.Replace(inputString, @"[^\w\s]", "");
         }
     }
 }

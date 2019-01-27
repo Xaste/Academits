@@ -65,7 +65,6 @@ namespace TextWrok
             }
 
             _view.ShowResultText(_model.OutputString);
-
         }
     }
 }

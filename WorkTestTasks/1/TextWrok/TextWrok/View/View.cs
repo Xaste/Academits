@@ -127,10 +127,9 @@ namespace TextWrok
                 throw new ArgumentNullException("InputFile path is null");
             }
 
-            string resultText = null;
-
             try
             {
+                string resultText = null;//TODO:Можно Null убрать
                 using (var reader = new StreamReader(InputFile))
                 {
                     resultText = reader.ReadToEnd();

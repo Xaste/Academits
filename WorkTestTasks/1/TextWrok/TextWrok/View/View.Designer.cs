@@ -67,8 +67,6 @@
             this.InputFileNameTextBox.Name = "InputFileNameTextBox";
             this.InputFileNameTextBox.Size = new System.Drawing.Size(360, 20);
             this.InputFileNameTextBox.TabIndex = 0;
-            //this.InputFileNameTextBox.TextChanged += new System.EventHandler(this.InputFileNameTextBox_TextChanged);
-            //this.InputFileNameTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.InputFileNameTextBox_KeyUp);
             // 
             // OutputFileNameTextBox
             // 
@@ -76,7 +74,6 @@
             this.OutputFileNameTextBox.Name = "OutputFileNameTextBox";
             this.OutputFileNameTextBox.Size = new System.Drawing.Size(360, 20);
             this.OutputFileNameTextBox.TabIndex = 1;
-            //this.OutputFileNameTextBox.TextChanged += new System.EventHandler(this.OutputFileNameTextBox_TextChanged);
             // 
             // ButtonOutputFileOpen
             // 
