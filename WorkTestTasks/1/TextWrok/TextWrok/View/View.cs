@@ -129,7 +129,7 @@ namespace TextWrok
 
             try
             {
-                string resultText = null;//TODO:Можно Null убрать
+                string resultText;
                 using (var reader = new StreamReader(InputFile))
                 {
                     resultText = reader.ReadToEnd();
@@ -147,7 +147,7 @@ namespace TextWrok
                 ShowMessage(e.Message, "Ошибка!");
                 return null;
             }
-            catch(ArgumentException e)
+            catch (ArgumentException e)
             {
                 ShowMessage(e.Message, "Ошибка!");
                 return null;
@@ -156,6 +156,6 @@ namespace TextWrok
             {
                 throw;
             }
-        }        
+        }
     }
 }

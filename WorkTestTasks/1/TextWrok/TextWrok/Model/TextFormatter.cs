@@ -55,7 +55,7 @@ namespace TextWrok
                     outputString = outputString.Remove(i, 1);
                     i--;
                 }
-            }s
+            }
 
             OutputString = outputString;
         }
