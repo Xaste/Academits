@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ATMWork.Presenter;
 
 namespace ATMWork
 {
@@ -16,7 +17,9 @@ namespace ATMWork
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ATM_Interface());
+            var view = new ATM_Interface();
+            var presenter = new ATMWork.Presenter.Presenter(view);
+            Application.Run(view);
         }
     }
 }

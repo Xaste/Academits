@@ -9,45 +9,34 @@ namespace ATMWork.Model
 {
     class ATM
     {
-        //public const int MAX_ATM_CAPACITY = 50;
-
-        public double Balance { get; set; }
+        public int Balance { get; set; }
 
         public int MaxBankNotes { get; private set; }
 
-        public int CurrentBankNotesCount { get; private set; }
+        public int DefaultLoadOut { get; private set; }
 
-        private Dictionary<int, int> _aTMCapacity = new Dictionary<int, int>();
+        public Dictionary<int, int> _aTMLoadOut { get; private set; } = new Dictionary<int, int>();
 
-        public ATM(int maxBankNotes)
+        public ATM(int maxBankNotes, int defaultLoadOut)
         {
+            DefaultLoadOut = defaultLoadOut;
+
+            GetBankNotesData();
             MaxBankNotes = maxBankNotes;
-            CurrentBankNotesCount = 0;
-            Balance = 0;
-        }
 
-        public void AddCash(int bankNoteDenominal)
-        {
-            if (AddBankNote(bankNoteDenominal))// не нравится, подумать как сделать по другому
-            {
-                Balance += bankNoteDenominal;
-            }
+            Balance = 0;           
         }
 
         public bool AddBankNote(int amount)
         {
-            if (_aTMCapacity[amount] >= MaxBankNotes)
+            if (_aTMLoadOut[amount] >= MaxBankNotes)
             {
                 return false;
             }
 
-            _aTMCapacity[amount]++;
+            _aTMLoadOut[amount]++;
+            Balance += amount;
             return true;
-        }
-
-        public void GetCash(double sum, int PreferBankNote)
-        {
-
         }
 
         private void GetBankNotesData()
@@ -58,9 +47,42 @@ namespace ATMWork.Model
 
                 while ((line = reader.ReadLine()) != null)
                 {
-                    _aTMCapacity.Add(Convert.ToInt32(line), 0);
+                    _aTMLoadOut.Add(Convert.ToInt32(line), DefaultLoadOut);
                 }
             }
+        }
+
+        public Dictionary<int, int> CalculateWithDraw(int sum, int preferNominal)
+        {
+            var bankNotesNominals = _aTMLoadOut.Keys.OrderByDescending(c => c).ToArray();
+
+            var result = new Dictionary<int, int>();
+
+            int i = 0;
+
+            while (bankNotesNominals[i] != preferNominal)
+            {
+                result.Add(bankNotesNominals[i], 0);
+                i++;
+            }
+
+            for (; i < bankNotesNominals.Length; i++)
+            {
+                var amount = (int)sum / bankNotesNominals[i];
+
+                if (amount > _aTMLoadOut[bankNotesNominals[i]])
+                {
+                    amount = _aTMLoadOut[bankNotesNominals[i]];
+                }
+
+                sum -= amount * bankNotesNominals[i];
+
+                _aTMLoadOut[bankNotesNominals[i]] -= amount;
+
+                result.Add(bankNotesNominals[i], amount);
+            }
+
+            return result;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ATMWork.View
 {
-    interface IView
+    public interface IView
     {
         /*double Ballance { get; }
 
@@ -14,6 +14,19 @@ namespace ATMWork.View
 
         void RemoveCash(double amount);*/
 
-        event EventHandler<EventArgs> BankNoteAdded;
+        int WithDrawSum { get; }
+        int PreferNominal { get; }
+
+        event EventHandler<ATMEventArgs> BankNoteAdded;
+
+        event EventHandler<EventArgs> WithDraw;
+
+        void UpdateATMLoading(Dictionary<int, int> loadout, int nominal);
+
+        void SetReadyATM(int[] col);
+
+        void SetBalance(int balance);
+
+        void ShowMessage(string message, string caption);
     }
 }

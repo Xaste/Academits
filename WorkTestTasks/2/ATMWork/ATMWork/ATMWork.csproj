@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ATMEventArgs.cs" />
     <Compile Include="Model\ATM.cs" />
     <Compile Include="Presenter\Presenter.cs" />
     <Compile Include="View\ATM_Interface.cs">
@@ -84,7 +85,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="View\Banknotes.txt">
+    <Content Include="Banknotes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
