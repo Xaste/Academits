@@ -15,7 +15,7 @@ namespace ATMWork.Model
 
         public int DefaultLoadOut { get; private set; }
 
-        public Dictionary<int, int> _aTMLoadOut { get; private set; } = new Dictionary<int, int>();
+        public Dictionary<int, int> _ATMLoadOut { get; private set; } = new Dictionary<int, int>();
 
         public ATM(int maxBankNotes, int defaultLoadOut)
         {
@@ -29,12 +29,12 @@ namespace ATMWork.Model
 
         public bool AddBankNote(int amount)
         {
-            if (_aTMLoadOut[amount] >= MaxBankNotes)
+            if (_ATMLoadOut[amount] >= MaxBankNotes)
             {
                 return false;
             }
 
-            _aTMLoadOut[amount]++;
+            _ATMLoadOut[amount]++;
             Balance += amount;
             return true;
         }
@@ -47,18 +47,18 @@ namespace ATMWork.Model
 
                 while ((line = reader.ReadLine()) != null)
                 {
-                    _aTMLoadOut.Add(Convert.ToInt32(line), DefaultLoadOut);
+                    _ATMLoadOut.Add(Convert.ToInt32(line), DefaultLoadOut);
                 }
             }
         }
 
         public Dictionary<int, int> CalculateWithDraw(int sum, int preferNominal)
         {
-            var bankNotesNominals = _aTMLoadOut.Keys.OrderByDescending(c => c).ToArray();
+            var bankNotesNominals = _ATMLoadOut.Keys.OrderByDescending(c => c).ToArray();
 
             var result = new Dictionary<int, int>();
 
-            int i = 0;
+            var i = 0;
 
             while (bankNotesNominals[i] != preferNominal)
             {
@@ -70,14 +70,14 @@ namespace ATMWork.Model
             {
                 var amount = (int)sum / bankNotesNominals[i];
 
-                if (amount > _aTMLoadOut[bankNotesNominals[i]])
+                if (amount > _ATMLoadOut[bankNotesNominals[i]])
                 {
-                    amount = _aTMLoadOut[bankNotesNominals[i]];
+                    amount = _ATMLoadOut[bankNotesNominals[i]];
                 }
 
                 sum -= amount * bankNotesNominals[i];
 
-                _aTMLoadOut[bankNotesNominals[i]] -= amount;
+                _ATMLoadOut[bankNotesNominals[i]] -= amount;
 
                 result.Add(bankNotesNominals[i], amount);
             }

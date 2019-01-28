@@ -16,8 +16,8 @@ namespace ATMWork.Presenter
         public Presenter(IView view)
         {
             _view = view;
-            _view.SetReadyATM(_aTM._aTMLoadOut.Keys.ToArray());
-            _view.UpdateATMLoading(_aTM._aTMLoadOut, _aTM.MaxBankNotes);
+            _view.SetReadyATM(_aTM._ATMLoadOut.Keys.ToArray());
+            _view.UpdateATMLoading(_aTM._ATMLoadOut, _aTM.MaxBankNotes);
             _view.SetBalance(_aTM.Balance);
 
             _view.BankNoteAdded += new EventHandler<ATMEventArgs>(BankNoteAdd);
@@ -28,7 +28,7 @@ namespace ATMWork.Presenter
         {
             _aTM.AddBankNote(e.BankNoteNominal);
 
-            _view.UpdateATMLoading(_aTM._aTMLoadOut, _aTM.MaxBankNotes);
+            _view.UpdateATMLoading(_aTM._ATMLoadOut, _aTM.MaxBankNotes);
 
             _view.SetBalance(_aTM.Balance);
         }
@@ -63,7 +63,7 @@ namespace ATMWork.Presenter
 
             _aTM.Balance -= withDrawAmount;
             _view.SetBalance(_aTM.Balance);
-            _view.UpdateATMLoading(_aTM._aTMLoadOut, _aTM.MaxBankNotes);
+            _view.UpdateATMLoading(_aTM._ATMLoadOut, _aTM.MaxBankNotes);
 
             _view.ShowMessage(sb.ToString(), "Готово");
 
