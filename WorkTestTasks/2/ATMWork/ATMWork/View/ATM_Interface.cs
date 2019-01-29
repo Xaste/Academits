@@ -40,18 +40,6 @@ namespace ATMWork
             }
         }
 
-        public void SetReadyATM2(int[] col)//TODO Переделать
-        {
-            for (int i = 0; i < MAX_BANKNOTES_TYPES && i < col.Length; i++)
-            {
-                _banknotesDenominations.Add(col[i]);
-                flowLayoutPanel_Banknotes.Controls[i].Text = col[i].ToString();
-                comboBox_WithDrawBankNotes.Items.Add(col[i].ToString());
-            }
-
-            comboBox_WithDrawBankNotes.SelectedIndex = 0;
-        }
-
         public void SetReadyATM(IList<int> col)
         {
             for (int i = 0; i < MAX_BANKNOTES_TYPES && i < col.Count; i++)

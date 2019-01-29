@@ -79,6 +79,11 @@ namespace ATMWork.Model
                 {
                     ATMLoadOut.Add(Convert.ToInt32(line), DefaultLoadOut);
                 }
+
+                if (ATMLoadOut.Count == 0)
+                {
+                    throw new ArgumentException("BankNote file is Empty!");
+                }
             }
         }
 
