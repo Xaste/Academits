@@ -9,32 +9,62 @@ namespace ATMWork.Model
 {
     class ATM
     {
-        public int Balance { get; set; }
+        private int _balance;
+        private int _maxBankNotesCapacity;
 
-        public int MaxBankNotes { get; private set; }
+        public int Balance
+        {
+            get { return _balance; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException($"{nameof(value)} не может быть отрицательным.");
+                }
+
+                _balance = value;
+            }
+        }
+
+        public int MaxBankNotesCapacity
+        {
+            get
+            {
+                return _maxBankNotesCapacity;
+            }
+            private set
+            {
+                if (value < 1)
+                {
+                    throw new ArgumentOutOfRangeException($"{nameof(value)} не может быть меньше 1");
+                }
+
+                _maxBankNotesCapacity = value;
+            }
+        }
 
         public int DefaultLoadOut { get; private set; }
 
-        public Dictionary<int, int> _ATMLoadOut { get; private set; } = new Dictionary<int, int>();
+        public Dictionary<int, int> ATMLoadOut { get; private set; } = new Dictionary<int, int>();
 
-        public ATM(int maxBankNotes, int defaultLoadOut)
+        public ATM(int defaultBalance, int maxBankNotes, int defaultLoadOut)
         {
             DefaultLoadOut = defaultLoadOut;
 
             GetBankNotesData();
-            MaxBankNotes = maxBankNotes;
+            MaxBankNotesCapacity = maxBankNotes;
 
-            Balance = 0;           
+            Balance = defaultBalance;
         }
 
         public bool AddBankNote(int amount)
         {
-            if (_ATMLoadOut[amount] >= MaxBankNotes)
+            if (ATMLoadOut[amount] >= MaxBankNotesCapacity)
             {
                 return false;
             }
 
-            _ATMLoadOut[amount]++;
+            ATMLoadOut[amount]++;
             Balance += amount;
             return true;
         }
@@ -47,14 +77,14 @@ namespace ATMWork.Model
 
                 while ((line = reader.ReadLine()) != null)
                 {
-                    _ATMLoadOut.Add(Convert.ToInt32(line), DefaultLoadOut);
+                    ATMLoadOut.Add(Convert.ToInt32(line), DefaultLoadOut);
                 }
             }
         }
 
         public Dictionary<int, int> CalculateWithDraw(int sum, int preferNominal)
         {
-            var bankNotesNominals = _ATMLoadOut.Keys.OrderByDescending(c => c).ToArray();
+            var bankNotesNominals = ATMLoadOut.Keys.OrderByDescending(c => c).ToArray();
 
             var result = new Dictionary<int, int>();
 
@@ -70,14 +100,14 @@ namespace ATMWork.Model
             {
                 var amount = (int)sum / bankNotesNominals[i];
 
-                if (amount > _ATMLoadOut[bankNotesNominals[i]])
+                if (amount > ATMLoadOut[bankNotesNominals[i]])
                 {
-                    amount = _ATMLoadOut[bankNotesNominals[i]];
+                    amount = ATMLoadOut[bankNotesNominals[i]];
                 }
 
                 sum -= amount * bankNotesNominals[i];
 
-                _ATMLoadOut[bankNotesNominals[i]] -= amount;
+                ATMLoadOut[bankNotesNominals[i]] -= amount;
 
                 result.Add(bankNotesNominals[i], amount);
             }

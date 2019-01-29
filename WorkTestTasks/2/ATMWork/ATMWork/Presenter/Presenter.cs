@@ -10,14 +10,14 @@ namespace ATMWork.Presenter
 {
     public class Presenter
     {
-        private readonly ATM _aTM = new ATM(100,50);
+        private readonly ATM _aTM = new ATM(0, 100, 50);
         private readonly IView _view;
 
         public Presenter(IView view)
         {
             _view = view;
-            _view.SetReadyATM(_aTM._ATMLoadOut.Keys.ToArray());
-            _view.UpdateATMLoading(_aTM._ATMLoadOut, _aTM.MaxBankNotes);
+            _view.SetReadyATM(_aTM.ATMLoadOut.Keys.ToList());
+            _view.UpdateATMLoading(_aTM.ATMLoadOut, _aTM.MaxBankNotesCapacity);
             _view.SetBalance(_aTM.Balance);
 
             _view.BankNoteAdded += new EventHandler<ATMEventArgs>(BankNoteAdd);
@@ -28,7 +28,7 @@ namespace ATMWork.Presenter
         {
             _aTM.AddBankNote(e.BankNoteNominal);
 
-            _view.UpdateATMLoading(_aTM._ATMLoadOut, _aTM.MaxBankNotes);
+            _view.UpdateATMLoading(_aTM.ATMLoadOut, _aTM.MaxBankNotesCapacity);
 
             _view.SetBalance(_aTM.Balance);
         }
@@ -47,7 +47,7 @@ namespace ATMWork.Presenter
                 return;
             }
 
-            var result =_aTM.CalculateWithDraw(_view.WithDrawSum, _view.PreferNominal);
+            var result = _aTM.CalculateWithDraw(_view.WithDrawSum, _view.PreferNominal);
 
             var withDrawAmount = 0;
 
@@ -55,7 +55,7 @@ namespace ATMWork.Presenter
 
             foreach (var pair in result)
             {
-                sb.Append($"{pair.Key}р: {pair.Value}шт, ");
+                sb.Append($"{pair.Key}р.: {pair.Value}шт, ");
                 withDrawAmount += pair.Key * pair.Value;
             }
 
@@ -63,10 +63,9 @@ namespace ATMWork.Presenter
 
             _aTM.Balance -= withDrawAmount;
             _view.SetBalance(_aTM.Balance);
-            _view.UpdateATMLoading(_aTM._ATMLoadOut, _aTM.MaxBankNotes);
+            _view.UpdateATMLoading(_aTM.ATMLoadOut, _aTM.MaxBankNotesCapacity);
 
             _view.ShowMessage(sb.ToString(), "Готово");
-
         }
     }
 }

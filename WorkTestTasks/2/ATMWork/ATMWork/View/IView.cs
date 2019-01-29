@@ -8,13 +8,8 @@ namespace ATMWork.View
 {
     public interface IView
     {
-        /*double Ballance { get; }
-
-        void AddCash(double amount);
-
-        void RemoveCash(double amount);*/
-
         int WithDrawSum { get; }
+
         int PreferNominal { get; }
 
         event EventHandler<ATMEventArgs> BankNoteAdded;
@@ -23,7 +18,7 @@ namespace ATMWork.View
 
         void UpdateATMLoading(Dictionary<int, int> loadout, int nominal);
 
-        void SetReadyATM(int[] col);
+        void SetReadyATM(IList<int> col);
 
         void SetBalance(int balance);
 
