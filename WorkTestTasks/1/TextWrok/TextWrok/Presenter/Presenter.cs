@@ -19,7 +19,7 @@ namespace TextWrok
             _view.ConvertText += new EventHandler<EventArgs>(OnConvert);
         }
 
-        private bool IsValidatedFiles()
+        private bool IsValidatedFiles()//TODO Не используется удалить!
         {
             var result = true;
 
