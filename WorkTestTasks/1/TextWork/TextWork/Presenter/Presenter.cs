@@ -34,6 +34,8 @@ namespace TextWork.Presenter
             _textFormatter.Convert(_textFormatter.InputString, _view.IsPunctuationDelete);
 
             _view.ShowResultText(_textFormatter.OutputString);
+
+            _view.ShowMessage("Конвертация текста выполненена.", "Готово!");
         }
     }
 }

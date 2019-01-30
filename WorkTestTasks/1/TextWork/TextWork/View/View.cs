@@ -26,7 +26,7 @@ namespace TextWork.View
 
         public string OutputFilePath => OutputFileNameTextBox.Text;
 
-        public bool IsPunctuationDelete => CheckBoxIsDeletePunctuation.Checked == true;
+        public bool IsPunctuationDelete => CheckBoxIsDeletePunctuation.Checked;
 
         public int MinWordLength => (int)WordMinLengthNumericUpDown.Value;
 
@@ -96,7 +96,7 @@ namespace TextWork.View
                     writer.Write(text);
                 }
 
-                ShowMessage("Конвертация текста выполненена.", "Готово!");
+                //ShowMessage("Конвертация текста выполненена.", "Готово!");
             }
             catch (Exception e)
             {
