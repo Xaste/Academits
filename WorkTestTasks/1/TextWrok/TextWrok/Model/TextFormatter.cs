@@ -58,23 +58,24 @@ namespace TextWrok
                     i++;
                 }
 
+
+
                 if (removeLength < MinWordLength && removeLength > 0)
                 {
-                    if (char.IsPunctuation(outputString[i]) && isPunctuationDelete)
-                    {
-                        removeLength++;
-                        //i++;
-                    }
-
-                    i -= removeLength-1;
+                    i -= removeLength;
 
                     outputString = outputString.Remove(i, removeLength);
                 }
-                else if (isPunctuationDelete && char.IsPunctuation(outputString[i]))
+
+                if (removeLength == 0 && isPunctuationDelete && char.IsPunctuation(outputString[i]))
+                {
+                    outputString.Remove(i, 1);
+                }
+                /*else if (isPunctuationDelete && char.IsPunctuation(outputString[i]))
                 {
                     outputString = outputString.Remove(i, 1);
                     i--;
-                }
+                }*/
             }
 
             OutputString = outputString;
