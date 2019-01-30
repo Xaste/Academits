@@ -1,6 +1,6 @@
-﻿namespace ATMWork
+﻿namespace ATMWork.View
 {
-    partial class ATM_Interface
+    partial class AtmInterface
     {
         /// <summary>
         /// Required designer variable.
@@ -291,7 +291,7 @@
             this.ClientSize = new System.Drawing.Size(205, 420);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "ATM_Interface";
+            this.Name = "AtmInterface";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Банкомат";
             this.panel1.ResumeLayout(false);

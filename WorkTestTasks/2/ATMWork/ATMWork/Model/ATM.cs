@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace ATMWork.Model
 {
-    class ATM
+    internal class Atm
     {
         private int _balance;
         private int _maxBankNotesCapacity;
 
         public int Balance
         {
-            get { return _balance; }
+            get => _balance;
             set
             {
                 if (value < 0)
@@ -28,10 +28,7 @@ namespace ATMWork.Model
 
         public int MaxBankNotesCapacity
         {
-            get
-            {
-                return _maxBankNotesCapacity;
-            }
+            get => _maxBankNotesCapacity;
             private set
             {
                 if (value < 1)
@@ -43,13 +40,13 @@ namespace ATMWork.Model
             }
         }
 
-        public int DefaultLoadOut { get; private set; }
+        public int DefaultAtmLoad { get; private set; }
 
-        public Dictionary<int, int> ATMLoadOut { get; private set; } = new Dictionary<int, int>();
+        public Dictionary<int, int> AtmCurrentLoad { get; private set; } = new Dictionary<int, int>();//Privateset можно убрать?
 
-        public ATM(int defaultBalance, int maxBankNotes, int defaultLoadOut)
+        public Atm(int defaultBalance, int maxBankNotes, int defaultAtmLoad)
         {
-            DefaultLoadOut = defaultLoadOut;
+            DefaultAtmLoad = defaultAtmLoad;
 
             GetBankNotesData();
             MaxBankNotesCapacity = maxBankNotes;
@@ -59,12 +56,12 @@ namespace ATMWork.Model
 
         public bool AddBankNote(int amount)
         {
-            if (ATMLoadOut[amount] >= MaxBankNotesCapacity)
+            if (AtmCurrentLoad[amount] >= MaxBankNotesCapacity)
             {
                 return false;
             }
 
-            ATMLoadOut[amount]++;
+            AtmCurrentLoad[amount]++;
             Balance += amount;
             return true;
         }
@@ -77,10 +74,10 @@ namespace ATMWork.Model
 
                 while ((line = reader.ReadLine()) != null)
                 {
-                    ATMLoadOut.Add(Convert.ToInt32(line), DefaultLoadOut);
+                    AtmCurrentLoad.Add(Convert.ToInt32(line), DefaultAtmLoad);
                 }
 
-                if (ATMLoadOut.Count == 0)
+                if (AtmCurrentLoad.Count == 0)
                 {
                     throw new ArgumentException("BankNote file is Empty!");
                 }
@@ -89,7 +86,7 @@ namespace ATMWork.Model
 
         public Dictionary<int, int> CalculateWithDraw(int sum, int preferNominal)
         {
-            var bankNotesNominals = ATMLoadOut.Keys.OrderByDescending(c => c).ToArray();
+            var bankNotesNominals = AtmCurrentLoad.Keys.OrderByDescending(c => c).ToArray();
 
             var result = new Dictionary<int, int>();
 
@@ -105,14 +102,14 @@ namespace ATMWork.Model
             {
                 var amount = (int)sum / bankNotesNominals[i];
 
-                if (amount > ATMLoadOut[bankNotesNominals[i]])
+                if (amount > AtmCurrentLoad[bankNotesNominals[i]])
                 {
-                    amount = ATMLoadOut[bankNotesNominals[i]];
+                    amount = AtmCurrentLoad[bankNotesNominals[i]];
                 }
 
                 sum -= amount * bankNotesNominals[i];
 
-                ATMLoadOut[bankNotesNominals[i]] -= amount;
+                AtmCurrentLoad[bankNotesNominals[i]] -= amount;
 
                 result.Add(bankNotesNominals[i], amount);
             }

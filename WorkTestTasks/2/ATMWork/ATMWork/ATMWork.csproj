@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ATMEventArgs.cs" />
+    <Compile Include="View\ATMEventArgs.cs" />
     <Compile Include="Model\ATM.cs" />
     <Compile Include="Presenter\Presenter.cs" />
     <Compile Include="View\ATM_Interface.cs">

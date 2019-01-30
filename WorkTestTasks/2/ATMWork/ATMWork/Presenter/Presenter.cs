@@ -10,32 +10,33 @@ namespace ATMWork.Presenter
 {
     public class Presenter
     {
-        private readonly ATM _aTM = new ATM(0, 100, 50);
+        private readonly Atm _atm = new Atm(0, 100, 50);
         private readonly IView _view;
 
         public Presenter(IView view)
         {
             _view = view;
-            _view.SetReadyATM(_aTM.ATMLoadOut.Keys.ToList());
-            _view.UpdateATMLoading(_aTM.ATMLoadOut, _aTM.MaxBankNotesCapacity);
-            _view.SetBalance(_aTM.Balance);
+            _view.SetReadyAtm(_atm.AtmCurrentLoad.Keys.ToList());
+            _view.UpdateAtmLoading(_atm.AtmCurrentLoad, _atm.MaxBankNotesCapacity);
+            _view.SetBalance(_atm.Balance);
 
-            _view.BankNoteAdded += new EventHandler<ATMEventArgs>(BankNoteAdd);
+            _view.BankNoteAdded += new EventHandler<AtmEventArgs>(BankNoteAdd);
+            //_view.BankNoteAdded += BankNoteAdd;
             _view.WithDraw += new EventHandler<EventArgs>(WithDraw);
         }
 
-        private void BankNoteAdd(object sender, ATMEventArgs e)
+        private void BankNoteAdd(object sender, AtmEventArgs e)
         {
-            _aTM.AddBankNote(e.BankNoteNominal);
+            _atm.AddBankNote(e.BankNoteNominal);
 
-            _view.UpdateATMLoading(_aTM.ATMLoadOut, _aTM.MaxBankNotesCapacity);
+            _view.UpdateAtmLoading(_atm.AtmCurrentLoad, _atm.MaxBankNotesCapacity);
 
-            _view.SetBalance(_aTM.Balance);
+            _view.SetBalance(_atm.Balance);
         }
 
         private void WithDraw(object sender, EventArgs e)
         {
-            if (_aTM.Balance < _view.WithDrawSum)
+            if (_atm.Balance < _view.WithDrawSum)
             {
                 _view.ShowMessage("Недостаточно средств!", "Ошибка!");
                 return;
@@ -47,7 +48,7 @@ namespace ATMWork.Presenter
                 return;
             }
 
-            var result = _aTM.CalculateWithDraw(_view.WithDrawSum, _view.PreferNominal);
+            var result = _atm.CalculateWithDraw(_view.WithDrawSum, _view.PreferNominal);
 
             var withDrawAmount = 0;
 
@@ -61,9 +62,9 @@ namespace ATMWork.Presenter
 
             sb.Append($"Выдано : {withDrawAmount}");
 
-            _aTM.Balance -= withDrawAmount;
-            _view.SetBalance(_aTM.Balance);
-            _view.UpdateATMLoading(_aTM.ATMLoadOut, _aTM.MaxBankNotesCapacity);
+            _atm.Balance -= withDrawAmount;
+            _view.SetBalance(_atm.Balance);
+            _view.UpdateAtmLoading(_atm.AtmCurrentLoad, _atm.MaxBankNotesCapacity);
 
             _view.ShowMessage(sb.ToString(), "Готово");
         }

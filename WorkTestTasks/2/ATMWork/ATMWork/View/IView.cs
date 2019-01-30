@@ -12,13 +12,13 @@ namespace ATMWork.View
 
         int PreferNominal { get; }
 
-        event EventHandler<ATMEventArgs> BankNoteAdded;
+        event EventHandler<AtmEventArgs> BankNoteAdded;
 
         event EventHandler<EventArgs> WithDraw;
 
-        void UpdateATMLoading(Dictionary<int, int> loadout, int nominal);
+        void UpdateAtmLoading(Dictionary<int, int> atmLoad, int nominal);
 
-        void SetReadyATM(IList<int> col);
+        void SetReadyAtm(IList<int> col);
 
         void SetBalance(int balance);
 

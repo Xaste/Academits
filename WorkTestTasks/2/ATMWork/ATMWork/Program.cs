@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ATMWork.Presenter;
+using ATMWork.View;
 
 namespace ATMWork
 {
@@ -17,7 +18,7 @@ namespace ATMWork
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var view = new ATM_Interface();
+            var view = new AtmInterface();
             var presenter = new ATMWork.Presenter.Presenter(view);
             Application.Run(view);
         }

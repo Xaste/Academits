@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ATMWork
+namespace ATMWork.View
 {
-    public class ATMEventArgs : EventArgs
+    public class AtmEventArgs : EventArgs
     {
         public int BankNoteNominal { get; }
 
-        public ATMEventArgs(int amount)
+        public AtmEventArgs(int amount)
         {
             BankNoteNominal = amount;
         }

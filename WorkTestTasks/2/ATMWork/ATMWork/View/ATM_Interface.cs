@@ -10,39 +10,39 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ATMWork
+namespace ATMWork.View
 {
-    public partial class ATM_Interface : Form, IView
+    public partial class AtmInterface : Form, IView
     {
         public int WithDrawSum => (int)numericUpDown_WithDrawSum.Value;
 
         public int PreferNominal => Convert.ToInt32(comboBox_WithDrawBankNotes.Text);
 
-        private const int MAXBANKNOTESTYPES = 6;
+        private const int MaxBankNotesTypes = 6;
 
-        private List<int> _banknotesDenominations = new List<int>();
+        private readonly List<int> _banknotesDenominations = new List<int>();
 
-        public event EventHandler<ATMEventArgs> BankNoteAdded;
+        public event EventHandler<AtmEventArgs> BankNoteAdded;
         public event EventHandler<EventArgs> WithDraw;
 
-        public ATM_Interface()
+        public AtmInterface()
         {
             InitializeComponent();
 
             comboBox_WithDrawBankNotes.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        public void UpdateATMLoading(Dictionary<int, int> loadout, int maxCapacity)
+        public void UpdateAtmLoading(Dictionary<int, int> atmLoad, int maxCapacity)
         {
-            for (int i = 0; i < flowLayoutPanel_BanknotesCapacity.Controls.Count; i++)
+            for (var i = 0; i < flowLayoutPanel_BanknotesCapacity.Controls.Count; i++)
             {
-                flowLayoutPanel_BanknotesCapacity.Controls[i].Text = $"{loadout[_banknotesDenominations[i]]}/{maxCapacity}";
+                flowLayoutPanel_BanknotesCapacity.Controls[i].Text = $"{atmLoad[_banknotesDenominations[i]]}/{maxCapacity}";
             }
         }
 
-        public void SetReadyATM(IList<int> col)
+        public void SetReadyAtm(IList<int> col)
         {
-            for (int i = 0; i < MAXBANKNOTESTYPES && i < col.Count; i++)
+            for (var i = 0; i < MaxBankNotesTypes && i < col.Count; i++)
             {
                 _banknotesDenominations.Add(col[i]);
                 flowLayoutPanel_Banknotes.Controls[i].Text = col[i].ToString();
@@ -69,32 +69,32 @@ namespace ATMWork
 
         private void Button_Banknote1_Click(object sender, EventArgs e)
         {
-            BankNoteAdded?.Invoke(this, new ATMEventArgs(Convert.ToInt32(button_Banknote1.Text)));
+            BankNoteAdded?.Invoke(this, new AtmEventArgs(Convert.ToInt32(button_Banknote1.Text)));
         }
 
         private void Button_Banknote2_Click(object sender, EventArgs e)
         {
-            BankNoteAdded?.Invoke(this, new ATMEventArgs(Convert.ToInt32(button_Banknote2.Text)));
+            BankNoteAdded?.Invoke(this, new AtmEventArgs(Convert.ToInt32(button_Banknote2.Text)));
         }
 
         private void Button_Banknote3_Click(object sender, EventArgs e)
         {
-            BankNoteAdded?.Invoke(this, new ATMEventArgs(Convert.ToInt32(button_Banknote3.Text)));
+            BankNoteAdded?.Invoke(this, new AtmEventArgs(Convert.ToInt32(button_Banknote3.Text)));
         }
 
         private void Button_Banknote4_Click(object sender, EventArgs e)
         {
-            BankNoteAdded?.Invoke(this, new ATMEventArgs(Convert.ToInt32(button_Banknote4.Text)));
+            BankNoteAdded?.Invoke(this, new AtmEventArgs(Convert.ToInt32(button_Banknote4.Text)));
         }
 
         private void Button_Banknote5_Click(object sender, EventArgs e)
         {
-            BankNoteAdded?.Invoke(this, new ATMEventArgs(Convert.ToInt32(button_Banknote5.Text)));
+            BankNoteAdded?.Invoke(this, new AtmEventArgs(Convert.ToInt32(button_Banknote5.Text)));
         }
 
         private void Button_Banknote6_Click(object sender, EventArgs e)
         {
-            BankNoteAdded?.Invoke(this, new ATMEventArgs(Convert.ToInt32(button_Banknote6.Text)));
+            BankNoteAdded?.Invoke(this, new AtmEventArgs(Convert.ToInt32(button_Banknote6.Text)));
         }
     }
 }
