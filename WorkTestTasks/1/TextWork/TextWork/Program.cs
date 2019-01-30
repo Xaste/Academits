@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TextWork.View;
 
-namespace TextWrok
+namespace TextWork.Presenter
 {
     static class Program
     {
@@ -16,7 +17,7 @@ namespace TextWrok
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var view = new View();
+            var view = new TextWork.View.View();
             var presneter = new Presenter(view);
             Application.Run(view);
         }

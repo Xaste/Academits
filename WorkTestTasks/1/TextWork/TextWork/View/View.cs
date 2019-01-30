@@ -8,8 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TextWork.Presenter;
 
-namespace TextWrok
+namespace TextWork.View
 {
     public partial class View : Form, IView
     {
@@ -21,9 +22,9 @@ namespace TextWrok
             SetOutputTextBox("D:\\123_out.txt");
         }
 
-        public string InputFile => InputFileNameTextBox.Text;
+        public string InputFilePath => InputFileNameTextBox.Text;
 
-        public string OutputFile => OutputFileNameTextBox.Text;
+        public string OutputFilePath => OutputFileNameTextBox.Text;
 
         public bool IsPunctuationDelete => CheckBoxIsDeletePunctuation.Checked == true;
 
@@ -70,9 +71,8 @@ namespace TextWrok
         {
             using (var saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.InitialDirectory = "c:\\";
+                saveFileDialog.InitialDirectory = $"{Path.GetPathRoot(Environment.SystemDirectory)}";
                 saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                saveFileDialog.FilterIndex = 2;
                 saveFileDialog.RestoreDirectory = true;
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -84,14 +84,14 @@ namespace TextWrok
 
         public void ShowResultText(string text)
         {
-            if (OutputFile == null)
+            if (OutputFilePath == null)
             {
                 throw new ArgumentNullException("OutputFile path is null");
             }
 
             try
             {
-                using (var writer = new StreamWriter(OutputFile))
+                using (var writer = new StreamWriter(OutputFilePath))
                 {
                     writer.Write(text);
                 }
@@ -102,32 +102,12 @@ namespace TextWrok
             {
                 ShowMessage(e.Message, "Ошибка!");
                 return;
-                //throw;
             }
-            /*catch (FileNotFoundException e)
-            {
-                ShowMessage(e.Message, "Ошибка!");
-                return;
-            }
-            catch (UnauthorizedAccessException e)
-            {
-                ShowMessage(e.Message, "Ошибка!");
-                return;
-            }
-            catch (ArgumentException e)
-            {
-                ShowMessage(e.Message, "Ошибка!");
-                return;
-            }
-            catch (Exception)
-            {
-                throw;
-            }*/
         }
 
         public string GetText()
         {
-            if (InputFile == null)
+            if (InputFilePath == null)
             {
                 throw new ArgumentNullException("InputFile path is null");
             }
@@ -135,7 +115,7 @@ namespace TextWrok
             try
             {
                 string resultText;
-                using (var reader = new StreamReader(InputFile, Encoding.Default))
+                using (var reader = new StreamReader(InputFilePath, Encoding.Default))
                 {
                     resultText = reader.ReadToEnd();
                 }

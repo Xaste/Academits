@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextWrok
+namespace TextWork.Presenter
 {
     public interface IView
     {
-        string InputFile { get; }
+        string InputFilePath { get; }
 
-        string OutputFile { get; }
+        string OutputFilePath { get; }
 
         bool IsPunctuationDelete { get; }
 

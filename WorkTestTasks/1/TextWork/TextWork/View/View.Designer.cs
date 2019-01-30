@@ -1,4 +1,4 @@
-﻿namespace TextWrok
+﻿namespace TextWork.View
 {
     partial class View
     {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextWork", "TextWrok\TextWork.csproj", "{17F72E4E-45ED-4F82-A252-A97D97247E16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextWork", "TextWork\TextWork.csproj", "{17F72E4E-45ED-4F82-A252-A97D97247E16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
