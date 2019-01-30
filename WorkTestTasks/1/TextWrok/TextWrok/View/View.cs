@@ -17,8 +17,8 @@ namespace TextWrok
         {
             InitializeComponent();
 
-            //SetInputFileTextBox("D:\\123_in.txt");
-            //SetOutputTextBox("D:\\123_out.txt");
+            SetInputFileTextBox("D:\\123_in.txt");
+            SetOutputTextBox("D:\\123_out.txt");
         }
 
         public string InputFile => InputFileNameTextBox.Text;
@@ -98,7 +98,13 @@ namespace TextWrok
 
                 ShowMessage("Конвертация текста выполненена.", "Готово!");
             }
-            catch (FileNotFoundException e)
+            catch (Exception e)
+            {
+                ShowMessage(e.Message, "Ошибка!");
+                return;
+                //throw;
+            }
+            /*catch (FileNotFoundException e)
             {
                 ShowMessage(e.Message, "Ошибка!");
                 return;
@@ -116,7 +122,7 @@ namespace TextWrok
             catch (Exception)
             {
                 throw;
-            }
+            }*/
         }
 
         public string GetText()
@@ -129,7 +135,7 @@ namespace TextWrok
             try
             {
                 string resultText;
-                using (var reader = new StreamReader(InputFile))
+                using (var reader = new StreamReader(InputFile, Encoding.Default))
                 {
                     resultText = reader.ReadToEnd();
                 }

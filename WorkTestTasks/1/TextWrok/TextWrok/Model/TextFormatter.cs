@@ -44,6 +44,42 @@ namespace TextWrok
             OutputString = outputString;
         }
 
+        public void Convert(string inputString, bool isPunctuationDelete)
+        {
+            var outputString = inputString;
+
+            for (var i = 0; i < outputString.Length; i++)
+            {
+                var removeLength = 0;
+
+                while (i < outputString.Length && (!char.IsWhiteSpace(outputString[i]) && !char.IsPunctuation(outputString[i])))
+                {
+                    removeLength++;
+                    i++;
+                }
+
+                if (removeLength < MinWordLength && removeLength > 0)
+                {
+                    if (char.IsPunctuation(outputString[i]) && isPunctuationDelete)
+                    {
+                        removeLength++;
+                        i++;
+                    }
+
+                    i -= removeLength;
+
+                    outputString = outputString.Remove(i, removeLength);
+                }
+
+                if (isPunctuationDelete && char.IsPunctuation(outputString[i]))
+                {
+                    outputString = outputString.Remove(i, 1);
+                }
+            }
+
+            OutputString = outputString;
+        }
+
         public void RemovePunctuation(string inputString)
         {
             var outputString = inputString;

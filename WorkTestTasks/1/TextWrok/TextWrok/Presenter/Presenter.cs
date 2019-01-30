@@ -57,12 +57,14 @@ namespace TextWrok
 
             _model.MinWordLength = _view.MinWordLength;
 
-            _model.DeleteWords(_model.InputString);
+            /*_model.DeleteWords(_model.InputString);
 
             if (_view.IsPunctuationDelete)
             {
                 _model.RemovePunctuation(_model.OutputString);
-            }
+            }*/
+
+            _model.Convert(_model.InputString, _view.IsPunctuationDelete);
 
             _view.ShowResultText(_model.OutputString);
         }
