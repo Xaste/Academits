@@ -44,7 +44,7 @@ namespace TextWrok
             OutputString = outputString;
         }
 
-        public void Convert(string inputString, bool isPunctuationDelete)
+        public void Convert(string inputString, bool isPunctuationDelete)//TODO
         {
             var outputString = inputString;
 
@@ -63,17 +63,17 @@ namespace TextWrok
                     if (char.IsPunctuation(outputString[i]) && isPunctuationDelete)
                     {
                         removeLength++;
-                        i++;
+                        //i++;
                     }
 
-                    i -= removeLength;
+                    i -= removeLength-1;
 
                     outputString = outputString.Remove(i, removeLength);
                 }
-
-                if (isPunctuationDelete && char.IsPunctuation(outputString[i]))
+                else if (isPunctuationDelete && char.IsPunctuation(outputString[i]))
                 {
                     outputString = outputString.Remove(i, 1);
+                    i--;
                 }
             }
 
