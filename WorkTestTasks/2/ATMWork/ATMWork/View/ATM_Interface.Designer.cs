@@ -88,7 +88,7 @@
             this.button_WithDraw.TabIndex = 5;
             this.button_WithDraw.Text = "Выдать";
             this.button_WithDraw.UseVisualStyleBackColor = true;
-            this.button_WithDraw.Click += new System.EventHandler(this.button_WithDraw_Click);
+            this.button_WithDraw.Click += new System.EventHandler(this.Button_WithDraw_Click);
             // 
             // comboBox_WithDrawBankNotes
             // 
@@ -203,7 +203,7 @@
             this.button_Banknote1.TabIndex = 0;
             this.button_Banknote1.Text = "button1";
             this.button_Banknote1.UseVisualStyleBackColor = true;
-            this.button_Banknote1.Click += new System.EventHandler(this.button_Banknote1_Click);
+            this.button_Banknote1.Click += new System.EventHandler(this.Button_Banknote1_Click);
             // 
             // button_Banknote2
             // 
@@ -213,7 +213,7 @@
             this.button_Banknote2.TabIndex = 3;
             this.button_Banknote2.Text = "button2";
             this.button_Banknote2.UseVisualStyleBackColor = true;
-            this.button_Banknote2.Click += new System.EventHandler(this.button_Banknote2_Click);
+            this.button_Banknote2.Click += new System.EventHandler(this.Button_Banknote2_Click);
             // 
             // button_Banknote3
             // 
@@ -223,7 +223,7 @@
             this.button_Banknote3.TabIndex = 4;
             this.button_Banknote3.Text = "button3";
             this.button_Banknote3.UseVisualStyleBackColor = true;
-            this.button_Banknote3.Click += new System.EventHandler(this.button_Banknote3_Click);
+            this.button_Banknote3.Click += new System.EventHandler(this.Button_Banknote3_Click);
             // 
             // button_Banknote4
             // 
@@ -233,7 +233,7 @@
             this.button_Banknote4.TabIndex = 5;
             this.button_Banknote4.Text = "button4";
             this.button_Banknote4.UseVisualStyleBackColor = true;
-            this.button_Banknote4.Click += new System.EventHandler(this.button_Banknote4_Click);
+            this.button_Banknote4.Click += new System.EventHandler(this.Button_Banknote4_Click);
             // 
             // button_Banknote5
             // 
@@ -243,7 +243,7 @@
             this.button_Banknote5.TabIndex = 6;
             this.button_Banknote5.Text = "button5";
             this.button_Banknote5.UseVisualStyleBackColor = true;
-            this.button_Banknote5.Click += new System.EventHandler(this.button_Banknote5_Click);
+            this.button_Banknote5.Click += new System.EventHandler(this.Button_Banknote5_Click);
             // 
             // button_Banknote6
             // 
@@ -253,7 +253,7 @@
             this.button_Banknote6.TabIndex = 7;
             this.button_Banknote6.Text = "button6";
             this.button_Banknote6.UseVisualStyleBackColor = true;
-            this.button_Banknote6.Click += new System.EventHandler(this.button_Banknote6_Click);
+            this.button_Banknote6.Click += new System.EventHandler(this.Button_Banknote6_Click);
             // 
             // label_Balance
             // 
