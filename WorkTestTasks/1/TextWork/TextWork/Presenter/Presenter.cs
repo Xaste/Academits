@@ -17,7 +17,7 @@ namespace TextWork.Presenter
         {
             _view = view;
 
-            _view.ConvertText += new EventHandler<EventArgs>(OnConvert);
+            _view.ConvertText += (OnConvert);
         }
 
         private void OnConvert(object sender, EventArgs e)

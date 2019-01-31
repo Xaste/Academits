@@ -158,9 +158,9 @@
             this.InputFileLabel.AutoSize = true;
             this.InputFileLabel.Location = new System.Drawing.Point(12, 17);
             this.InputFileLabel.Name = "InputFileLabel";
-            this.InputFileLabel.Size = new System.Drawing.Size(51, 13);
+            this.InputFileLabel.Size = new System.Drawing.Size(54, 13);
             this.InputFileLabel.TabIndex = 4;
-            this.InputFileLabel.Text = "Открыть";
+            this.InputFileLabel.Text = "Открыть:";
             // 
             // View
             // 
