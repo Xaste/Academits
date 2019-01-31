@@ -40,7 +40,7 @@ namespace ATMWork.Model
             }
         }
 
-        public int DefaultAtmLoad { get; private set; }
+        public int DefaultAtmLoad { get; }
 
         public Dictionary<int, int> AtmCurrentLoad { get; } = new Dictionary<int, int>();
 
@@ -86,32 +86,32 @@ namespace ATMWork.Model
 
         public Dictionary<int, int> CalculateWithDraw(int sum, int preferNominal)
         {
-            var bankNotesNominals = AtmCurrentLoad.Keys.OrderByDescending(c => c).ToArray();
+            var bankNotesNominal = AtmCurrentLoad.Keys.OrderByDescending(c => c).ToArray();
 
             var result = new Dictionary<int, int>();
 
             var i = 0;
 
-            while (bankNotesNominals[i] != preferNominal)
+            while (bankNotesNominal[i] != preferNominal)
             {
-                result.Add(bankNotesNominals[i], 0);
+                result.Add(bankNotesNominal[i], 0);
                 i++;
             }
 
-            for (; i < bankNotesNominals.Length; i++)
+            for (; i < bankNotesNominal.Length; i++)
             {
-                var amount = (int)sum / bankNotesNominals[i];
+                var amount = (int)sum / bankNotesNominal[i];
 
-                if (amount > AtmCurrentLoad[bankNotesNominals[i]])
+                if (amount > AtmCurrentLoad[bankNotesNominal[i]])
                 {
-                    amount = AtmCurrentLoad[bankNotesNominals[i]];
+                    amount = AtmCurrentLoad[bankNotesNominal[i]];
                 }
 
-                sum -= amount * bankNotesNominals[i];
+                sum -= amount * bankNotesNominal[i];
 
-                AtmCurrentLoad[bankNotesNominals[i]] -= amount;
+                AtmCurrentLoad[bankNotesNominal[i]] -= amount;
 
-                result.Add(bankNotesNominals[i], amount);
+                result.Add(bankNotesNominal[i], amount);
             }
 
             return result;
