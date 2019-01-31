@@ -19,7 +19,7 @@ namespace ATMWork.Model
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException($"{nameof(value)} не может быть отрицательным.");
+                    throw new ArgumentOutOfRangeException($"Баланс не может быть отрицательным.");//TODO Посмотреть, исправить
                 }
 
                 _balance = value;
@@ -33,7 +33,7 @@ namespace ATMWork.Model
             {
                 if (value < 1)
                 {
-                    throw new ArgumentOutOfRangeException($"{nameof(value)} не может быть меньше 1");
+                    throw new ArgumentOutOfRangeException($"Вместимость банкомата не может быть меньше 1");//TODO Посмотреть, исправить
                 }
 
                 _maxBankNotesCapacity = value;
@@ -42,7 +42,7 @@ namespace ATMWork.Model
 
         public int DefaultAtmLoad { get; private set; }
 
-        public Dictionary<int, int> AtmCurrentLoad { get; private set; } = new Dictionary<int, int>();//Privateset можно убрать?
+        public Dictionary<int, int> AtmCurrentLoad { get; } = new Dictionary<int, int>();//Privateset можно убрать?
 
         public Atm(int defaultBalance, int maxBankNotes, int defaultAtmLoad)
         {

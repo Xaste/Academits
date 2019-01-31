@@ -89,6 +89,13 @@ namespace TextWork.View
                 throw new ArgumentNullException("OutputFile path is null");
             }
 
+
+            if (!Path.IsPathRooted(OutputFilePath))
+            {
+                ShowMessage("Неверный путь файла!", "Ошибка!");
+                return;
+            }
+
             try
             {
                 using (var writer = new StreamWriter(OutputFilePath))
@@ -96,12 +103,11 @@ namespace TextWork.View
                     writer.Write(text);
                 }
 
-                //ShowMessage("Конвертация текста выполненена.", "Готово!");
+                ShowMessage("Конвертация текста выполненена.", "Готово!");
             }
             catch (Exception e)
             {
                 ShowMessage(e.Message, "Ошибка!");
-                return;
             }
         }
 
@@ -110,6 +116,12 @@ namespace TextWork.View
             if (InputFilePath == null)
             {
                 throw new ArgumentNullException("InputFile path is null");
+            }
+
+            if (!Path.IsPathRooted(InputFilePath))
+            {
+                ShowMessage("Неверный путь файла!", "Ошибка!");
+                return null;
             }
 
             try
@@ -122,24 +134,10 @@ namespace TextWork.View
 
                 return resultText;
             }
-            catch (FileNotFoundException e)
+            catch (Exception e)
             {
                 ShowMessage(e.Message, "Ошибка!");
                 return null;
-            }
-            catch (UnauthorizedAccessException e)
-            {
-                ShowMessage(e.Message, "Ошибка!");
-                return null;
-            }
-            catch (ArgumentException e)
-            {
-                ShowMessage(e.Message, "Ошибка!");
-                return null;
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
     }

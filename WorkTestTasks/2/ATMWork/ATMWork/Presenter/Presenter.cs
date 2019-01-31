@@ -18,11 +18,10 @@ namespace ATMWork.Presenter
             _view = view;
             _view.SetReadyAtm(_atm.AtmCurrentLoad.Keys.ToList());
             _view.UpdateAtmLoading(_atm.AtmCurrentLoad, _atm.MaxBankNotesCapacity);
-            _view.SetBalance(_atm.Balance);
+            _view.ShowBalance(_atm.Balance);
 
-            _view.BankNoteAdded += new EventHandler<AtmEventArgs>(BankNoteAdd);
-            //_view.BankNoteAdded += BankNoteAdd;
-            _view.WithDraw += new EventHandler<EventArgs>(WithDraw);
+            _view.BankNoteAdded += BankNoteAdd;
+            _view.WithDraw += WithDraw;
         }
 
         private void BankNoteAdd(object sender, AtmEventArgs e)
@@ -31,7 +30,7 @@ namespace ATMWork.Presenter
 
             _view.UpdateAtmLoading(_atm.AtmCurrentLoad, _atm.MaxBankNotesCapacity);
 
-            _view.SetBalance(_atm.Balance);
+            _view.ShowBalance(_atm.Balance);
         }
 
         private void WithDraw(object sender, EventArgs e)
@@ -63,7 +62,7 @@ namespace ATMWork.Presenter
             sb.Append($"Выдано : {withDrawAmount}");
 
             _atm.Balance -= withDrawAmount;
-            _view.SetBalance(_atm.Balance);
+            _view.ShowBalance(_atm.Balance);
             _view.UpdateAtmLoading(_atm.AtmCurrentLoad, _atm.MaxBankNotesCapacity);
 
             _view.ShowMessage(sb.ToString(), "Готово");

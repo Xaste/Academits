@@ -52,7 +52,7 @@ namespace ATMWork.View
             comboBox_WithDrawBankNotes.SelectedIndex = 0;
         }
 
-        public void SetBalance(int balance)
+        public void ShowBalance(int balance)
         {
             textBox_Balance.Text = balance.ToString();
         }

@@ -20,7 +20,7 @@ namespace ATMWork.View
 
         void SetReadyAtm(IList<int> col);
 
-        void SetBalance(int balance);
+        void ShowBalance(int balance);
 
         void ShowMessage(string message, string caption);
     }
