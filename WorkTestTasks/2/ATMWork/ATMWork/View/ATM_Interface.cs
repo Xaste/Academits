@@ -36,17 +36,35 @@ namespace ATMWork.View
         {
             for (var i = 0; i < flowLayoutPanel_BanknotesCapacity.Controls.Count; i++)
             {
-                flowLayoutPanel_BanknotesCapacity.Controls[i].Text = $"{atmLoad[_banknotesDenominations[i]]}/{maxCapacity}";
+                if (i < atmLoad.Count)
+                {
+                    flowLayoutPanel_BanknotesCapacity.Controls[i].Text = $"{atmLoad[_banknotesDenominations[i]]}/{maxCapacity}";
+                }
+                else
+                {
+                    flowLayoutPanel_BanknotesCapacity.Controls[i].Text = String.Empty;
+                    flowLayoutPanel_BanknotesCapacity.Controls[i].Enabled = false;
+                }
+
             }
         }
 
         public void SetReadyAtm(IList<int> col)
         {
-            for (var i = 0; i < MaxBankNotesTypes && i < col.Count; i++)
+            for (var i = 0; i < MaxBankNotesTypes; i++)
             {
-                _banknotesDenominations.Add(col[i]);
-                flowLayoutPanel_Banknotes.Controls[i].Text = col[i].ToString();
-                comboBox_WithDrawBankNotes.Items.Add(col[i].ToString());
+                if (i < col.Count)
+                {
+                    _banknotesDenominations.Add(col[i]);
+                    flowLayoutPanel_Banknotes.Controls[i].Text = col[i].ToString();
+                    comboBox_WithDrawBankNotes.Items.Add(col[i].ToString());
+                }
+                else
+                {
+                    flowLayoutPanel_Banknotes.Controls[i].Text = String.Empty;
+                    flowLayoutPanel_Banknotes.Controls[i].Enabled = false;
+                }
+
             }
 
             comboBox_WithDrawBankNotes.SelectedIndex = 0;
