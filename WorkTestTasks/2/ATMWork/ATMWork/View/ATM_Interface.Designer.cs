@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.numericUpDown_WithDrawSum = new System.Windows.Forms.NumericUpDown();
             this.label_WithDraw = new System.Windows.Forms.Label();
             this.button_WithDraw = new System.Windows.Forms.Button();
             this.comboBox_WithDrawBankNotes = new System.Windows.Forms.ComboBox();
@@ -48,11 +49,10 @@
             this.button_Banknote6 = new System.Windows.Forms.Button();
             this.label_Balance = new System.Windows.Forms.Label();
             this.textBox_Balance = new System.Windows.Forms.TextBox();
-            this.numericUpDown_WithDrawSum = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_WithDrawSum)).BeginInit();
             this.flowLayoutPanel_BanknotesCapacity.SuspendLayout();
             this.flowLayoutPanel_Banknotes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_WithDrawSum)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -69,6 +69,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(189, 396);
             this.panel1.TabIndex = 0;
+            // 
+            // numericUpDown_WithDrawSum
+            // 
+            this.numericUpDown_WithDrawSum.Location = new System.Drawing.Point(25, 287);
+            this.numericUpDown_WithDrawSum.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_WithDrawSum.Name = "numericUpDown_WithDrawSum";
+            this.numericUpDown_WithDrawSum.Size = new System.Drawing.Size(84, 20);
+            this.numericUpDown_WithDrawSum.TabIndex = 7;
             // 
             // label_WithDraw
             // 
@@ -266,25 +278,13 @@
             // 
             // textBox_Balance
             // 
-            this.textBox_Balance.Enabled = false;
             this.textBox_Balance.Location = new System.Drawing.Point(34, 37);
             this.textBox_Balance.Name = "textBox_Balance";
+            this.textBox_Balance.ReadOnly = true;
             this.textBox_Balance.Size = new System.Drawing.Size(111, 20);
             this.textBox_Balance.TabIndex = 0;
             // 
-            // numericUpDown_WithDrawSum
-            // 
-            this.numericUpDown_WithDrawSum.Location = new System.Drawing.Point(25, 287);
-            this.numericUpDown_WithDrawSum.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
-            this.numericUpDown_WithDrawSum.Name = "numericUpDown_WithDrawSum";
-            this.numericUpDown_WithDrawSum.Size = new System.Drawing.Size(84, 20);
-            this.numericUpDown_WithDrawSum.TabIndex = 7;
-            // 
-            // ATM_Interface
+            // AtmInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -296,9 +296,9 @@
             this.Text = "Банкомат";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_WithDrawSum)).EndInit();
             this.flowLayoutPanel_BanknotesCapacity.ResumeLayout(false);
             this.flowLayoutPanel_Banknotes.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_WithDrawSum)).EndInit();
             this.ResumeLayout(false);
 
         }
