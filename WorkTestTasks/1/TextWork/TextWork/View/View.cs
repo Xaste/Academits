@@ -102,7 +102,11 @@ namespace TextWork.View
 
                 ShowMessage("Конвертация текста выполненена.", "Готово!");
             }
-            catch (Exception e)
+            catch (IOException e)
+            {
+                ShowMessage(e.Message, "Ошибка!");
+            }
+            catch (UnauthorizedAccessException e)
             {
                 ShowMessage(e.Message, "Ошибка!");
             }
@@ -131,7 +135,12 @@ namespace TextWork.View
 
                 return resultText;
             }
-            catch (Exception e)
+            catch (IOException e)
+            {
+                ShowMessage(e.Message, "Ошибка!");
+                return null;
+            }
+            catch (UnauthorizedAccessException e)
             {
                 ShowMessage(e.Message, "Ошибка!");
                 return null;
