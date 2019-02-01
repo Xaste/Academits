@@ -85,11 +85,15 @@ namespace TextWork.View
             {
                 throw new ArgumentNullException("OutputFile path is null");
             }
-
+            if (OutputFilePath == String.Empty)
+            {
+                ShowMessage("Не указан путь к файлу для сохранения!", "Ошибка!");
+                return;
+            }
 
             if (!Path.IsPathRooted(OutputFilePath))
             {
-                ShowMessage("Неверный путь файла!", "Ошибка!");
+                ShowMessage($"Неверный путь файла \"{OutputFilePath}\"", "Ошибка!");
                 return;
             }
 
@@ -118,10 +122,14 @@ namespace TextWork.View
             {
                 throw new ArgumentNullException("InputFile path is null");
             }
-
+            if (InputFilePath == String.Empty)
+            {
+                ShowMessage("Не указан путь к исходному файлу!", "Ошибка!");
+                return null;
+            }
             if (!Path.IsPathRooted(InputFilePath))
             {
-                ShowMessage("Неверный путь файла!", "Ошибка!");
+                ShowMessage($"Неверный путь файла \"{InputFilePath}\"", "Ошибка!");
                 return null;
             }
 
