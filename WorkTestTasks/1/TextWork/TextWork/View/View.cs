@@ -29,11 +29,11 @@ namespace TextWork.View
 
         public event EventHandler<EventArgs> ConvertText;
 
-        private void ButtonFileOpen_Click(object sender, EventArgs e)
+        private void ButtonInputFileOpen_Click(object sender, EventArgs e)
         {
             using (var openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = $"{Path.GetPathRoot(Environment.SystemDirectory)}";
+                openFileDialog.InitialDirectory = Path.GetFullPath(Environment.CurrentDirectory);
                 openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 openFileDialog.RestoreDirectory = true;
 
@@ -68,7 +68,7 @@ namespace TextWork.View
         {
             using (var saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.InitialDirectory = $"{Path.GetPathRoot(Environment.SystemDirectory)}";
+                saveFileDialog.InitialDirectory = Path.GetFullPath(Environment.CurrentDirectory);
                 saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 saveFileDialog.RestoreDirectory = true;
 

@@ -59,7 +59,7 @@
             this.ButtonInputFileOpen.TabIndex = 0;
             this.ButtonInputFileOpen.Text = "...";
             this.ButtonInputFileOpen.UseVisualStyleBackColor = true;
-            this.ButtonInputFileOpen.Click += new System.EventHandler(this.ButtonFileOpen_Click);
+            this.ButtonInputFileOpen.Click += new System.EventHandler(this.ButtonInputFileOpen_Click);
             // 
             // InputFileNameTextBox
             // 
