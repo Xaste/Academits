@@ -20,7 +20,6 @@ namespace TextWork.View
             InputFileNameTextBox.Text = "D:\\123_in.txt";
             OutputFileNameTextBox.Text = "D:\\123_out.txt";
         }
-
         public string InputFilePath => InputFileNameTextBox.Text;
 
         public string OutputFilePath => OutputFileNameTextBox.Text;
@@ -81,50 +80,13 @@ namespace TextWork.View
             }
         }
 
-        public void ShowResultText(string text)
-        {
-            if (OutputFilePath == null)
-            {
-                throw new ArgumentNullException("OutputFile path is null");
-            }
-            if (OutputFilePath == String.Empty)
-            {
-                ShowMessage("Не указан путь к файлу для сохранения!", "Ошибка!");
-                return;
-            }
-
-            if (!Path.IsPathRooted(OutputFilePath))
-            {
-                ShowMessage($"Неверный путь файла \"{OutputFilePath}\"", "Ошибка!");
-                return;
-            }
-
-            try
-            {
-                using (var writer = new StreamWriter(OutputFilePath))
-                {
-                    writer.Write(text);
-                }
-
-                ShowMessage("Конвертация текста выполненена.", "Готово!");
-            }
-            catch (IOException e)
-            {
-                ShowMessage(e.Message, "Ошибка!");
-            }
-            catch (UnauthorizedAccessException e)
-            {
-                ShowMessage(e.Message, "Ошибка!");
-            }
-        }
-
-        public string GetText()
+        public Stream GetInputTextStream()
         {
             if (InputFilePath == null)
             {
                 throw new ArgumentNullException("InputFile path is null");
             }
-            if (InputFilePath == String.Empty)
+            if (InputFilePath == string.Empty)
             {
                 ShowMessage("Не указан путь к исходному файлу!", "Ошибка!");
                 return null;
@@ -137,30 +99,40 @@ namespace TextWork.View
 
             try
             {
-                string resultText = null;
-                /*using (var reader = new StreamReader(InputFilePath, Encoding.Default))
-                {
-                    var line = reader.
-                    resultText = reader.ReadToEnd();
-                }
+                return File.Open(InputFilePath, FileMode.Open, FileAccess.Read);
+            }
+            catch (IOException e)
+            {
+                ShowMessage(e.Message, "Ошибка!");
+                return null;
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                ShowMessage(e.Message, "Ошибка!");
+                return null;
+            }
+        }
 
-                return resultText;*/
+        public Stream GetOutputTextStream()
+        {
+            if (OutputFilePath == null)
+            {
+                throw new ArgumentNullException("OutputFilePath path is null");
+            }
+            if (OutputFilePath == string.Empty)
+            {
+                ShowMessage("Не указан путь к файлу для сохранения!", "Ошибка!");
+                return null;
+            }
+            if (!Path.IsPathRooted(OutputFilePath))
+            {
+                ShowMessage($"Неверный путь файла \"{OutputFilePath}\"", "Ошибка!");
+                return null;
+            }
 
-                using (var fs = File.Open(InputFilePath, FileMode.Open, FileAccess.Read))
-                {
-                    using (var bs = new BufferedStream(fs, 1))
-                    {
-                        using (StreamReader sr = new StreamReader(bs))
-                        {
-                            string line;
-                            while ((line = sr.ReadLine()) != null)
-                            {
-                                Console.WriteLine();
-                            }
-                        }
-                    }
-                }
-                return resultText;
+            try
+            {
+                return File.Open(OutputFilePath, FileMode.Create, FileAccess.Write);
             }
             catch (IOException e)
             {

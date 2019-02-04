@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TextWork.View;
 
-namespace TextWork.Presenter
+namespace TextWork
 {
     static class Program
     {
@@ -18,7 +18,7 @@ namespace TextWork.Presenter
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var view = new TextWork.View.View();
-            var presneter = new Presenter(view);
+            var presneter = new Presenter.Presenter(view);
             Application.Run(view);
         }
     }

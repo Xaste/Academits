@@ -22,18 +22,41 @@ namespace TextWork.Presenter
 
         private void OnConvert(object sender, EventArgs e)
         {
-            _textFormatter.InputString = _view.GetText();
+            _textFormatter.MinWordLength = _view.MinWordLength;
 
-            if (ReferenceEquals(_textFormatter.InputString, null))
+            var inputStream = _view.GetInputTextStream();
+
+            if (inputStream is null)
             {
                 return;
             }
 
-            _textFormatter.MinWordLength = _view.MinWordLength;
+            var outputStream = _view.GetOutputTextStream();
 
-            _textFormatter.Convert(_textFormatter.InputString, _view.IsPunctuationDelete);
+            if (outputStream is null)
+            {
+                inputStream.Dispose();
+                return;
+            }
 
-            _view.ShowResultText(_textFormatter.OutputString);
+            try
+            {
+                _textFormatter.Convert(inputStream, outputStream, _view.IsPunctuationDelete);
+                _view.ShowMessage("Конвертация текста выполнена!", "Готово!");
+            }
+            catch (IOException exception)
+            {
+                _view.ShowMessage(exception.Message, "Ошибка!");
+            }
+            catch (UnauthorizedAccessException exception)
+            {
+                _view.ShowMessage(exception.Message, "Ошибка!");
+            }
+            finally
+            {
+                inputStream.Dispose();
+                outputStream.Dispose();
+            }
         }
     }
 }

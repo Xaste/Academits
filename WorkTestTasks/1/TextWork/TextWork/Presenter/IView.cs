@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +15,10 @@ namespace TextWork.Presenter
 
         event EventHandler<EventArgs> ConvertText;
 
-        void ShowResultText(string text);
+        Stream GetInputTextStream();
 
-        string GetText();
+        Stream GetOutputTextStream();
+
+        void ShowMessage(string message, string caption);
     }
 }
