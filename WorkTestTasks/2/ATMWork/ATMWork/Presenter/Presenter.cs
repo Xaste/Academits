@@ -33,7 +33,7 @@ namespace ATMWork.Presenter
             _view.ShowBalance(_atm.Balance);
         }
 
-        private void WithDraw(object sender, EventArgs e)
+        private void WithDraw(object sender, BankNotesEventArgs e)
         {
             if (_atm.Balance < _view.WithDrawSum)
             {
@@ -47,7 +47,7 @@ namespace ATMWork.Presenter
                 return;
             }
 
-            var result = _atm.CalculateWithDraw(_view.WithDrawSum, _view.PreferNominal);
+            var result = _atm.CalculateWithDraw(_view.WithDrawSum, e.BankNoteNominal.ToArray());
 
             var withDrawAmount = 0;
 

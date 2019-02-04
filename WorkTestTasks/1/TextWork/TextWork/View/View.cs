@@ -17,6 +17,8 @@ namespace TextWork.View
         public View()
         {
             InitializeComponent();
+            InputFileNameTextBox.Text = "D:\\123_in.txt";
+            OutputFileNameTextBox.Text = "D:\\123_out.txt";
         }
 
         public string InputFilePath => InputFileNameTextBox.Text;
@@ -135,12 +137,29 @@ namespace TextWork.View
 
             try
             {
-                string resultText;
-                using (var reader = new StreamReader(InputFilePath, Encoding.Default))
+                string resultText = null;
+                /*using (var reader = new StreamReader(InputFilePath, Encoding.Default))
                 {
+                    var line = reader.
                     resultText = reader.ReadToEnd();
                 }
 
+                return resultText;*/
+
+                using (var fs = File.Open(InputFilePath, FileMode.Open, FileAccess.Read))
+                {
+                    using (var bs = new BufferedStream(fs, 1))
+                    {
+                        using (StreamReader sr = new StreamReader(bs))
+                        {
+                            string line;
+                            while ((line = sr.ReadLine()) != null)
+                            {
+                                Console.WriteLine();
+                            }
+                        }
+                    }
+                }
                 return resultText;
             }
             catch (IOException e)

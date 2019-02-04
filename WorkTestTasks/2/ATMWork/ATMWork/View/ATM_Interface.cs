@@ -23,7 +23,9 @@ namespace ATMWork.View
         private readonly List<int> _banknotesDenominations = new List<int>();
 
         public event EventHandler<AtmEventArgs> BankNoteAdded;
-        public event EventHandler<EventArgs> WithDraw;
+        public event EventHandler<BankNotesEventArgs> WithDraw;
+
+        public List<int> PrefNominals = new List<int>();
 
         public AtmInterface()
         {
@@ -77,7 +79,21 @@ namespace ATMWork.View
 
         private void Button_WithDraw_Click(object sender, EventArgs e)
         {
-            WithDraw?.Invoke(this, EventArgs.Empty);
+            var withDrawForm = new WithDrawInfo();
+
+            withDrawForm.AddItemsToCheckBox(_banknotesDenominations.Select(x => x.ToString()).ToArray());
+
+            withDrawForm.ShowDialog();
+
+            var checkedItems = withDrawForm.GetCheckedItems();
+
+            checkedItems.Select(c => Convert.ToInt32(c));
+
+            var args = new BankNotesEventArgs();
+
+            args.BankNoteNominal.AddRange(checkedItems.Select(c => Convert.ToInt32(c)));
+
+            WithDraw?.Invoke(this, args);
         }
 
         public void ShowMessage(string message, string caption)

@@ -46,6 +46,23 @@ namespace ATMWork.Model
 
         public Atm(int defaultBalance, int maxBankNotes, int defaultAtmLoad)
         {
+            if (defaultBalance < 0)
+            {
+                throw new ArgumentException("Баланс не может быть меньше 0");
+            }
+            if (maxBankNotes < 0)
+            {
+                throw new ArgumentException("Вместимость не может быть меньше 0");
+            }
+            if (defaultAtmLoad < 0)
+            {
+                throw new ArgumentException("Вместимость по умолчанию не может быть меньше 0");
+            }
+            if (defaultAtmLoad > maxBankNotes)
+            {
+                throw new ArgumentException("Банкнот по умолчанию не может быть больше, чем вместимость.");
+            }
+
             DefaultAtmLoad = defaultAtmLoad;
 
             GetBankNotesData();
@@ -74,6 +91,11 @@ namespace ATMWork.Model
 
                 while ((line = reader.ReadLine()) != null)
                 {
+                    if (AtmCurrentLoad.ContainsKey(Convert.ToInt32(line)))
+                    {
+                        continue;
+                    }
+
                     AtmCurrentLoad.Add(Convert.ToInt32(line), DefaultAtmLoad);
                 }
 
@@ -84,21 +106,16 @@ namespace ATMWork.Model
             }
         }
 
-        public Dictionary<int, int> CalculateWithDraw(int sum, int preferNominal)
+        public Dictionary<int, int> CalculateWithDraw(int sum, int[] preferNominal)
         {
-            var bankNotesNominal = AtmCurrentLoad.Keys.OrderByDescending(c => c).ToArray();
+            var bankNotesNominal = new int[preferNominal.Length];
+            Array.Copy(preferNominal, bankNotesNominal, preferNominal.Length);
+
+            Array.Sort(bankNotesNominal, new Comparison<int>((i1, i2) => i2.CompareTo(i1)));
 
             var result = new Dictionary<int, int>();
 
-            var i = 0;
-
-            while (bankNotesNominal[i] != preferNominal)
-            {
-                result.Add(bankNotesNominal[i], 0);
-                i++;
-            }
-
-            for (; i < bankNotesNominal.Length; i++)
+            for (int i = 0; i < bankNotesNominal.Length; i++)
             {
                 var amount = (int)sum / bankNotesNominal[i];
 

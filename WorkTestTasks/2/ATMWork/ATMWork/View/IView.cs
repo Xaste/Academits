@@ -14,7 +14,7 @@ namespace ATMWork.View
 
         event EventHandler<AtmEventArgs> BankNoteAdded;
 
-        event EventHandler<EventArgs> WithDraw;
+        event EventHandler<BankNotesEventArgs> WithDraw;
 
         void UpdateAtmLoading(Dictionary<int, int> atmLoad, int nominal);
 
