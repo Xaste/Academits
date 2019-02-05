@@ -18,6 +18,7 @@ namespace TextWork.View
         {
             InitializeComponent();
         }
+
         public string InputFilePath => InputFileNameTextBox.Text;
 
         public string OutputFilePath => OutputFileNameTextBox.Text;
