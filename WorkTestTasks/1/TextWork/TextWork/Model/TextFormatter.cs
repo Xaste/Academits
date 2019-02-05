@@ -34,15 +34,15 @@ namespace TextWork.Model
                     var curMinLength = MinWordLength;
 
                     while (reader.Peek() >= 0)
-                    {
-                        var c = (char)reader.Read();
-
+                    {                 
                         if (sb.Length >= ReadSize)
                         {
                             writer.Write(sb);
                             sb.Clear();
                             curMinLength = 0;
                         }
+
+                        var c = (char)reader.Read();
 
                         if (char.IsWhiteSpace(c) || char.IsPunctuation(c) || reader.Peek() < 0)
                         {
@@ -64,7 +64,6 @@ namespace TextWork.Model
                         }
                         sb.Append(c);
                     }
-                    sb.Clear();
                 }
             }
         }
