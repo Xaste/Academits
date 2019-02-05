@@ -18,11 +18,11 @@ namespace TextWork.Model
         {
             if (inputStream is null)
             {
-                throw new ArgumentNullException("Ошибка при чтении исходного файла");
+                throw new ArgumentNullException("Input Stream is null");
             }
             if (outputStream is null)
             {
-                throw new ArgumentNullException("Ошибка при чтении файла для записи");
+                throw new ArgumentNullException("Output Stream is null");
             }
 
             using (var reader = new StreamReader(inputStream, Encoding.Default))
