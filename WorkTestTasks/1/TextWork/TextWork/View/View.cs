@@ -17,8 +17,6 @@ namespace TextWork.View
         public View()
         {
             InitializeComponent();
-            InputFileNameTextBox.Text = "D:\\123_in.txt";
-            OutputFileNameTextBox.Text = "D:\\123_out.txt";
         }
         public string InputFilePath => InputFileNameTextBox.Text;
 

@@ -10,34 +10,46 @@ namespace TextWork.Model
 {
     class TextFormatter
     {
+        private const int ReadSize = 1024;
+
         public int MinWordLength { get; set; }
 
         public void Convert(Stream inputStream, Stream outputStream, bool isPunctuationDelete)
         {
-            if (ReferenceEquals(inputStream, null))
+            if (inputStream is null)
             {
                 throw new ArgumentNullException("Ошибка при чтении исходного файла");
             }
-            if (ReferenceEquals(outputStream, null))
+            if (outputStream is null)
             {
                 throw new ArgumentNullException("Ошибка при чтении файла для записи");
             }
 
-            using (var sr = new StreamReader(inputStream))
+            using (var reader = new StreamReader(inputStream, Encoding.Default))
             {
-                using (var sw = new StreamWriter(outputStream))
+                using (var writer = new StreamWriter(outputStream))
                 {
                     var sb = new StringBuilder();
 
-                    while (sr.Peek() >= 0)
-                    {
-                        var c = (char)sr.Read();
+                    var curMinLength = MinWordLength;
 
-                        if (char.IsWhiteSpace(c) || char.IsPunctuation(c))
+                    while (reader.Peek() >= 0)
+                    {
+                        var c = (char)reader.Read();
+
+                        if (sb.Length >= ReadSize)
                         {
-                            if (sb.Length >= MinWordLength)
+                            writer.Write(sb);
+                            sb.Clear();
+                            curMinLength = 0;
+                        }
+
+                        if (char.IsWhiteSpace(c) || char.IsPunctuation(c) || reader.Peek() < 0)
+                        {
+                            if (sb.Length >= curMinLength)
                             {
-                                sw.Write(sb.ToString());
+                                writer.Write(sb);
+                                curMinLength = MinWordLength;
                             }
 
                             sb.Clear();
@@ -46,13 +58,13 @@ namespace TextWork.Model
                             {
                                 continue;
                             }
-                            sw.Write(c);
 
+                            writer.Write(c);
                             continue;
                         }
-
                         sb.Append(c);
                     }
+                    sb.Clear();
                 }
             }
         }
