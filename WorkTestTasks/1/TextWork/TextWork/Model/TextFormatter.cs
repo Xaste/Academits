@@ -8,11 +8,25 @@ using System.Threading.Tasks;
 
 namespace TextWork.Model
 {
-    class TextFormatter
+    public class TextFormatter
     {
+        private int _minWordlength;
+
         private const int ReadSize = 1024;
 
-        public int MinWordLength { get; set; }
+        public int MinWordLength
+        {
+            get => _minWordlength;
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Длина слова не может быть отрицательной");
+                }
+
+                _minWordlength = value;
+            }
+        }
 
         public void Convert(Stream inputStream, Stream outputStream, bool isPunctuationDelete)
         {
@@ -27,14 +41,14 @@ namespace TextWork.Model
 
             using (var reader = new StreamReader(inputStream, Encoding.Default))
             {
-                using (var writer = new StreamWriter(outputStream))
+                using (var writer = new StreamWriter(outputStream, Encoding.Default))
                 {
                     var sb = new StringBuilder();
 
                     var curMinLength = MinWordLength;
 
                     while (reader.Peek() >= 0)
-                    {                 
+                    {
                         if (sb.Length >= ReadSize)
                         {
                             writer.Write(sb);
