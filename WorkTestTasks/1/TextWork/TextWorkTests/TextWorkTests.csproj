@@ -15,9 +15,6 @@
     <Content Include="TestTexts\SimpleText.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestTexts\SimpleTextKeepPunctuationCorrect.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
